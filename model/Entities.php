@@ -1,10 +1,12 @@
 <?php
 
-// gloal entities used by the application
+// global entities used by the application
 
 
 /**
  * user entity
+ * used to represent a single user
+ * also stored in session for the ease of access the current logged in user
  */
 class User {
 
@@ -25,6 +27,25 @@ class User {
         $this->firstname = $firstname;
         $this->lastname = $lastname;
     }
+}
+
+
+/**
+ * sport entity
+ * used to represent a static sport object
+ */
+class Sport {
+	
+    public $sid;
+	public $name;
+	public $description;
+	
+	public function __construct($sid, $name, $description) {
+		
+		$this->sid = $sid;
+		$this->name = $name;
+		$this->description = $description;
+	}
 }
 
 ?>
