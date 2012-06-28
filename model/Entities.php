@@ -20,7 +20,7 @@ class User {
 
         $this->uid = $uid;
         $this->username = $username;
-        $this->username = $password;
+        $this->password = $password;
         $this->permission = $permission;
         $this->firstname = $firstname;
         $this->lastname = $lastname;
