@@ -69,10 +69,13 @@ class UserController {
 		if (isset($_SERVER['CONTENT_LENGTH']) &&
 			(int) $_SERVER['CONTENT_LENGTH'] > 0) {
 			    
+			
             $uid = 0;
+            // new user uses 0 as uid
+			// another id will be generated for the user when this instance is persisted
             $username = $_POST["username"];
             $password = $_POST["password"];
-            $permission = $_POST["permission"];
+            $permission = 1;
             $firstname = $_POST["firstname"];
             $lastname = $_POST["lastname"];
 
@@ -84,13 +87,17 @@ class UserController {
                 $firstname,
                 $lastname
             );
-            
-			include "view/register_page.php";
+			
 			$this->model->persist_user($user);
+			
+			// redirect user to the login page
+			// can be handled better
+			include "login.php";
 
 		} else {
 		    
 		    $this->page["page"] = "view/register_page.php";
+			$this->page["title"] = "Register";
 			include "view/template.php";
 		}
 	}
