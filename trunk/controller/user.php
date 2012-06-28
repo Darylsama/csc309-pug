@@ -9,14 +9,16 @@ include_once("model/Model.php");
 class UserController {
 
     // model object
-	private $model;
+	private $user_model;
+	private $sport_model;
     
     // page array, used to encapsulate some page data
     private $page;
 
 	public function __construct() {
 	    
-		$this->model = new Model();
+		$this->user_model = new UserModel();
+		$this->sport_model = new SportModel();
         $page = array();
 	}
 
@@ -33,7 +35,7 @@ class UserController {
 			$username = $_POST["username"];
 			$password = $_POST["password"];
 
-			$user = $this->model->get_user($username, $password);
+			$user = $this->user_model->get_user($username, $password);
 
 			if ($user == false) {
 			    
@@ -79,7 +81,7 @@ class UserController {
             $firstname = $_POST["firstname"];
             $lastname = $_POST["lastname"];
 
-            $user = $this->model->create_user(
+            $user = $this->user_model->create_user(
                 $uid, 
                 $username,
                 $password, 
@@ -88,7 +90,7 @@ class UserController {
                 $lastname
             );
 			
-			$this->model->persist_user($user);
+			$this->user_model->persist_user($user);
 			
 			// redirect user to the login page
 			// can be handled better
@@ -108,9 +110,12 @@ class UserController {
      * called by profile.php
      */
 	public function invoke_profile() {
-	    
+		
+		$user = get_loggedin_user();
+		
         $this->page["page"] = "view/profile_page.php";
         $this->page["title"] = "Dashboard";
+		$this->page["current_sports"] = $this->sport_model->get_sports($user);
         include "view/template.php";
 	}
 }

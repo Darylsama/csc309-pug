@@ -7,7 +7,7 @@ include_once("include/db.php");
 // all model actions goes here
 // consider split this up later on
 
-class Model {
+class UserModel {
 
 	/**
 	 * create new user object
@@ -75,9 +75,73 @@ class Model {
 		    // something wrong occured during query
 		}
 	}
+}
 
+
+class SportModel {
+	
+	/**
+	 * create a new sport
+	 */
+	public function create_sport($sid, $name, $description) {
+		return new Sport($sid, $name, $description);
+	}
 	
 	
+	/**
+	 * store a sport entity into the database
+	 */
+	public function persist_sport($sport) {
+		
+		$stmt = get_dao()->prepare("insert into sports (name, description) values (:name, :description)");
+		
+		$stmt->bindParam(':name', $sport->name);
+		$stmt->bindParam(':description', $sport->description);
+		
+		$stmt->execute();
+	}
+	
+	
+	/**
+	 * associate a sport for with a particualr user
+	 */
+	public function add_sports($user, $sport) {
+		
+		$stmt = get_dao()->prepare("insert into user_sports (uid, sid) values (:uid, :sid)");
+		
+		$stmt->bindParam(':uid', $user->uid);
+		$stmt->bindParam(':sid', $sport->sid);
+		
+		$stmt->execute();
+	}
+	
+	
+	/**
+	 * return all sports associate with a particular user
+	 * return empty array if no sports associate with that user
+	 * return false if query doesn't success // need more work
+	 * 
+	 */
+	public function get_sports($user) {
+		
+		$user_sports = array();
+		
+		$stmt = get_dao()->prepare("select sports.sid as sid, sports.name as name, sports.description as description from user_sports inner join sports on user_sports.sid = sports.sid where uid = :uid;");
+		$stmt->bindParam(':uid', $user->uid);
+		
+		if ($stmt->execute()) {
+			
+			while (($row = $stmt->fetch()) != null ) {
+			    $sport = $this->create_sport($row["sid"], $row["name"], $row["description"]);
+				$user_sports[] = $sport;
+			}
+			
+			return $user_sports;
+			
+		} else {
+			return false;
+		}
+	}
 }
 
 ?>
