@@ -57,7 +57,7 @@
         <div class="container">
 
           <!-- title -->
-          <a class="brand" href="#"><?php echo $this->page["title"] ?></a>
+          <a class="brand" href="profile.php">Pick-up Games</a>
 
           <!-- logout -->
           <ul class="nav pull-right">
@@ -65,7 +65,7 @@
             <li>
               <a href="logout.php">Logout</a>
             </li>
-            <?php } ?> 
+            <?php } ?>
           </ul>
         </div>
 
