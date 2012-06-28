@@ -1,6 +1,5 @@
 <div class="container-fluid">
   <div class="row-fluid">
-
     <div class="span2" ></div>
     <!-- some padding -->
 
@@ -31,7 +30,7 @@
           </p>
 
           <p>
-            <a class="btn btn-primary btn-large" id="signupbtn">Signup now!</a>
+            <a class="btn btn-primary btn-large" id="signupbtn" href="register.php">Signup now!</a>
           </p>
 
         </form>
