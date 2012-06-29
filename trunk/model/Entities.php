@@ -54,6 +54,9 @@ class Sport {
  */
 class Game {
     
+    
+    // foreign keys: organizer: sport
+    // consider constructing those as object 
     public $gid;
     public $name;
     public $organizer;
