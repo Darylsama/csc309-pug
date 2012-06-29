@@ -385,6 +385,35 @@ class GameModel {
 	    }
 	    return false;
 	}
-
+	
+	public function get_interested_players($gid) {
+	    
+	    // an entry in the match table asserts that player with uid is interested in the game with gid if selected == false
+	    // an entry in the match table asserts that player with uid is selected for the game with gid if selected == true
+	    $stmt = get_dao() -> prepare("select * from users inner join matches on users.uid = matches.uid where gid = :gid and matches.selected = false;");
+	    $stmt -> bindParam(':gid', $gid);
+	    
+	    if ($stmt->execute()) {
+	        
+	        $user_model = new UserModel();
+	        $users = array();
+	        
+	        while (($row = $stmt->fetch()) != null) {
+	            
+	            $uid = $row["uid"];
+	            $username = $row["username"];
+	            $password = $row["password"];
+	            $permission = $row["type"];
+	            $firstname = $row["firstname"];
+	            $lastname = $row["lastname"];
+	            
+	            $user = $user_model->create_user($uid, $username, $password, $permission, $firstname, $lastname);
+	            $users[$uid] = $user;
+	        }
+	        
+	        return $users;
+	    }
+	    return false;
+	}
 }
 ?>

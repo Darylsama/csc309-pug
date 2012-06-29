@@ -74,6 +74,9 @@ class GameController {
         $is_interested = $this->game_model->is_interested(get_loggedin_user(), $gid);
         $this->page["is_interested"] = $is_interested; 
         
+        $interested_players = $this->game_model->get_interested_players($gid);
+        $this->page["interested_players"] = $interested_players;
+        
         include "view/template.php";
     }
 
