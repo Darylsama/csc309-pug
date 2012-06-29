@@ -365,6 +365,26 @@ class GameModel {
 			return false;
 		}
 	}
+	
+	public function express_interest($user, $gid) {
+	    
+	    $stmt = get_dao() -> prepare("insert into matches (uid, gid, selected) values (:uid, :gid, false)");
+	    $stmt->bindParam(':uid', $user->uid);
+	    $stmt->bindParam(':gid', $gid);
+	    $stmt -> execute();
+	}
+	
+	public function is_interested($user, $gid) {
+	     
+	    $stmt = get_dao() -> prepare("select * from matches where uid = :uid and gid = :gid");
+	    $stmt->bindParam(':uid', $user->uid);
+	    $stmt->bindParam(':gid', $gid);
+	    
+	    if ($stmt -> execute()) {
+	        return $stmt->fetch() != null;
+	    }
+	    return false;
+	}
 
 }
 ?>
