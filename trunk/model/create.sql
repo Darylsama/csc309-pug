@@ -32,10 +32,8 @@ CREATE  TABLE IF NOT EXISTS `mydb`.`games` (
   `name` VARCHAR(64) NOT NULL ,
   `organizer` INT NOT NULL ,
   `creation` DATE NULL ,
-  `sports` INT NULL ,
-  `desc` VARCHAR(256) NOT NULL ,
-  `start` DATE NOT NULL ,
-  `end` DATE NOT NULL ,
+  `sport` INT NULL ,
+  `desc` VARCHAR(1024) NULL ,
   PRIMARY KEY (`gid`) ,
   UNIQUE INDEX `gid_UNIQUE` (`gid` ASC) )
 ENGINE = InnoDB;

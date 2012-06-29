@@ -17,7 +17,7 @@
 					<div class="control-group">
 						<label class="control-label" for="username-input">Username</label>
 						<div class="controls">
-							<input id="username-input" class="input-xlarge" name="username" type="username">
+							<input id="username-input" class="input-xlarge" name="username" type="text">
 						</div>
 					</div>
 					<!-- username -->

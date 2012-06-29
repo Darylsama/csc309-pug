@@ -48,4 +48,28 @@ class Sport {
 	}
 }
 
+
+/**
+ * encapsulate the information found in a game
+ */
+class Game {
+    
+    public $gid;
+    public $name;
+    public $organizer;
+    public $creation;
+    public $sport;
+    public $desc;
+    
+    public function __construct($gid, $name, $organizer, $creation, $sport, $desc) {
+        
+        $this->gid = $gid;
+        $this->name = $name;
+        $this->organizer = $organizer;
+        $this->creation = $creation;
+        $this->sport = $sport;
+        $this->desc = $desc;
+    }
+}
+
 ?>
