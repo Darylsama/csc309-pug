@@ -24,5 +24,8 @@ insert into user_sports (uid, sid) values ('2', '3');
 insert into user_sports (uid, sid) values ('3', '2');
 insert into user_sports (uid, sid) values ('3', '1');
 
+insert into games (name, organizer, creation, sport, `desc`) values ('Elm St. Tournament 1', '1', '2012-01-01', '1', 'testing');
+insert into games (name, organizer, creation, sport, `desc`) values ('Elm St. Tournament 2', '1', '2012-06-28', '4', 'Second tournament held by me.');
+insert into games (name, organizer, creation, sport, `desc`) values ('Test', '1', '2012-06-29', '4', 'DDD');
 
 
