@@ -18,9 +18,7 @@
 
           <label class="checkbox"> Remember me
             <input type="checkbox" id="rmme">
-            <!-- right now broken -->
-          </label>
-
+            <!-- right now broken --> </label>
           <p>
             <input type="submit" id="loginbtn" class="btn btn-primary btn-large" value="Log In" />
           </p>
