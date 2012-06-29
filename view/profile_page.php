@@ -5,10 +5,10 @@
     <div class="span2">
       <ul class="nav nav-pills nav-stacked">
         <li>
-          <a href="#"> Create New Game </a>
+          <a href="new_game.php"> Create New Game </a>
         </li>
         <li>
-          <a href="#"> Browse Existing Games </a>
+          <a href="list_games.php"> Browse Existing Games </a>
         </li>
         <li>
           <a href="#"> View Users </a>
