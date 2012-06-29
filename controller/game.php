@@ -28,6 +28,9 @@ class GameController {
     }
     
     
+    /**
+     * handler for creating a new game
+     */
     public function invoke_new_game() {
         
         if (isset($_SERVER['CONTENT_LENGTH']) &&
@@ -43,6 +46,8 @@ class GameController {
             $game = $this->game_model->create_game($gid, $name, $organizer, $creation, $sport, $description);
             $this->game_model->persist_game($game);
             
+            header("Location: view_game.php?gid=" . $game->gid);
+            
         } else {
             
             $this->page["page"] = "view/create_game_page.php";
@@ -55,7 +60,20 @@ class GameController {
             
             include "view/template.php";
         }
+    }
+
+    public function invoke_view_game() {
         
+        $this->page["page"] = "view/view_game_page.php";
+        $this->page["title"] = "View Game";
+        
+        $gid = $_GET["gid"];
+        
+        $game = $this->game_model->get_game($gid);
+        
+        $this->page["game"] = $game;
+        
+        include "view/template.php";
     }
 }
 
