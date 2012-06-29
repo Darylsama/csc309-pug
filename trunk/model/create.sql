@@ -48,7 +48,7 @@ CREATE  TABLE IF NOT EXISTS `mydb`.`matches` (
   `mid` INT UNSIGNED NOT NULL AUTO_INCREMENT ,
   `uid` INT NOT NULL ,
   `gid` INT NOT NULL ,
-  `selected` TINYINT(1) NOT NULL ,
+  `selected` TINYINT NOT NULL ,
   PRIMARY KEY (`mid`) ,
   UNIQUE INDEX `mid_UNIQUE` (`mid` ASC) )
 ENGINE = InnoDB;
