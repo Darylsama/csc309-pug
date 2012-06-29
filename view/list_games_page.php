@@ -19,3 +19,5 @@
 
   </div>
 </div>
+
+<pre><?php var_dump($this->page["games"]); ?></pre>
