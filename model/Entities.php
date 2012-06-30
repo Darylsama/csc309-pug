@@ -75,4 +75,54 @@ class Game {
     }
 }
 
+
+class Rating {
+	
+	public $rid;
+	public $rater;
+	public $ratee;
+	public $value;
+	public $comment;
+	
+	
+	public function __construct($rid, $rater, $ratee, $value, $comment) {
+			
+		$this->rid = $rid;
+		$this->ratee = $ratee;
+		$this->rater = $rater;
+		$this->value = $value;
+		$this->comment = $comment;		
+		
+	}	
+	
+	
+}
+
+class Announcement {
+	
+}
+
+
+class Messages {
+	
+	public $mid;
+	public $to;
+	public $from;
+	public $content;
+	
+	public function __construct($mid, $to, $from, $content) {
+		
+		$this->mid = $mid;
+		$this->to = $to;
+		$this->from = $from;
+		$this->content = $content;
+		
+	}
+	
+	
+	
+}
+
+
+
 ?>

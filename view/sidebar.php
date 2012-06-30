@@ -17,8 +17,8 @@ $current_page = basename($_SERVER["PHP_SELF"], ".php");
 
 
     <li
-    <?php echo ($current_page == "view_user") ? 'class="active"' : ""; ?>>
-      <a href="#"> View Users </a>
+    <?php echo ($current_page == "list_users") ? 'class="active"' : ""; ?>>
+      <a href="list_users.php"> View Users </a>
     </li>
     
   </ul>
