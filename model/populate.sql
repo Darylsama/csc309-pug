@@ -2,12 +2,12 @@
 
 use mydb
 
-#real data
+#real users
 insert into users (username, password, type, lastname, firstname) values ('admin', 'password', 2, 'Li', 'Xiang');
 insert into users (username, password, type, lastname, firstname) values ('yang', 'password', 2, 'Sun', 'Yang');
 insert into users (username, password, type, lastname, firstname) values ('daryl', 'password', 2, 'Zhou', 'Daryl');
 
-#dummy data
+#dummy users
 insert into users (username, password, type, firstname, lastname) values ('Proin', 'eu', 1, 'Xandra', 'Diaz');
 insert into users (username, password, type, firstname, lastname) values ('auctor', 'Nunc', 1, 'Gisela', 'Dawson');
 insert into users (username, password, type, firstname, lastname) values ('sed', 'diam', 1, 'Reuben', 'Bryant');
@@ -24,7 +24,7 @@ insert into users (username, password, type, firstname, lastname) values ('Donec
 insert into users (username, password, type, firstname, lastname) values ('pellentesque', 'non', 1, 'Theodore', 'Marks');
 
 
-
+#a legid listing of sports
 insert into sports (name, description) values ('Archery', 'the art, practice, or skill of propelling arrows with the use of a bow');
 insert into sports (name, description) values ('Boxing', 'a combat sport in which two people engage in a contest of strength, reflexes, and endurance by throwing punches at an opponent with the goal of a knockout with gloved hands');
 insert into sports (name, description) values ('Cycling', 'the use of bicycles for transport, recreation, or for sport');
@@ -33,18 +33,65 @@ insert into sports (name, description) values ('Golf', ' a precision club and ba
 insert into sports (name, description) values ('Ice hockey', 'a team sport played on ice, in which skaters use wooden or composite sticks to shoot a hard rubber puck into their opponent''s net');
 
 
+#a list of preset user - sports relationship
+insert into user_sports (uid, sid) values (1, 1);
+insert into user_sports (uid, sid) values (1, 3);
+insert into user_sports (uid, sid) values (1, 3);
+insert into user_sports (uid, sid) values (1, 4);
+insert into user_sports (uid, sid) values (1, 5);
+insert into user_sports (uid, sid) values (1, 6);
+insert into user_sports (uid, sid) values (2, 1);
+insert into user_sports (uid, sid) values (2, 4);
+insert into user_sports (uid, sid) values (3, 1);
+insert into user_sports (uid, sid) values (3, 4);
+insert into user_sports (uid, sid) values (3, 6);
+insert into user_sports (uid, sid) values (4, 2);
+insert into user_sports (uid, sid) values (4, 4);
+insert into user_sports (uid, sid) values (4, 5);
+insert into user_sports (uid, sid) values (5, 1);
+insert into user_sports (uid, sid) values (5, 3);
+insert into user_sports (uid, sid) values (5, 4);
+insert into user_sports (uid, sid) values (5, 5);
+insert into user_sports (uid, sid) values (6, 3);
+insert into user_sports (uid, sid) values (6, 4);
+insert into user_sports (uid, sid) values (6, 5);
+insert into user_sports (uid, sid) values (6, 6);
+insert into user_sports (uid, sid) values (7, 2);
+insert into user_sports (uid, sid) values (8, 2);
+insert into user_sports (uid, sid) values (8, 6);
+insert into user_sports (uid, sid) values (9, 1);
+insert into user_sports (uid, sid) values (9, 2);
+insert into user_sports (uid, sid) values (9, 4);
+insert into user_sports (uid, sid) values (9, 5);
+insert into user_sports (uid, sid) values (10, 1);
+insert into user_sports (uid, sid) values (10, 3);
+insert into user_sports (uid, sid) values (10, 4);
+insert into user_sports (uid, sid) values (10, 5);
+insert into user_sports (uid, sid) values (11, 1);
+insert into user_sports (uid, sid) values (11, 2);
+insert into user_sports (uid, sid) values (12, 4);
+insert into user_sports (uid, sid) values (12, 6);
+insert into user_sports (uid, sid) values (13, 1);
+insert into user_sports (uid, sid) values (13, 4);
+insert into user_sports (uid, sid) values (13, 5);
+insert into user_sports (uid, sid) values (13, 6);
+insert into user_sports (uid, sid) values (14, 3);
+insert into user_sports (uid, sid) values (14, 5);
+insert into user_sports (uid, sid) values (15, 1);
+insert into user_sports (uid, sid) values (15, 2);
+insert into user_sports (uid, sid) values (15, 5);
+insert into user_sports (uid, sid) values (15, 6);
+insert into user_sports (uid, sid) values (16, 2);
+insert into user_sports (uid, sid) values (16, 5);
+insert into user_sports (uid, sid) values (17, 1);
+insert into user_sports (uid, sid) values (17, 2);
+insert into user_sports (uid, sid) values (17, 3);
+insert into user_sports (uid, sid) values (17, 5);
 
-insert into user_sports (uid, sid) values ('1', '6');
-insert into user_sports (uid, sid) values ('1', '1');
-insert into user_sports (uid, sid) values ('1', '3');
-insert into user_sports (uid, sid) values ('1', '4');
-insert into user_sports (uid, sid) values ('2', '5');
-insert into user_sports (uid, sid) values ('2', '3');
-insert into user_sports (uid, sid) values ('3', '2');
-insert into user_sports (uid, sid) values ('3', '1');
 
 
-
+#a list of games that will be created
+#noted that the sports is selected by random, so those organizers don't necessary know those sportss
 insert into games (name, organizer, creation, sport, `desc`) values ('Purus Duis Championship', 8, '2012-11-23', 3, 'conubia nostra, per inceptos hymenaeos. Mauris ut quam vel sapien imperdiet ornare. In faucibus. Morbi vehicula. Pellentesque tincidunt tempus risus. Donec egestas. Duis ac arcu. Nunc mauris. Morbi non sapien molestie orci tincidunt adipiscing. Mauris molestie pharetra nibh. Aliquam ornare, libero at auctor ullamcorper, nisl arcu iaculis enim, sit amet ornare lectus justo eu arcu. Morbi sit amet massa. Quisque porttitor eros nec tellus. Nunc lectus pede, ultrices a, auctor non, feugiat nec, diam. Duis mi enim, condimentum eget, volutpat ornare, facilisis eget, ipsum. Donec sollicitudin adipiscing ligula. Aenean gravida nunc sed pede. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur');
 insert into games (name, organizer, creation, sport, `desc`) values ('Nec Enim Elimination', 7, '2013-02-02', 3, 'elit fermentum risus, at fringilla purus mauris a nunc. In at pede. Cras vulputate velit eu sem. Pellentesque ut ipsum ac mi eleifend egestas. Sed pharetra, felis eget varius ultrices, mauris ipsum porta elit, a feugiat tellus lorem eu metus. In lorem. Donec elementum, lorem ut aliquam iaculis, lacus pede sagittis augue, eu tempor erat neque non quam. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Aliquam fringilla cursus purus. Nullam scelerisque neque sed sem egestas blandit. Nam nulla magna, malesuada vel, convallis in, cursus et, eros. Proin ultrices. Duis');
 insert into games (name, organizer, creation, sport, `desc`) values ('Nec Ante Match', 9, '2013-01-17', 1, 'vitae velit egestas lacinia. Sed congue, elit sed consequat auctor, nunc nulla vulputate dui, nec tempus mauris erat eget ipsum. Suspendisse sagittis. Nullam vitae diam. Proin dolor. Nulla semper tellus id nunc interdum feugiat. Sed nec metus facilisis lorem tristique aliquet. Phasellus fermentum convallis ligula. Donec luctus aliquet odio. Etiam ligula tortor, dictum eu, placerat eget, venenatis a, magna. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Etiam laoreet, libero et tristique pellentesque, tellus sem mollis dui, in sodales elit erat vitae risus. Duis a mi fringilla mi lacinia mattis. Integer eu lacus. Quisque imperdiet, erat nonummy ultricies ornare, elit elit fermentum risus, at fringilla purus mauris a nunc. In at pede. Cras vulputate velit');
@@ -65,3 +112,45 @@ insert into games (name, organizer, creation, sport, `desc`) values ('Phasellus 
 insert into games (name, organizer, creation, sport, `desc`) values ('Ullamcorper Match', 8, '2013-03-15', 5, 'erat vitae risus. Duis a mi fringilla mi lacinia mattis. Integer eu lacus. Quisque imperdiet, erat nonummy ultricies ornare, elit elit fermentum risus, at fringilla purus mauris a nunc. In at pede. Cras vulputate velit eu sem. Pellentesque ut ipsum ac mi eleifend egestas. Sed pharetra, felis eget varius ultrices, mauris ipsum porta elit, a feugiat tellus lorem eu metus. In lorem. Donec elementum, lorem ut aliquam iaculis, lacus pede sagittis augue, eu tempor erat neque non quam. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.');
 insert into games (name, organizer, creation, sport, `desc`) values ('Libero Championship', 7, '2013-05-16', 6, 'Integer urna. Vivamus molestie dapibus ligula. Aliquam erat volutpat. Nulla dignissim. Maecenas ornare egestas ligula. Nullam feugiat placerat velit. Quisque varius. Nam porttitor scelerisque neque. Nullam nisl. Maecenas malesuada fringilla est. Mauris eu turpis. Nulla aliquet. Proin velit. Sed malesuada augue ut lacus. Nulla tincidunt, neque vitae semper egestas, urna justo faucibus lectus, a sollicitudin orci sem eget massa. Suspendisse eleifend. Cras sed leo. Cras vehicula aliquet libero. Integer in magna. Phasellus dolor elit, pellentesque a, facilisis non, bibendum sed, est. Nunc laoreet lectus quis massa. Mauris vestibulum, neque sed dictum eleifend, nunc risus varius orci, in');
 insert into games (name, organizer, creation, sport, `desc`) values ('Sed Tortor Competition', 7, '2012-07-08', 1, 'ultricies ornare, elit elit fermentum risus, at fringilla purus mauris a nunc. In at pede. Cras vulputate velit eu sem. Pellentesque ut ipsum ac mi eleifend egestas. Sed pharetra, felis eget varius ultrices, mauris ipsum porta elit, a feugiat tellus lorem eu metus. In lorem. Donec elementum, lorem ut aliquam iaculis, lacus pede sagittis augue, eu tempor erat neque non quam. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Aliquam fringilla cursus purus. Nullam scelerisque neque sed sem egestas blandit. Nam nulla magna, malesuada vel, convallis in, cursus et, eros. Proin ultrices. Duis volutpat nunc sit amet metus. Aliquam erat volutpat. Nulla facilisis. Suspendisse commodo tincidunt nibh. Phasellus');
+
+
+# a certain number of user has already expressed interest in some of the pickup games
+insert into matches (uid, gid, selected) values (10, 18, 0);
+insert into matches (uid, gid, selected) values (10, 18, 0);
+insert into matches (uid, gid, selected) values (10, 6, 0);
+insert into matches (uid, gid, selected) values (10, 7, 0);
+insert into matches (uid, gid, selected) values (11, 13, 0);
+insert into matches (uid, gid, selected) values (11, 18, 0);
+insert into matches (uid, gid, selected) values (12, 11, 0);
+insert into matches (uid, gid, selected) values (12, 12, 0);
+insert into matches (uid, gid, selected) values (12, 2, 0);
+insert into matches (uid, gid, selected) values (12, 20, 0);
+insert into matches (uid, gid, selected) values (13, 10, 0);
+insert into matches (uid, gid, selected) values (13, 2, 0);
+insert into matches (uid, gid, selected) values (13, 3, 0);
+insert into matches (uid, gid, selected) values (14, 1, 0);
+insert into matches (uid, gid, selected) values (14, 14, 0);
+insert into matches (uid, gid, selected) values (14, 19, 0);
+insert into matches (uid, gid, selected) values (14, 20, 0);
+insert into matches (uid, gid, selected) values (15, 13, 0);
+insert into matches (uid, gid, selected) values (15, 5, 0);
+insert into matches (uid, gid, selected) values (16, 18, 0);
+insert into matches (uid, gid, selected) values (16, 9, 0);
+insert into matches (uid, gid, selected) values (17, 5, 0);
+insert into matches (uid, gid, selected) values (4, 12, 0);
+insert into matches (uid, gid, selected) values (4, 19, 0);
+insert into matches (uid, gid, selected) values (4, 7, 0);
+insert into matches (uid, gid, selected) values (5, 16, 0);
+insert into matches (uid, gid, selected) values (5, 17, 0);
+insert into matches (uid, gid, selected) values (5, 2, 0);
+insert into matches (uid, gid, selected) values (5, 9, 0);
+insert into matches (uid, gid, selected) values (6, 17, 0);
+insert into matches (uid, gid, selected) values (6, 20, 0);
+insert into matches (uid, gid, selected) values (7, 10, 0);
+insert into matches (uid, gid, selected) values (7, 11, 0);
+insert into matches (uid, gid, selected) values (7, 17, 0);
+insert into matches (uid, gid, selected) values (7, 4, 0);
+insert into matches (uid, gid, selected) values (7, 7, 0);
+insert into matches (uid, gid, selected) values (8, 12, 0);
+insert into matches (uid, gid, selected) values (9, 9, 0);
+
