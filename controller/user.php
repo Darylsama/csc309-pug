@@ -121,12 +121,23 @@ class UserController {
 	
 	
 	public function invoke_list_users() {
-		$user = get_loggedin_user();
 		
 		$this->page["page"] = "view/list_user_page.php";
-		$this->page["title"] = "View Users";
+		$this->page["title"] = "Genneral Users Information";
 		$this->page["users"] = $this->user_model->get_all_users();
 		include "view/template.php";
+	}
+	
+	public function invoke_view_user() {
+		
+		$this->page["page"] = "view/view_user_page.php";
+		$this->page["title"] = "User Information";
+		
+		$uid = $_GET["uid"];
+		$this->page["user"] = $this->user_model->get_user_by_id($uid);
+		
+		include "view/template.php";
+		
 	}
 }
 
