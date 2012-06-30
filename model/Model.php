@@ -374,17 +374,50 @@ class GameModel {
 	    $stmt -> execute();
 	}
 	
-	public function is_interested($user, $gid) {
-	     
+	public function join_game($uid, $gid) {
+	    
+        $stmt = get_dao() -> prepare("update matches set selected = true where uid = :uid and gid = :gid");
+        $stmt->bindParam(':uid', $uid);
+        $stmt->bindParam(':gid', $gid);
+        $stmt -> execute();
+	}
+	
+	/**
+	 * return 0 if user is the organizer of game with gid
+	 * return 1 if user didn't express interest
+	 * return 2 if user expressed interest
+	 * return 3 if the game organizer selected the player to play
+	 */
+	public function get_user_selected_status($user, $gid) {
+
+	    $game = $this->get_game($gid);
+	    if ($game->organizer->uid == $user->uid) {
+    	    // if the player is the organizer for the game
+	        return 0;
+	    }
+	    
 	    $stmt = get_dao() -> prepare("select * from matches where uid = :uid and gid = :gid");
 	    $stmt->bindParam(':uid', $user->uid);
 	    $stmt->bindParam(':gid', $gid);
 	    
 	    if ($stmt -> execute()) {
-	        return $stmt->fetch() != null;
+	        $row = $stmt->fetch();
+	        if ($row == null) {
+	            // player not interested in the game
+	            return 1;
+	        } else {
+	            if ($row["selected"] == 0) {
+    	            // player interest in the game
+	                return 2;
+	            } else {
+	                // player selected by the game organizer
+	                return 3;
+	            }
+	        }
 	    }
-	    return false;
 	}
+	
+	
 	
 	public function get_interested_players($gid) {
 	    
