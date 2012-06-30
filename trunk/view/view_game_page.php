@@ -16,26 +16,35 @@
       <br />
       <?php echo $this->page["game"]->creation; ?>
       <br />
-
+      <hr />
 
 
       <?php if ($this->page["status"] == 0) { ?>
       <!-- current user is the organizer for this game -->
-      <span class="label label-success">You are the organizer for this game.
-        Here's a list of players that are interested in this game</span>
-      <form id="select-form" method="post" action="select_player.php" name="part">
+      <span class="label label-success">You are the organizer for this game.</span>
+
+      <h4>Here's a list of players that are interested in this game</h4>
+      <form id="select-form" method="post" action="select_player.php"
+        name="part">
         <ul>
           <?php foreach ($this->page["interested_players"] as $player) { ?>
           <li><?php echo $player->username ?><input
             id="<?php echo $player->uid ?>" type="button"
-            class="btn btn-mini select-player" value="Select" /></li>
+            class="btn btn-mini select-player" value="Select" />
+          </li>
           <?php } ?>
         </ul>
         <input name="gid" type="hidden"
-          value="<?php echo $this->page["game"]->gid; ?>" /> <input id="uid-field" name="pid"
-          type="hidden" value="" />
+          value="<?php echo $this->page["game"]->gid; ?>" /> <input
+          id="uid-field" name="pid" type="hidden" value="" />
       </form>
 
+      <h4>Here's a list of players that will be participating this game</h4>
+      <ul>
+        <?php foreach ($this->page["selected_players"] as $player) { ?>
+        <li><?php echo $player->username ?></li>
+        <?php } ?>
+      </ul>
 
       <?php } else if ($this->page["status"] == 1) {?>
       <!-- current user is not interested in the game -->

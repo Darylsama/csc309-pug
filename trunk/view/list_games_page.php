@@ -11,7 +11,6 @@
           <tr>
             <th>Name</th>
             <th>Sport</th>
-            <th>Description</th>
             <th>Organizer</th>
             <th>Created On</th>
           </tr>
@@ -22,7 +21,6 @@
             <td><a href="view_game.php?gid=<?php echo $game->gid; ?>"><?php echo $game -> name; ?>
             </a></td>
             <td><?php echo $game -> sport -> name; ?></td>
-            <td><?php echo $game -> desc; ?></td>
             <td><?php echo $game -> organizer -> username; ?></td>
             <td><?php echo $game -> creation; ?></td>
           </tr>

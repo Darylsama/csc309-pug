@@ -4,10 +4,20 @@
  * light weight db connection obj
  */
 
+DEFINE("DEVELOPMENT", 1);
 
-DEFINE("DATASRC", "mysql:host=localhost;dbname=mydb");
-DEFINE("USERNAME", "root");
-DEFINE("PASSWORD", NULL);
+if (DEVELOPMENT) {
+
+    DEFINE("DATASRC", "mysql:host=localhost;dbname=mydb");
+    DEFINE("USERNAME", "root");
+    DEFINE("PASSWORD", NULL);
+} else {
+
+    DEFINE("DATASRC", "mysql:host=mysql3.000webhost.com;dbname=a3074846_pug");
+    DEFINE("USERNAME", "a3074846_root");
+    DEFINE("PASSWORD", "xyz654321");
+}
+
 
 
 /**
