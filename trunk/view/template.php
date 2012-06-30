@@ -34,6 +34,12 @@
     <link rel="apple-touch-icon-precomposed" href="assets/ico/apple-touch-icon-57-precomposed.png">
 
     <script src="./assets/js/jquery.js"></script>
+    
+    <!-- custom javascript code for individual page -->
+    <?php foreach ($this->page["js"] as $js_filename) { ?>
+    <script src="<?php echo $js_filename; ?>"></script>
+    <?php } ?>
+    
     <!-- include jquery in the beginning so user page can use it -->
 
     <!-- ??? -->
