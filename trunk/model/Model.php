@@ -477,4 +477,24 @@ class GameModel {
 	    return false;
 	}
 }
+
+
+class RatingModel {
+	
+	public function creatRating($rid, $rater, $ratee, $value, $comment){
+		return Rating($rid, $rater, $ratee, $value, $comment);
+	}
+	
+	
+	/**
+	 * store a rating entity into the db
+	 * also set the id for the given rating
+	 */
+	public function persist_game($rating) {
+			
+	}
+	
+	
+
+}
 ?>

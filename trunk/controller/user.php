@@ -118,6 +118,16 @@ class UserController {
 		$this->page["current_sports"] = $this->sport_model->get_sports($user);
         include "view/template.php";
 	}
+	
+	
+	public function invoke_list_users() {
+		$user = get_loggedin_user();
+		
+		$this->page["page"] = "view/list_user_page.php";
+		$this->page["title"] = "View Users";
+		$this->page["users"] = $this->user_model->get_all_users();
+		include "view/template.php";
+	}
 }
 
 ?>
