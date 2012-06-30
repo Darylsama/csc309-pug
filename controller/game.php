@@ -62,6 +62,9 @@ class GameController {
         }
     }
 
+    /**
+     * invoked when the user opened the view game page
+     */
     public function invoke_view_game() {
 
         // general information about the page
@@ -78,13 +81,20 @@ class GameController {
         $participation_status = $this->game_model->get_user_selected_status(get_loggedin_user(), $gid);
         $this->page["status"] = $participation_status;
         
-        // a list of interested player
+        // a list of interested players
         $interested_players = $this->game_model->get_interested_players($gid);
         $this->page["interested_players"] = $interested_players;
+        
+        // a list of selected players
+        $selected_players = $this->game_model->get_selected_players($gid);
+        $this->page["selected_players"] = $selected_players;
         
         include "view/template.php";
     }
 
+    /**
+     * invoke this when a user express interest for a particular game
+     */
     public function invoke_interest() {
 
         if (isset($_SERVER['CONTENT_LENGTH']) &&
@@ -97,7 +107,9 @@ class GameController {
         }
     }
     
-    
+    /**
+     * invoked this when a game organizer select a player to participate in a game
+     */
     public function invoke_select_player() {
         
         if (isset($_SERVER['CONTENT_LENGTH']) &&
@@ -107,7 +119,6 @@ class GameController {
             $pid = $_POST["pid"];
             
             $this->game_model->join_game($pid, $gid);
-            
             header("Location: view_game.php?gid=" . $gid);
         }
     }
