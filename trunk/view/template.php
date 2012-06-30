@@ -36,8 +36,10 @@
     <script src="./assets/js/jquery.js"></script>
     
     <!-- custom javascript code for individual page -->
+    <?php if (isset($this->page["js"])) {?>
     <?php foreach ($this->page["js"] as $js_filename) { ?>
     <script src="<?php echo $js_filename; ?>"></script>
+    <?php } ?>
     <?php } ?>
     
     <!-- include jquery in the beginning so user page can use it -->

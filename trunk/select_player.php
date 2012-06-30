@@ -10,7 +10,7 @@ if (isset($user)) {
 
     include_once("controller/game.php");
     $game_controller = new GameController();
-    $game_controller->invoke_interest();
+    $game_controller->invoke_select_player();
 
 } else {
     header("Location: login.php");

@@ -19,19 +19,25 @@
 
 
 
-      <?php if (get_loggedin_user()->uid == $this->page["game"]->organizer->uid) { ?>
+      <?php if ($this->page["status"] == 0) { ?>
       <!-- current user is the organizer for this game -->
       <span class="label label-success">You are the organizer for this game.
         Here's a list of players that are interested in this game</span>
-      <ul>
-        <?php foreach ($this->page["interested_players"] as $player) { ?>
-        <li><?php echo $player->username ?>
-        </li>
-        <?php } ?>
-      </ul>
-      
-      
-      <?php } else if (!$this->page["is_interested"]) {?>
+      <form id="select-form" method="post" action="select_player.php" name="part">
+        <ul>
+          <?php foreach ($this->page["interested_players"] as $player) { ?>
+          <li><?php echo $player->username ?><input
+            id="<?php echo $player->uid ?>" type="button"
+            class="btn btn-mini select-player" value="Select" /></li>
+          <?php } ?>
+        </ul>
+        <input name="gid" type="hidden"
+          value="<?php echo $this->page["game"]->gid; ?>" /> <input id="uid-field" name="pid"
+          type="hidden" value="" />
+      </form>
+
+
+      <?php } else if ($this->page["status"] == 1) {?>
       <!-- current user is not interested in the game -->
       <form method="post" action="express_interest.php" name="interest">
         <input name="gid" type="hidden"
@@ -40,16 +46,18 @@
       </form>
 
 
-      
-      <?php } else if ($this->page["is_interested"]) {?>
+
+      <?php } else if ($this->page["status"] == 2) {?>
       <!-- current user is interested in the game -->
-      <span class="label label-success">You have expressed interest in this game.</span>
-        
-        
-        
-      <?php } else { ?>
+      <span class="label label-success">You have expressed interest in this
+        game.</span>
+
+
+
+      <?php } else if ($this->page["status"] == 3) { ?>
       <!-- current user is selected in the game -->
-          <span class="label label-success">Congradulations, you have been selected to participate in this game</span>
+      <span class="label label-success">Congradulations, you have been selected
+        to participate in this game</span>
       <?php } ?>
 
     </div>

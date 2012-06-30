@@ -64,16 +64,21 @@ class GameController {
 
     public function invoke_view_game() {
 
+        // general information about the page
         $this->page["page"] = "view/view_game_page.php";
         $this->page["title"] = "View Game";
+        $this->page["js"] = array("view/js/select_player.js");
 
+        // the game to be displayed on the page
         $gid = $_GET["gid"];
         $game = $this->game_model->get_game($gid);
         $this->page["game"] = $game;
 
-        $is_interested = $this->game_model->is_interested(get_loggedin_user(), $gid);
-        $this->page["is_interested"] = $is_interested; 
+        // status of the current player related to the game
+        $participation_status = $this->game_model->get_user_selected_status(get_loggedin_user(), $gid);
+        $this->page["status"] = $participation_status;
         
+        // a list of interested player
         $interested_players = $this->game_model->get_interested_players($gid);
         $this->page["interested_players"] = $interested_players;
         
@@ -87,6 +92,21 @@ class GameController {
             
             $gid = $_POST["gid"];
             $this->game_model->express_interest(get_loggedin_user(), $gid);
+            
+            header("Location: view_game.php?gid=" . $gid);
+        }
+    }
+    
+    
+    public function invoke_select_player() {
+        
+        if (isset($_SERVER['CONTENT_LENGTH']) &&
+            (int) $_SERVER['CONTENT_LENGTH'] > 0) {
+        
+            $gid = $_POST["gid"];
+            $pid = $_POST["pid"];
+            
+            $this->game_model->join_game($pid, $gid);
             
             header("Location: view_game.php?gid=" . $gid);
         }
