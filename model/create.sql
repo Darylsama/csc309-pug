@@ -48,7 +48,7 @@ CREATE  TABLE IF NOT EXISTS `mydb`.`matches` (
   `mid` INT UNSIGNED NOT NULL AUTO_INCREMENT ,
   `uid` INT NOT NULL ,
   `gid` INT NOT NULL ,
-  `selected` TINYINT NOT NULL ,
+  `selected` TINYINT(1) NOT NULL ,
   PRIMARY KEY (`mid`) ,
   UNIQUE INDEX `mid_UNIQUE` (`mid` ASC) )
 ENGINE = InnoDB;
@@ -74,7 +74,9 @@ CREATE  TABLE IF NOT EXISTS `mydb`.`ratings` (
   `rid` INT UNSIGNED NOT NULL AUTO_INCREMENT ,
   `rater` INT NULL ,
   `rating` TINYINT NULL ,
+  `value` INT NULL ,
   `comment` VARCHAR(1024) NULL ,
+  `type` INT NULL ,
   `time` DATE NULL ,
   PRIMARY KEY (`rid`) ,
   UNIQUE INDEX `rid_UNIQUE` (`rid` ASC) )
