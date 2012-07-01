@@ -19,7 +19,7 @@
         <tbody>
           <?php foreach ($this->page["users"] as $user) { ?>
           <tr>
-          	<td><a href="view_user.php?gid=<?php echo $user->uid; ?>"><?php echo $user -> username; ?>
+          	<td><a href="view_user.php?uid=<?php echo $user->uid; ?>"><?php echo $user -> username; ?>
             </a></td>
           </tr>
           <?php } ?>
