@@ -546,6 +546,36 @@ class GameModel {
 	    }
 	    return false;
 	}
+	
+	/*  Return the an array of games that this user 
+	 *  interested but not selected
+	 */
+	public function get_interested_games($uid){
+		$game_list = array();
+		$stmt = get_dao() -> prepare("select * from games inner join matches where games.gid = matches.gid and selected = 0 and uid = :uid;");
+		$stmt -> bindParam(":uid", $uid);
+		if ($stmt->execute()) {
+			while (($row = $stmt->fetch()) != NULL) {
+				$game_list[$row["gid"]] = $row["name"]; 
+			}
+			return $game_list;
+		}
+	}
+	
+	/*  Return an array of games that this user
+	 *  joined */
+	public function get_joined_games($uid){
+
+		$game_list = array();
+		$stmt = get_dao() -> prepare("select * from games inner join matches where games.gid = matches.gid and selected = 1 and uid = :uid;");
+		$stmt -> bindParam(":uid", $uid);
+		if ($stmt -> execute()) {
+			while (($row = $stmt->fetch()) != NULL) {
+				$game_list[$row["gid"]] = $row["name"];
+			}
+			return $game_list;
+		}		
+	} 
 }
 
 
@@ -564,7 +594,7 @@ class RatingModel {
 			
 		// insert user into database
 		$time = time();
-		$stmt = get_dao() -> prepare("insert into rating (rater, ratee, value, comment, type, time) values (:rater, :ratee, :value, :comment, :type, :time)");
+		$stmt = get_dao() -> prepare("insert into ratings (rater, ratee, value, comment, type, time) values (:rater, :ratee, :value, :comment, :type, :time)");
 		$stmt -> bindParam(':rater', $rating -> rater);
 		$stmt -> bindParam(':ratee', $rating -> ratee);
 		$stmt -> bindParam(':value', $rating -> value);
@@ -584,12 +614,17 @@ class RatingModel {
 		}			
 	}
 	
-	
-	public function get_user_avg_rating($rating) {
+	/* Return the average rating of this user
+	 * as a player*/
+	public function get_user_avg_rating($uid) {
 		
-		$stmt -> get_dao -> prepare("select ");
-		
-		$stmt -> execute();
+		$stmt = get_dao() -> prepare("select avg(value) as avgvalue from ratings where ratee = :uid and type = 1;");
+		$stmt -> bindParam(":uid", $uid);
+		$stmt -> execute();	
+		if ($stmt->execute()){
+			$row = $stmt -> fetch();
+			return $row["avgvalue"];
+		}
 		
 	}
 	
