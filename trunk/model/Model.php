@@ -124,7 +124,77 @@ class UserModel {
 
 		return false;
 	}
+	
+	
+	public function is_friend($uid1, $uid2){
+		$stmt = get_dao() -> prepare("select * from friendship where (uid1 = :uid1 and uid2 = :uid2) or (uid1 = :uid2 and uid2 = :uid1);"); 
+		$stmt -> bindParam(":uid1", $uid1);
+		$stmt -> bindParam(":uid2", $uid2);
+		if ($stmt -> execute()){
+			$friendship = $stmt -> fetch();
+			if (strlen($friendship["uid1"]) != 0){
+				return TRUE;
+			}
+			else{
+				return FALSE;
+			}
+		}
+		
+	}
+	
+	public function create_friendships($uid, $gid){
+		$stmt = get_dao() -> prepare("select uid from matches where gid = :gid and selected = 1;");
+		$stmt -> bindParam(":gid", $gid);
+		
+		if($stmt -> execute()){
+			$row = $stmt -> fetch();
+			$player = $row["uid"];
+			while (strlen($player) != 0){
+				if (! $this->is_friend($uid, $player)) {
+					//two users are not friends before
+					
+					$stmt2 = get_dao() -> prepare("insert into friendship (uid1, uid2) values (:uid1, :uid2);");
+					$stmt2 -> bindParam(":uid1", $uid);
+					$stmt2 -> bindParam(":uid2", $player);
+						
+					$stmt2->execute();
+					$row = $stmt -> fetch();
+					$player = $row["uid"];
+				}
+			} 
+			
+			
+		}
+		
+	}
+	
+	public function get_friends($uid) {
 
+		$stmt = get_dao() -> prepare("select * from friendship where uid1 = :uid or uid2 = :uid; ");
+		$stmt -> bindParam(":uid", $uid);
+		$friends = array();
+
+		if ($stmt -> execute()){
+			while (($row = $stmt -> fetch()) != null) {
+				$uid1 = $row["uid1"];
+				$uid2 = $row["uid2"];
+				if ($uid1 != $uid) {
+					$friends["uid1"] = $this->get_user_by_id($uid1); 	
+				}
+				else if ($uid2 != $uid) {
+					
+					$friends["uid1"] = $this->get_user_by_id($uid2); 
+				}
+				
+			}
+			return $friends;
+			
+		}
+		else {
+			return FALSE;
+		}
+		
+	}
 }
 
 /**
@@ -257,7 +327,7 @@ class GameModel {
 		$stmt -> bindParam(':desc', $game -> desc);
 		$stmt -> execute();
 
-		// set the sid for the current sport
+		// set the gid for the current sport
 		$stmt = get_dao() -> prepare("select gid from games order by gid desc");
 		if ($stmt->execute()) {
 			$row = $stmt -> fetch();
@@ -481,17 +551,46 @@ class GameModel {
 
 class RatingModel {
 	
-	public function creatRating($rid, $rater, $ratee, $value, $comment){
+	public function creat_rating($rid, $rater, $ratee, $value, $comment){
 		return Rating($rid, $rater, $ratee, $value, $comment);
 	}
-	
 	
 	/**
 	 * store a rating entity into the db
 	 * also set the id for the given rating
 	 */
-	public function persist_game($rating) {
+	public function persist_rating($rating) {
 			
+			
+		// insert user into database
+		$time = time();
+		$stmt = get_dao() -> prepare("insert into rating (rater, ratee, value, comment, type, time) values (:rater, :ratee, :value, :comment, :type, :time)");
+		$stmt -> bindParam(':rater', $rating -> rater);
+		$stmt -> bindParam(':ratee', $rating -> ratee);
+		$stmt -> bindParam(':value', $rating -> value);
+		$stmt -> bindParam(':comment', $rating -> comment);
+		$stmt -> bindParam(':type', $rating -> type);
+		$stmt -> bindParam(':time', $time);
+		$stmt -> execute();
+
+		// set the id for the current user
+		$stmt = get_dao() -> prepare("select rid from user where rater = :rater and ratee = :ratee and time = :time");
+		$stmt -> bindParam(':rater', $rating -> rater);
+		$stmt -> bindParam(':ratee', $rating -> ratee);
+		$stmt -> binParam(':time', $time);
+		if ($stmt->execute()) {
+			$row = $stmt -> fetch();
+			$rating ->rid = $row["rid"];
+		}			
+	}
+	
+	
+	public function get_user_avg_rating($rating) {
+		
+		$stmt -> get_dao -> prepare("select ");
+		
+		$stmt -> execute();
+		
 	}
 	
 	

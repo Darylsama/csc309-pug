@@ -73,7 +73,7 @@ DROP TABLE IF EXISTS `mydb`.`ratings` ;
 CREATE  TABLE IF NOT EXISTS `mydb`.`ratings` (
   `rid` INT UNSIGNED NOT NULL AUTO_INCREMENT ,
   `rater` INT NULL ,
-  `rating` TINYINT NULL ,
+  `ratee` TINYINT NULL ,
   `value` INT NULL ,
   `comment` VARCHAR(1024) NULL ,
   `type` INT NULL ,
