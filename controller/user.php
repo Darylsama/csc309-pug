@@ -11,6 +11,7 @@ class UserController {
     // model object
 	private $user_model;
 	private $sport_model;
+	private $rating_model;
     
     // page array, used to encapsulate some page data
     private $page;
@@ -19,6 +20,8 @@ class UserController {
 	    
 		$this->user_model = new UserModel();
 		$this->sport_model = new SportModel();
+		$this->game_model = new GameModel();
+		$this->rating_model = new RatingModel();
         $page = array();
 	}
 
@@ -142,19 +145,27 @@ class UserController {
 		
 			$uid = $userid2;
 			$this->page["user"] = $this->user_model->get_user_by_id($uid);
-		
+			$this->page["rating"] = $this->rating_model->get_user_avg_rating($uid);
+			
+			$this->page["joined_game"] = $this->game_model->get_joined_games($uid);
+
+			$this->page["interested_game"] = $this->game_model->get_interested_games($uid);
+			$this->page["organized_game"] = $this->game_model->get_games($this->user_model->get_user_by_id($uid));
 			include "view/template.php";
 		}
 		else {
 			//if they're friends
-			echo "friend";
+
 			$this->page["page"] = "view/view_friend_page.php";
-			$this->page["title"] = "";
+			$this->page["title"] = "User Information: friend";
 			
 			$uid = $userid2;
 			$this->page["loggedinuser"] = $userid1;
 			$this->page["user"] = $userid2;
-			
+			$this->page["rating"] = $this->rating_model->get_user_avg_rating($uid);
+			$this->page["joined_game"] = $this->game_model->get_joined_games($uid);
+			$this->page["interested_game"] = $this->game_model->get_interested_games($uid);
+			$this->page["organized_game"] = $this->game_model->get_games($this->user_model->get_user_by_id($uid));
 			include "view/template.php";
 			
 		}
