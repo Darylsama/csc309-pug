@@ -85,13 +85,14 @@ class Rating {
 	public $comment;
 	
 	
-	public function __construct($rid, $rater, $ratee, $value, $comment) {
+	public function __construct($rid, $rater, $ratee, $value, $comment, $type) {
 			
 		$this->rid = $rid;
 		$this->ratee = $ratee;
 		$this->rater = $rater;
 		$this->value = $value;
-		$this->comment = $comment;		
+		$this->comment = $comment;
+		$this->type = $type;		
 		
 	}	
 	

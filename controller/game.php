@@ -6,12 +6,14 @@ class GameController {
 
     private $game_model;
     private $sport_model;
+	private $user_model;
     private $page;
 
     public function __construct() {
 
         $this->game_model = new GameModel();
         $this->sport_model = new SportModel();
+		$this->user_model = new UserModel();
         $page = array();
     }
 
@@ -117,8 +119,10 @@ class GameController {
         
             $gid = $_POST["gid"];
             $pid = $_POST["pid"];
-            
+
+            $this->user_model->create_friendships($pid, $gid);
             $this->game_model->join_game($pid, $gid);
+
             header("Location: view_game.php?gid=" . $gid);
         }
     }

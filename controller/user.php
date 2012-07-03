@@ -121,24 +121,45 @@ class UserController {
 	
 	
 	public function invoke_list_users() {
-		
+		$uid = get_loggedin_user()->uid;
 		$this->page["page"] = "view/list_user_page.php";
 		$this->page["title"] = "Genneral Users Information";
 		$this->page["users"] = $this->user_model->get_all_users();
+		$this->page["friends"] = $this->user_model->get_friends($uid); 
+
 		include "view/template.php";
 	}
 	
 	public function invoke_view_user() {
 		
-		$this->page["page"] = "view/view_user_page.php";
-		$this->page["title"] = "User Information";
+		$userid1 = get_loggedin_user()->uid;
+		$userid2 = $_GET["uid"];
 		
-		$uid = $_GET["uid"];
-		$this->page["user"] = $this->user_model->get_user_by_id($uid);
+		if (! ($this->user_model->is_friend($userid1, $userid2))) {
+			//if not friend
+			$this->page["page"] = "view/view_user_page.php";
+			$this->page["title"] = "User Information";
 		
-		include "view/template.php";
+			$uid = $userid2;
+			$this->page["user"] = $this->user_model->get_user_by_id($uid);
 		
+			include "view/template.php";
+		}
+		else {
+			//if they're friends
+			echo "friend";
+			$this->page["page"] = "view/view_friend_page.php";
+			$this->page["title"] = "";
+			
+			$uid = $userid2;
+			$this->page["loggedinuser"] = $userid1;
+			$this->page["user"] = $userid2;
+			
+			include "view/template.php";
+			
+		}
 	}
+	
 }
 
 ?>
