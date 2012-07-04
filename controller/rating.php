@@ -15,34 +15,38 @@ class RatingController {
 	}
 	
 	public function invoke_give_rating (){
+
 		
-		if (isset($_POST["ratee"]) && isset($_POST["value"]) && isset($_POST["comment"])) {
+		if (isset($_POST["ratee"]) && isset($_POST["value"])) {
 			// user submitted login information
 
 			$ratee = $_POST["ratee"];
 			// we must check the value is 1.int 2.0-10 both on client side using js and server side 
 			// js will play the main role, php as the second prevent
-			$value = $_POST["value"];
+			$value = intval($_POST["value"]);
 			$comment = $_POST["comment"];
 			$rater = get_loggedin_user();
-			if (!is_int($value) || $value>10 || $value<0){
+			
+			// how to determine value is int?
+			if ((! is_int($value)) || $value>10 || $value<0){
 				$this->page["page"] = "";
 				$this->page["title"] ="";
 				$this->page["err"]= "the value should be an int between 0 and 10.";
 				include "view/template.php";
 			}
 			
-			
-			elseif (!is_string($comment) || strlen($comment) > 1024){
+	
+			elseif (strlen($comment) > 1024){
 				$this->page["page"] = "";
 				$this->page["title"] ="";
 				$this->page["err"]= "the comment should less than 1024 characters.";
 			}
-
+	
 			else {
-			    
-				$rating = $this->rating_model->create_rating(0, $rater, $ratee, $value, $comment);
-           		$this->game_model->persist_game($rating);
+				$rating = $this->rating_model->create_rating(0, $rater->uid, $ratee, $value, $comment, 1);
+           		$rating = $this->rating_model->persist_rating($rating);
+				echo "nnn";
+				header("Location: view_user.php?uid=" . $ratee);
 			}
 
 		} else {

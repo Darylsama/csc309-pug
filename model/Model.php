@@ -581,8 +581,8 @@ class GameModel {
 
 class RatingModel {
 	
-	public function creat_rating($rid, $rater, $ratee, $value, $comment){
-		return Rating($rid, $rater, $ratee, $value, $comment);
+	public function create_rating($rid, $rater, $ratee, $value, $comment, $type){
+		return new Rating($rid, $rater, $ratee, $value, $comment, $type);
 	}
 	
 	/**
@@ -593,25 +593,32 @@ class RatingModel {
 			
 			
 		// insert user into database
-		$time = time();
-		$stmt = get_dao() -> prepare("insert into ratings (rater, ratee, value, comment, type, time) values (:rater, :ratee, :value, :comment, :type, :time)");
+		$time = date("Y-m-d");
+		$stmt = get_dao() -> prepare("insert into ratings (rater, ratee, value, comment, type, time) values (:rater, :ratee, :value, :comment, :type, :time);");
 		$stmt -> bindParam(':rater', $rating -> rater);
 		$stmt -> bindParam(':ratee', $rating -> ratee);
 		$stmt -> bindParam(':value', $rating -> value);
 		$stmt -> bindParam(':comment', $rating -> comment);
 		$stmt -> bindParam(':type', $rating -> type);
+
 		$stmt -> bindParam(':time', $time);
 		$stmt -> execute();
-
+		
 		// set the id for the current user
-		$stmt = get_dao() -> prepare("select rid from user where rater = :rater and ratee = :ratee and time = :time");
-		$stmt -> bindParam(':rater', $rating -> rater);
-		$stmt -> bindParam(':ratee', $rating -> ratee);
-		$stmt -> binParam(':time', $time);
-		if ($stmt->execute()) {
-			$row = $stmt -> fetch();
+
+		$stmt2 = get_dao() -> prepare("select rid from ratings where rater = :rater and ratee = :ratee and time = :time;");
+		$stmt2 -> bindParam(':rater', $rating -> rater);
+		$stmt2 -> bindParam(':ratee', $rating -> ratee);
+		$stmt2 -> bindParam(':time', $time);
+		echo 'aaab';
+		if ($stmt2->execute()) {
+			echo "ccc";
+			$row = $stmt2 -> fetch();
+			echo "fff";
 			$rating ->rid = $row["rid"];
+			return $rating;
 		}			
+		return false;
 	}
 	
 	/* Return the average rating of this user

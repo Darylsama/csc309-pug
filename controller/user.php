@@ -160,8 +160,7 @@ class UserController {
 			$this->page["title"] = "User Information: friend";
 			
 			$uid = $userid2;
-			$this->page["loggedinuser"] = $userid1;
-			$this->page["user"] = $userid2;
+			$this->page["user"] = $this->user_model->get_user_by_id($uid);
 			$this->page["rating"] = $this->rating_model->get_user_avg_rating($uid);
 			$this->page["joined_game"] = $this->game_model->get_joined_games($uid);
 			$this->page["interested_game"] = $this->game_model->get_interested_games($uid);
