@@ -83,10 +83,11 @@ class Rating {
 	public $ratee;
 	public $value;
 	public $comment;
+	public $type;
 	
 	
 	public function __construct($rid, $rater, $ratee, $value, $comment, $type) {
-			
+		
 		$this->rid = $rid;
 		$this->ratee = $ratee;
 		$this->rater = $rater;
