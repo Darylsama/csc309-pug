@@ -4,12 +4,8 @@
     <!-- sidebar -->
     <?php include "view/sidebar.php" ?>
 
-	<script>
-	function submit() {
-		
-	} 
-	</scirpt>
     <div class="span10">
+
 		<?php echo $this->page["user"]->username; ?>
 		<br/>
 		<br/>

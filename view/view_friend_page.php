@@ -4,7 +4,11 @@
     <!-- sidebar -->
     <?php include "view/sidebar.php" ?>
 
-
+	<script>
+			function submit() {
+				document.give_rates.submit();
+			}
+	</script>
     <div class="span10">
     	
     
@@ -14,21 +18,23 @@
 		<br/>
 		<br/>
 		<?php 
-			echo "The average rates as a player:<br/>";
-			if (isset($this->page["rating"])){	
-				echo $this->page["rating"];
+			echo "The average rate of this user as a player:<br/>";
+			if (isset($this->page["player_rates"])){	
+				echo $this->page["player_rates"];
+				echo "<br/>";
 			}		
 			else{
-				echo "This user hasn't been rated as users by other users yet.";
+				echo "This user hasn't been rated as players by other users yet.";
 			}
 		?>
-		<script>
-			function submit() {
-				document.give_rates.submit()
-			}
-		</script>
-		<form name="myform" method="POST" action="rate_friend.php?">
-		<select name="value">
+		
+		<?php
+		if ($this->page["rate_player"]){
+			echo "You have given rates to this friend as a player before.";
+		}
+		else {
+			echo '<form name="myform" method="POST" action="rate_friend.php?">
+			<select name="value">
 			<option>0</option>
 			<option>1</option>
 			<option>2</option>
@@ -40,11 +46,22 @@
 			<option>8</option>
 			<option>9</option>
 			<option>10</option>
-		</select>
-		<input type=hidden name="ratee" value=<?php echo $this->page["user"]->uid?>>
-		<input type=button value="submit" onClick="submit()"/>
-		</form>
+			</select>
+			<input type=hidden name="ratee" value=<?php echo $this->page["user"]->uid?>>
+			<input type=button value="submit" onClick="submit()"/>
+			</form>';}
+		?>
 		<br/>
+		
+		<?php echo "The average rates of this user as an organizer: <br/>"?>
+		<?php 
+			if (isset($this->page["organizer_rates"])){
+				echo $this->page["organizer_rates"];
+			}
+			else {
+				echo "This user hasn't been rated as organizer yet.";
+			}
+		?>
 		<br/>
 				
 		
@@ -96,10 +113,6 @@
 		</table>
 		<br/>
 		<br/>
-		
-		
-      
-      
 
     </div>
   </div>
