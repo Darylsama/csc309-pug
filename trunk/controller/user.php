@@ -140,9 +140,10 @@ class UserController {
 		
 		if (! ($this->user_model->is_friend($userid1, $userid2))) {
 			//if not friend
+			
+			
 			$this->page["page"] = "view/view_user_page.php";
-			$this->page["title"] = "User Information";
-		
+			$this->page["title"] = "User Information";	
 			$uid = $userid2;
 			$this->page["user"] = $this->user_model->get_user_by_id($uid);
 			$this->page["rating"] = $this->rating_model->get_user_avg_rating($uid);
@@ -158,13 +159,15 @@ class UserController {
 
 			$this->page["page"] = "view/view_friend_page.php";
 			$this->page["title"] = "User Information: friend";
-			
 			$uid = $userid2;
 			$this->page["user"] = $this->user_model->get_user_by_id($uid);
-			$this->page["rating"] = $this->rating_model->get_user_avg_rating($uid);
+			$this->page["player_rates"] = $this->rating_model->get_user_avg_rating($uid);
+			$this->page["organizer_rates"] = $this->rating_model->get_organizer_avg_rating($uid);
 			$this->page["joined_game"] = $this->game_model->get_joined_games($uid);
 			$this->page["interested_game"] = $this->game_model->get_interested_games($uid);
 			$this->page["organized_game"] = $this->game_model->get_games($this->user_model->get_user_by_id($uid));
+			$this->page["rate_player"] = $this->rating_model->rate_player_before($userid1, $uid);
+			$this->page["rate_organizer"] = $this->rating_model->rate_organizer_before($userid1, $uid);
 			include "view/template.php";
 			
 		}

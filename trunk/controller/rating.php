@@ -45,7 +45,6 @@ class RatingController {
 			else {
 				$rating = $this->rating_model->create_rating(0, $rater->uid, $ratee, $value, $comment, 1);
            		$rating = $this->rating_model->persist_rating($rating);
-				echo "nnn";
 				header("Location: view_user.php?uid=" . $ratee);
 			}
 
@@ -59,25 +58,7 @@ class RatingController {
 		
 		
 	}
-
-/*	
-	public function invoke_get_avg_rating(){
-		
-		if (isset($_POST["ratee"]) {
-			$ratee = 
-			
-			
-		}
-		else{
-			//!! need to change later!!!!!	
-			$this->page["page"] = "view/login_page.php";
-            $this->page["title"] = "Login";
-            include "view/template.php";
-		}
-		
-		
-	}
-*/	
+	
 	
 	
 }

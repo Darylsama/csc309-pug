@@ -627,7 +627,6 @@ class RatingModel {
 		
 		$stmt = get_dao() -> prepare("select avg(value) as avgvalue from ratings where ratee = :uid and type = 1;");
 		$stmt -> bindParam(":uid", $uid);
-		$stmt -> execute();	
 		if ($stmt->execute()){
 			$row = $stmt -> fetch();
 			return $row["avgvalue"];
@@ -635,6 +634,55 @@ class RatingModel {
 		
 	}
 	
+	public function get_organizer_avg_rating($uid) {
+		$stmt = get_dao() -> prepare("select avg(value) as avgvalue from ratings where ratee = :uid and type = 0;");
+		$stmt -> bindParam(":uid", $uid);
+		if ($stmt -> execute()) {
+			$row = $stmt -> fetch();
+			return $row["avgvalue"];
+		}
+		
+		
+	}
+	
+	
+	/* */
+	public function rate_player_before($rater, $ratee){
+		
+		$stmt = get_dao() -> prepare("select * from ratings where ratee = :ratee and rater = :rater and type = 1;");
+		$stmt -> bindParam(":rater", $rater);
+		$stmt -> bindParam(":ratee", $ratee);
+		if ($stmt->execute()) {
+			$row = $stmt -> fetch();
+			if (isset($row["rid"])){
+				return TRUE;
+			}
+			else {
+				return FALSE;
+			}
+		}
+		
+		
+	}
+	
+	
+	public function rate_organizer_before($rater, $ratee){
+
+		$stmt = get_dao() -> prepare("select * from ratings where ratee = :ratee and rater = :rater and type = 0;");
+		$stmt -> bindParam(":rater", $rater);
+		$stmt -> bindParam(":ratee", $ratee);
+		if ($stmt->execute()) {
+			$row = $stmt -> fetch();
+			if (isset($row["rid"])){
+				return TRUE;
+			}
+			else {
+				return FALSE;
+			}
+		}
+	
+	}
+
 	
 
 }
