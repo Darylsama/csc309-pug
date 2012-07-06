@@ -171,6 +171,8 @@ class UserModel {
 	public function get_friends($uid) {
 
 		$stmt = get_dao() -> prepare("select * from friendship where uid1 = :uid or uid2 = :uid; ");
+		// shouldn't really need this
+		// we assume that the friendship table is diagnol: if (i, j) exist then (j, i) definitely exist
 		$stmt -> bindParam(":uid", $uid);
 		$friends = array();
 
@@ -179,11 +181,11 @@ class UserModel {
 				$uid1 = $row["uid1"];
 				$uid2 = $row["uid2"];
 				if ($uid1 != $uid) {
-					$friends["uid1"] = $this->get_user_by_id($uid1); 	
+					$friends[$uid1] = $this->get_user_by_id($uid1); 	
 				}
 				else if ($uid2 != $uid) {
 					
-					$friends["uid1"] = $this->get_user_by_id($uid2); 
+					$friends[$uid2] = $this->get_user_by_id($uid2); 
 				}
 				
 			}
@@ -373,7 +375,7 @@ class GameModel {
 
 		// first get all sports associate with the current user
 		$sport_model = new SportModel();
-		$user_sports = $sport_model -> get_sports(get_loggedin_user());
+		$user_sports = $sport_model -> get_sports($user);
 
 		// then create the corresponding game objects for the current user
 		// note that the supposedly foreign key attribute is set to the entities themselves
