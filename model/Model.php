@@ -684,7 +684,27 @@ class RatingModel {
 		}
 	
 	}
-
+	
+	/* a user1 can rater another user2 as an organizer only 
+	 * when this user1 joined the game organized by user2 before
+	 * */
+	public function can_rate_organizer($uid1, $uid2){
+		$stmt = get_dao() -> prepare("select * from games inner join matches where games.gid = matches.gid and selected = 1 and uid = :uid1 and organizer = :uid2;");
+		$stmt->bindParam(":uid1", $uid1);
+		$stmt->bindParam(":uid2", $uid2);
+	
+		
+		if ($stmt -> execute()) {
+			$row = $stmt ->fetch();
+			if (isset($row["gid"])){
+				return TRUE;
+			}
+			else {
+				return FALSE;
+			}
+		}
+		
+	}
 	
 
 }
