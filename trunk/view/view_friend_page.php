@@ -29,11 +29,11 @@
 		?>
 		
 		<?php
-		if ($this->page["rate_player"]){
-			echo "You have given rates to this friend as a player before.";
+		if ($this->page["rate_player_before"]){
+			echo "You have given rates to this friend as a player before. <br/>";
 		}
 		else {
-			echo '<form name="myform" method="POST" action="rate_friend.php?">
+			echo '<form name="myform" method="POST" action="rate_friend_as_player.php?">
 			<select name="value">
 			<option>0</option>
 			<option>1</option>
@@ -47,8 +47,10 @@
 			<option>9</option>
 			<option>10</option>
 			</select>
-			<input type=hidden name="ratee" value=<?php echo $this->page["user"]->uid?>>
-			<input type=button value="submit" onClick="submit()"/>
+			<input type=hidden name="ratee" value=';
+			echo $this->page["user"]->uid;
+			echo ">";
+			echo '<input type=button value="submit" onClick="submit()"/>
 			</form>';}
 		?>
 		<br/>
@@ -63,7 +65,40 @@
 			}
 		?>
 		<br/>
-				
+		<?php
+		if (!$this->page["can_rate_organizer"]) {
+			echo "You can not rate this friend as an organizer untill you have joined a game organized by this friend. <br/>";
+		}
+		else if ($this->page["rate_organizer_before"]){
+			echo "You have given rates to this friend as an organizer before. <br/>";
+		}
+		else {
+			echo '<form name="myform" method="POST" action="rate_friend_as_organizer.php?">
+			<select name="value">
+			<option>0</option>
+			<option>1</option>
+			<option>2</option>
+			<option>3</option>
+			<option>4</option>
+			<option>5</option>
+			<option>6</option>
+			<option>7</option>
+			<option>8</option>
+			<option>9</option>
+			<option>10</option>
+			</select>
+			<input type=hidden name="ratee" value=';
+			echo $this->page["user"]->uid;
+			echo ">";
+			echo '<input type=button value="submit" onClick="submit()"/></form>';
+		}
+		?>
+		<br/>	
+		
+		
+		
+		
+		
 		
 		
 		

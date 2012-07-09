@@ -133,14 +133,16 @@ class UserController {
 		include "view/template.php";
 	}
 	
+	
+	
 	public function invoke_view_user() {
 		
 		$userid1 = get_loggedin_user()->uid;
 		$userid2 = $_GET["uid"];
 		
+		
 		if (! ($this->user_model->is_friend($userid1, $userid2))) {
 			//if not friend
-			
 			
 			$this->page["page"] = "view/view_user_page.php";
 			$this->page["title"] = "User Information";	
@@ -156,7 +158,7 @@ class UserController {
 		}
 		else {
 			//if they're friends
-
+			
 			$this->page["page"] = "view/view_friend_page.php";
 			$this->page["title"] = "User Information: friend";
 			$uid = $userid2;
@@ -166,8 +168,13 @@ class UserController {
 			$this->page["joined_game"] = $this->game_model->get_joined_games($uid);
 			$this->page["interested_game"] = $this->game_model->get_interested_games($uid);
 			$this->page["organized_game"] = $this->game_model->get_games($this->user_model->get_user_by_id($uid));
-			$this->page["rate_player"] = $this->rating_model->rate_player_before($userid1, $uid);
-			$this->page["rate_organizer"] = $this->rating_model->rate_organizer_before($userid1, $uid);
+		
+			$this->page["rate_player_before"] = $this->rating_model->rate_player_before($userid1, $uid);
+		
+			$this->page["rate_organizer_before"] = $this->rating_model->rate_organizer_before($userid1, $uid);
+	
+			$this->page["can_rate_organizer"] = $this->rating_model->can_rate_organizer($userid1, $userid2);
+
 			include "view/template.php";
 			
 		}
