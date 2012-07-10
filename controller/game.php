@@ -39,11 +39,11 @@ class GameController {
                         (int) $_SERVER['CONTENT_LENGTH'] > 0) {
 
             $gid = 0;
-            $name = $_POST["gamename"];
+            $name = htmlspecialchars($_POST["gamename"]);
             $organizer = get_loggedin_user()->uid;
             $creation = date("Y-m-d");
-            $sport = $_POST["sport"];
-            $description = $_POST["description"];
+            $sport = htmlspecialchars($_POST["sport"]);
+            $description = htmlspecialchars($_POST["description"]);
 
             $game = $this->game_model->create_game($gid, $name, $organizer, $creation, $sport, $description);
             $this->game_model->persist_game($game);
