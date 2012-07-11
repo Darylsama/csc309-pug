@@ -102,7 +102,7 @@ class GameController {
         if (isset($_SERVER['CONTENT_LENGTH']) &&
             (int) $_SERVER['CONTENT_LENGTH'] > 0) {
             
-            $gid = $_POST["gid"];
+            $gid = htmlspecialchars($_POST["gid"]);
             $this->game_model->express_interest(get_loggedin_user(), $gid);
             
             header("Location: view_game.php?gid=" . $gid);
@@ -117,8 +117,8 @@ class GameController {
         if (isset($_SERVER['CONTENT_LENGTH']) &&
             (int) $_SERVER['CONTENT_LENGTH'] > 0) {
         
-            $gid = $_POST["gid"];
-            $pid = $_POST["pid"];
+            $gid = htmlspecialchars($_POST["gid"]);
+            $pid = htmlspecialchars($_POST["pid"]);
 
             $this->user_model->create_friendships($pid, $gid);
             $this->game_model->join_game($pid, $gid);

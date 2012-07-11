@@ -23,7 +23,7 @@ class UserModel {
 	public function persist_user($user) {
 
 		// insert user into database
-		$stmt = get_dao() -> prepare("insert into users (username, password, type, lastname, firstname) values (:username, :password, :type, :lastname, :firstname)");
+		$stmt = get_dao() -> prepare("insert into users (username, password, type, lastname, firstname) values (:username, :password, :type, :lastname, :firstname);");
 		$stmt -> bindParam(':username', $user -> username);
 		$stmt -> bindParam(':password', $user -> password);
 		$stmt -> bindParam(':type', $user -> permission);
@@ -32,9 +32,13 @@ class UserModel {
 		$stmt -> execute();
 
 		// set the uid for the current user
-		$stmt = get_dao() -> prepare("select uid from user where username = :username");
-		$stmt -> bindParam(':username', $username);
+		echo "fff";
+		$stmt = get_dao() -> prepare("select uid from users where username = :username;");
+		echo "ggg";
+		$stmt -> bindParam(':username', $user->username);
+		echo "hhh";
 		if ($stmt->execute()) {
+			echo "iii";
 			$row = $stmt -> fetch();
 			$user ->uid = $row["uid"];
 		}
