@@ -45,6 +45,22 @@ class UserModel {
 
 	}
 
+	/*
+	 * 
+	 * */
+	public function check_username($username){
+		
+		$stmt = get_dao() -> prepare("select * from users where username = :username;");
+		$stmt -> bindParam(":username", $username);
+		
+		if ($stmt->execute()) {
+			$row = $stmt->fetch();
+			if (isset($row["uid"])){
+				return FALSE;
+			}
+		}
+	}
+	
 	/**
 	 * get a user by its user id
 	 */
