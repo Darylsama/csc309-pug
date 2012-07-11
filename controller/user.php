@@ -35,8 +35,8 @@ class UserController {
 		if (isset($_POST["username"]) && isset($_POST["password"])) {
 			// user submitted login information
 
-			$username = $_POST["username"];
-			$password = $_POST["password"];
+			$username = htmlspecialchars($_POST["username"]);
+			$password = htmlspecialchars($_POST["password"]);
 
 			$user = $this->user_model->get_user($username, $password);
 
@@ -78,12 +78,15 @@ class UserController {
             $uid = 0;
             // new user uses 0 as uid
 			// another id will be generated for the user when this instance is persisted
-            $username = $_POST["username"];
-            $password = $_POST["password"];
+			echo "aaa";
+            $username = htmlspecialchars($_POST["username"]);
+			echo "bbb";
+            $password = htmlspecialchars($_POST["password"]);
             $permission = 1;
-            $firstname = $_POST["firstname"];
-            $lastname = $_POST["lastname"];
-
+            $firstname = htmlspecialchars($_POST["firstname"]);
+            $lastname = htmlspecialchars($_POST["lastname"]);
+			echo "ccc";
+			
             $user = $this->user_model->create_user(
                 $uid, 
                 $username,
@@ -92,9 +95,9 @@ class UserController {
                 $firstname,
                 $lastname
             );
-			
+			echo "ddd";
 			$this->user_model->persist_user($user);
-			
+			echo "eee";
 			// redirect user to the login page
 			// can be handled better
 			include "login.php";
