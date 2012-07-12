@@ -5,48 +5,60 @@
     <?php include "view/sidebar.php" ?>
 
 
-    <div class="span10">
-      <?php echo $this->page["game"]->name; ?>
-      <br />
-      <?php echo $this->page["game"]->sport->name; ?>
-      <br />
+    <div class="span4">
+      <h1>
+        <?php echo $this->page["game"]->name; ?> (<?php echo $this->page["game"]->sport->name; ?>)
+      </h1>
+      <br /> <span><?php echo $this->page["game"]->organizer->username; ?> @ <?php echo $this->page["game"]->creation; ?>
+      </span> <br /> <br />
+
       <?php echo $this->page["game"]->desc; ?>
-      <br />
-      <?php echo $this->page["game"]->organizer->username; ?>
-      <br />
-      <?php echo $this->page["game"]->creation; ?>
       <br />
       <hr />
 
 
       <?php if ($this->page["status"] == 0) { ?>
+      
       <!-- current user is the organizer for this game -->
       <span class="label label-success">You are the organizer for this game.</span>
 
-      <h4>Here's a list of players that are interested in this game</h4>
-      <form id="select-form" method="post" action="select_player.php"
-        name="part">
-        <ul>
+      <!-- players who are interested in playing this game -->
+      <?php if (count($this->page["interested_players"]) > 0) { ?>
+      <form id="select-form" method="post" action="select_player.php" name="part">
+        <ul class="nav nav-list">
+        <li class="nav-header">Awesome players who expressed their interest in this game</li>
+          
           <?php foreach ($this->page["interested_players"] as $player) { ?>
-          <li><?php echo $player->username ?><input
-            id="<?php echo $player->uid ?>" type="button"
-            class="btn btn-mini select-player" value="Select" />
+          <li>
+             <a href="#" id="<?php echo $player->uid ?>" class="select-player"><?php echo $player->username ?></a>
           </li>
           <?php } ?>
+          
+          <!-- consider using session storing application state? -->
+          <input name="gid" type="hidden"
+            value="<?php echo $this->page["game"]->gid; ?>" />
+          <input id="uid-field" name="pid" type="hidden" value="" />
+        
         </ul>
-        <input name="gid" type="hidden"
-          value="<?php echo $this->page["game"]->gid; ?>" /> <input
-          id="uid-field" name="pid" type="hidden" value="" />
       </form>
-
-      <h4>Here's a list of players that will be participating this game</h4>
-      <ul>
-        <?php foreach ($this->page["selected_players"] as $player) { ?>
-        <li><?php echo $player->username ?></li>
-        <?php } ?>
+      <?php } ?>
+      
+      <!-- players who will be participating this game -->
+      <?php if (count($this->page["selected_players"]) > 0) { ?>
+      <ul class="nav nav-list">
+          <li class="nav-header">Awesome players who will be participating this game</li>
+          <?php foreach ($this->page["selected_players"] as $player) { ?>
+          <li>
+              <a href="#" id="<?php echo $player->uid ?>"><?php echo $player->username ?></a>
+          </li>
+          <?php } ?>
       </ul>
+      <?php } ?>
+      
+      
 
       <?php } else if ($this->page["status"] == 1) {?>
+      
       <!-- current user is not interested in the game -->
       <form method="post" action="express_interest.php" name="interest">
         <input name="gid" type="hidden"
@@ -54,21 +66,27 @@
           type="submit" class="btn btn-primary" value="Express Interest" />
       </form>
 
-
-
       <?php } else if ($this->page["status"] == 2) {?>
       <!-- current user is interested in the game -->
-      <span class="label label-success">You have expressed interest in this
-        game.</span>
+      <span class="label label-success">You have expressed interest in this game.</span>
 
-
-
+      
+      
       <?php } else if ($this->page["status"] == 3) { ?>
+      
       <!-- current user is selected in the game -->
-      <span class="label label-success">Congradulations, you have been selected
-        to participate in this game</span>
+      <span class="label label-success">Congradulations, you have been selected to participate in this game</span>
+      <ul class="nav nav-list">
+      <li class="nav-header">Other participating players</li>
+      <?php foreach ($this->page["selected_players"] as $player) { ?>
+        <li>
+          <a href="#" id="<?php echo $player->uid ?>"><?php echo $player->username ?></a>
+        </li>
       <?php } ?>
-
+      </ul>
+          
+          
+      <?php } ?>
     </div>
   </div>
 </div>

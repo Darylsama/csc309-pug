@@ -3,10 +3,13 @@
  */
 function select_user() {
 
-	$.each($(".select-player"), function(index, sbutton) {
-		$(sbutton).click(function(event) {
+	$.each($(".select-player"), function(index, sublink) {
+		$(sublink).click(function(event) {
 			$("#uid-field").val($(this).attr("id"));
 			$("#select-form").submit();
+			
+			// has to return false to suppress link default action
+			return false;
 		});
 	});
 }
