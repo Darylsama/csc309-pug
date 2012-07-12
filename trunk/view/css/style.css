@@ -1,6 +1,9 @@
 /* custom style sheet */
 
-/* using default css provided by the bootstrap */
-/* any custom styles defined in this file will override the default boostrap styles */
+/*
+using default css provided by the bootstrap
+any custom styles defined in this file will override the default boostrap styles
+uses relative path with respect to THIS FILE since the style sheets are requested separated than the php scripts 
+*/
 @import url(../../assets/css/bootstrap.css);
 @import url(../../assets/css/bootstrap-responsive.css);
