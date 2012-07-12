@@ -86,6 +86,8 @@ class GameController {
         // a list of interested players
         $interested_players = $this->game_model->get_interested_players($gid);
         $this->page["interested_players"] = $interested_players;
+        // var_dump($interested_players);
+        // die();        
         
         // a list of selected players
         $selected_players = $this->game_model->get_selected_players($gid);

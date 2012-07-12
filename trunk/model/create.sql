@@ -61,7 +61,8 @@ DROP TABLE IF EXISTS `mydb`.`friendship` ;
 
 CREATE  TABLE IF NOT EXISTS `mydb`.`friendship` (
   `uid1` INT NOT NULL ,
-  `uid2` INT NOT NULL )
+  `uid2` INT NOT NULL ,
+  PRIMARY KEY (`uid1`, `uid2`) )
 ENGINE = InnoDB;
 
 

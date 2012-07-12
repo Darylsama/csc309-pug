@@ -148,47 +148,86 @@ class UserModel {
 		return false;
 	}
 	
-	
+	/**
+	 * should be really called "are_friends"
+	 * @param unknown_type $uid1
+	 * @param unknown_type $uid2
+	 */
 	public function is_friend($uid1, $uid2){
+	    
 		$stmt = get_dao() -> prepare("select * from friendship where (uid1 = :uid1 and uid2 = :uid2) or (uid1 = :uid2 and uid2 = :uid1);"); 
 		$stmt -> bindParam(":uid1", $uid1);
 		$stmt -> bindParam(":uid2", $uid2);
-		if ($stmt -> execute()){
-			$friendship = $stmt -> fetch();
-			if (strlen($friendship["uid1"]) != 0){
-				return TRUE;
-			}
-			else{
-				return FALSE;
-			}
+		
+		if ($stmt -> execute()) {
+		    $resultset = $stmt -> fetch();
+			return isset($resultset) ? true : false;
 		}
 		
 	}
 	
-	public function create_friendships($uid, $gid){
-		$stmt = get_dao() -> prepare("select uid from matches where gid = :gid and selected = 1;");
-		$stmt -> bindParam(":gid", $gid);
-		
-		if($stmt -> execute()){
-			$row = $stmt -> fetch();
-			$player = $row["uid"];
-			while (strlen($player) != 0){
-				if (! $this->is_friend($uid, $player)) {
-					//two users are not friends before
-					
-					$stmt2 = get_dao() -> prepare("insert into friendship (uid1, uid2) values (:uid1, :uid2);");
-					$stmt2 -> bindParam(":uid1", $uid);
-					$stmt2 -> bindParam(":uid2", $player);
-						
-					$stmt2->execute();
-					$row = $stmt -> fetch();
-					$player = $row["uid"];
-				}
-			} 
-			
-			
+	
+	/**
+	 * be-friend a user with all other user as well as the game organizer who will be participating in a pick-up game
+	 * need to be breaked up
+	 * @param int $uid the user to be selected
+	 * @param int $gid the game the user will be participating
+	 */
+	public function create_friendships($uid, $gid) {
+	    
+	    // new friendships to be added
+	    $new_friendships = array();
+	    
+	    // get all participating players in the same game
+		$stmt_get_players = get_dao() -> prepare("select uid from matches where gid = :gid and selected = 1;");
+		$stmt_get_players -> bindParam(":gid", $gid);
+		if ($stmt_get_players -> execute()) {
+		    while (($row = $stmt_get_players -> fetch()) != null) {
+		        // keeping the friendship diagnol
+		        $new_friendships[] = array($row["uid"], $uid);
+		        $new_friendships[] = array($uid, $row["uid"]);
+		    }
 		}
 		
+		// var_dump($new_friendships);
+		
+		// get the organizer for the current game
+		$stmt_get_organizer = get_dao() -> prepare("select organizer from games where gid = :gid");
+		$stmt_get_organizer -> bindParam(":gid", $gid);
+		if ($stmt_get_organizer -> execute()) {
+		    if (($row = $stmt_get_organizer -> fetch()) != null) {
+		        // keeping the friendship diagnol
+		        $new_friendships[] = array($row["organizer"], $uid);
+		        $new_friendships[] = array($uid, $row["organizer"]);
+		    }
+		}
+		
+		// var_dump($new_friendships);
+
+		// NUMBER OF new friendships to create
+		$no_friendships = count($new_friendships);
+		
+		// dynamic build query.
+		// using ignore keyword to skip insertion if there're exisitng friendships that's equivalent newer friendhsips 
+		$sql = "insert ignore into friendship (uid1, uid2) values ";
+		for ($i = 0; $i < $no_friendships; $i++) {
+		    
+            // must fetch friendship uids outside of php quotes
+            // php will ignore the second index and treat it as "[0]" or "[1]"
+		    $uid1 = $new_friendships[$i][0];
+		    $uid2 = $new_friendships[$i][1];
+
+		    // append the values to the query
+		    $sql .= "($uid1, $uid2)";
+
+		    // append value separator if it's not the last element
+		    $sql .= ($i != $no_friendships - 1) ? ", " : ";";
+		}
+		
+		// var_dump($sql);
+		
+		// finall execute the statement
+		get_dao() -> prepare($sql) -> execute();
 	}
 	
 	public function get_friends($uid) {
@@ -361,7 +400,7 @@ class GameModel {
 	}
 
 	/**
-	 *
+	 * return a g
 	 */
 	public function get_game($gid) {
 
@@ -461,6 +500,11 @@ class GameModel {
 		}
 	}
 	
+	/**
+	 * let a player express interest in a game
+	 * @param unknown_type $user
+	 * @param unknown_type $gid
+	 */
 	public function express_interest($user, $gid) {
 	    
 	    $stmt = get_dao() -> prepare("insert into matches (uid, gid, selected) values (:uid, :gid, false)");
@@ -469,6 +513,11 @@ class GameModel {
 	    $stmt -> execute();
 	}
 	
+	/**
+	 * let a player with $uid join a game with $gid
+	 * @param unknown_type $uid
+	 * @param unknown_type $gid
+	 */
 	public function join_game($uid, $gid) {
 	    
         $stmt = get_dao() -> prepare("update matches set selected = true where uid = :uid and gid = :gid");
