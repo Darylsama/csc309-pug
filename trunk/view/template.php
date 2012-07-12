@@ -15,14 +15,20 @@
     <meta name="author" content="xiang, yang, daryl">
 
     <!-- Le styles -->
-    <link href="assets/css/bootstrap.css" rel="stylesheet">
+    <link href="view/css/style.css" rel="stylesheet">
     <style>
         body {
             padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
         }
     </style>
-    <link href="assets/css/bootstrap-responsive.css" rel="stylesheet">
-
+    
+    <!-- custom css code for individual page -->
+    <?php if (isset($this->page["css"])) { ?>
+    <?php foreach ($this->page["css"] as $css_filename) { ?>
+    <link href="<?php echo $css_filename; ?>" rel="stylesheet">
+    <?php } ?>
+    <?php }?>
+    
     <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
