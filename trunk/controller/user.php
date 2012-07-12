@@ -103,9 +103,7 @@ class UserController {
                 	$firstname,
                 	$lastname
             	);
-				echo "ddd";
 				$this->user_model->persist_user($user);
-				echo "eee";
 				// redirect user to the login page
 				// can be handled better
 				include "login.php";
