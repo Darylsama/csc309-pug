@@ -6,22 +6,9 @@
 
     <div class="span10">
 
-		<?php echo $this->page["user"]->username; ?>
-		<br/>
-		<br/>
-		<?php 
-			echo "The average rates as a player:<br/>";
-			if (isset($this->page["rating"])){
-				
-				echo $this->page["rating"];
-			}		
-			else{
-				echo "This user hasn't been rated as users by other users yet.";
-			}
-		?>
-		<br/>
-		<br/>
+		<h2><?php echo $this->page["user"]->username; ?></h2>
 		
+		<hr />
 		<table>
         	<thead>
         		<tr><?php echo "Joined game list:<br/>"?></tr>
@@ -68,6 +55,19 @@
 		</table>
 		<br/>
 		<br/>
+		
+		<hr />
+		<?php 
+			echo "The average rates as a player:<br/>";
+			if (isset($this->page["rating"])){
+				
+				echo $this->page["rating"];
+			}		
+			else{
+				echo "This user hasn't been rated as users by other users yet.";
+			}
+		?>
+		
 		<?php echo "You can not give this user any rate until you two become friend."?>
       
       
