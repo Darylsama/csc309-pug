@@ -8,7 +8,14 @@ $user = get_loggedin_user();
 
 include_once("controller/user.php");
 
-$user_controller = new UserController();
-$user_controller->invoke_login();
+if (isset($user)) {
+    // redirect the user if he/she had already logged in    
+    
+    header("Location: profile.php");
+} else {
+
+    $user_controller = new UserController();
+    $user_controller->invoke_login();
+}
 
 ?>
