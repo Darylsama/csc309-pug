@@ -5,7 +5,7 @@
     <?php include "view/sidebar.php"?>
 
     <!-- register form -->
-    <div class="span4 hero-unit">
+    <div class="span6 hero-unit">
       <form method="post" action="new_game.php" name="create_game"
         class="form-horizontal">
         <fieldset>
