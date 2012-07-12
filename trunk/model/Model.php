@@ -32,13 +32,13 @@ class UserModel {
 		$stmt -> execute();
 
 		// set the uid for the current user
-		echo "fff";
+		
 		$stmt = get_dao() -> prepare("select uid from users where username = :username;");
-		echo "ggg";
+		
 		$stmt -> bindParam(':username', $user->username);
-		echo "hhh";
+		
 		if ($stmt->execute()) {
-			echo "iii";
+		
 			$row = $stmt -> fetch();
 			$user ->uid = $row["uid"];
 		}
@@ -48,7 +48,7 @@ class UserModel {
 	/*
 	 * 
 	 * */
-	public function check_username($username){
+	public function username_exist($username){
 		
 		$stmt = get_dao() -> prepare("select * from users where username = :username;");
 		$stmt -> bindParam(":username", $username);
@@ -56,6 +56,9 @@ class UserModel {
 		if ($stmt->execute()) {
 			$row = $stmt->fetch();
 			if (isset($row["uid"])){
+				return TRUE;
+			}
+			else {
 				return FALSE;
 			}
 		}

@@ -7,7 +7,15 @@
 
 
 		<!-- register form -->
-		<div class="span4 hero-unit">
+		<div class="span6 hero-unit">
+			<?php 
+				if (isset($this->page["err"])){
+					echo "<div class='alert alert-error'>";
+					echo $this->page["err"];
+					echo  "</div>";
+				}
+				
+			?>
 			<form method="post" action="register.php" name="register" class="form-horizontal">
 				<fieldset>
 
