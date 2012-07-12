@@ -7,13 +7,6 @@
     <div class="span10">
         
         
-      <ul class="nav nav-tabs">
-        <li class="active">
-          <a href="#">Profile</a>
-        </li>
-      </ul>
-      
-      
       <h2><?php echo get_loggedin_user() -> username; ?></h2>
       <hr />
       
