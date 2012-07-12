@@ -78,29 +78,38 @@ class UserController {
             $uid = 0;
             // new user uses 0 as uid
 			// another id will be generated for the user when this instance is persisted
-			echo "aaa";
-            $username = htmlspecialchars($_POST["username"]);
-			echo "bbb";
-            $password = htmlspecialchars($_POST["password"]);
-            $permission = 1;
-            $firstname = htmlspecialchars($_POST["firstname"]);
-            $lastname = htmlspecialchars($_POST["lastname"]);
-			echo "ccc";
 			
-            $user = $this->user_model->create_user(
-                $uid, 
-                $username,
-                $password, 
-                $permission, 
-                $firstname,
-                $lastname
-            );
-			echo "ddd";
-			$this->user_model->persist_user($user);
-			echo "eee";
-			// redirect user to the login page
-			// can be handled better
-			include "login.php";
+            $username = htmlspecialchars($_POST["username"]);
+			if ($this->user_model->username_exist($username)){
+				$this->page["page"] = "view/register_page.php";
+				$this->page["title"] = "Register";
+				$this->page["err"] = "the user name already exist, please choose anthor username";
+				include "view/template.php";
+			}
+			
+			else {
+				
+            	$password = htmlspecialchars($_POST["password"]);
+            	$permission = 1;
+            	$firstname = htmlspecialchars($_POST["firstname"]);
+            	$lastname = htmlspecialchars($_POST["lastname"]);
+		
+			
+            	$user = $this->user_model->create_user(
+               		$uid, 
+                	$username,
+                	$password, 
+                	$permission, 
+                	$firstname,
+                	$lastname
+            	);
+				echo "ddd";
+				$this->user_model->persist_user($user);
+				echo "eee";
+				// redirect user to the login page
+				// can be handled better
+				include "login.php";
+			}
 
 		} else {
 		    
