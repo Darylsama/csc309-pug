@@ -5,7 +5,7 @@ session_start();
 $user = get_loggedin_user();
 
 
-if (isset($user) && $user -> permission = 2) {
+if (isset($user) && $user -> permission == 2) {
     // if the user is currently logged in
 
     include_once("controller/admin.php");
