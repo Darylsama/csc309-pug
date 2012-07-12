@@ -4,6 +4,20 @@ $current_page = basename($_SERVER["PHP_SELF"], ".php");
 
 <div class="span2">
   <ul class="nav nav-pills nav-stacked">
+
+    <?php if (get_loggedin_user() -> permission == 2) { ?>
+    <!-- user control panel, for admin users only -->
+    <li
+    <?php echo ($current_page == "admin_dashboard") ? 'class="active"' : ""; ?>>
+      <a href="admin_dashboard.php" >Administrivia</a>
+    </li>
+    <?php } ?>
+    
+    <li
+    <?php echo ($current_page == "profile") ? 'class="active"' : ""; ?>>
+      <a href="profile.php"> Profile </a>
+    </li>
+  
   
     <li
     <?php echo ($current_page == "new_game") ? 'class="active"' : ""; ?>>
