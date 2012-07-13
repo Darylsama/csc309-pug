@@ -133,6 +133,10 @@ class UserController {
 	}
 	
 	
+	/** 
+	 * invokes the list user handler
+	 * called by list_user.php
+	 */
 	public function invoke_list_users() {
 		$uid = get_loggedin_user()->uid;
 		$this->page["page"] = "view/list_user_page.php";
@@ -144,7 +148,10 @@ class UserController {
 	}
 	
 	
-	
+	/**
+	 *  invokes the view user handers 
+	 *  called by view_user.php
+	 */
 	public function invoke_view_user() {
 		
 		$userid1 = get_loggedin_user()->uid;
