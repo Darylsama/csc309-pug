@@ -33,15 +33,50 @@ class AdminController {
          include "view/template.php";
     }
 	
+	public function invoke_view_sports() {
+		$user = get_loggedin_user();
+		if ($user -> type != 2) {
+			$this -> page["err"] = "You are not the admin user so use do not have the privilege to use this functionality.";
+		}
+		else {
+			$this->page["page"] = "view/admin_dashboard_page.php";
+			$this -> page["sports"] = $sport_model->get_all_sports();
+			$this->page["title"] = "Dashboard";
+			include "view/template.php";
+		}
+		
+	}
+	
+
+	
 	public function invoke_add_sport() {
-		if (isset($_SERVER['CONTENT_LENGTH']) &&
+		$user = get_loggedin_user();
+		if ($user -> type != 2) {
+			$this->page["err"] = "You are not the admin user so use do not have the privilege to use this functionality.";	
+		}
+		
+		else if (isset($_SERVER['CONTENT_LENGTH']) &&
 			(int) $_SERVER['CONTENT_LENGTH'] > 0) {
 			$sportsname = htmlspecialchars($_POST["sportsname"]);
 			$description = htmlspecialchars($_POST["description"]);
 			
-			$sports = $this->sport_model->create_sport(0, $sportsname, $description);
-			$sports = $this->sport_model->persist_sport($sport);
-			
+			if (! isset($sportsname)){
+				$this->page["err"] = "Please give the name of the sport you want to create.";
+			} 
+			else if (! isset($description)){
+				$this->page["err"] = "Please give the description of this sport.";
+			}
+			else if (strlen($sportsname) > 64) {
+				$this->page["err"] = "The length of the name should be less then 64 characters.";
+			}
+			else if (strlen($description) > 1024){
+				$this->page["err"] = "The length of the description should be less then 1024 characters.";
+			}
+			else if ((strlen($description) <= 1024) && strlen($sportsname) <=64 ) {
+						
+				$sports = $this->sport_model->create_sport(0, $sportsname, $description);
+				$this->sport_model->persist_sport($sports);
+			}
 			
 		}
 			
@@ -53,6 +88,7 @@ class AdminController {
 		}
 		
 	}
+	
 		
 		
 	
