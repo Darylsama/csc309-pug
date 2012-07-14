@@ -5,7 +5,8 @@
     <?php include "view/sidebar.php" ?>
     
     <div class="span10">
-    testing
+    	
+   
     </div>
   </div>
 </div>
