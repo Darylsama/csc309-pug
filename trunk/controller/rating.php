@@ -43,7 +43,7 @@ class RatingController {
 			$rater = get_loggedin_user();
 			
 			// how to determine value is int?
-			if ((! is_int($value)) || $value>10 || $value<0){
+			if ((! is_int($value)) || $value>5 || $value<0){
 				$this->page["page"] = "";
 				$this->page["title"] ="";
 				$this->page["err"]= "the value should be an int between 0 and 10.";
@@ -95,9 +95,8 @@ class RatingController {
 			$value = intval(htmlspecialchars($_POST["value"]));
 			$comment = "";// set comment to be empty as default, will implement later
 			$rater = get_loggedin_user();
-			
 			// how to determine value is int?
-			if ((! is_int($value)) || $value>10 || $value<0){
+			if ((! is_int($value)) || $value>5 || $value<0){
 				$this->page["page"] = "";
 				$this->page["title"] ="";
 				$this->page["err"]= "the value should be an int between 0 and 10.";
@@ -105,6 +104,7 @@ class RatingController {
 			}
 			
 			// the comment shouldn't more than 1024 characters
+			// the comment function will be imp
 			elseif (strlen($comment) > 1024){
 				$this->page["page"] = "";
 				$this->page["title"] ="";

@@ -109,7 +109,7 @@
                 <option><?php echo $i ?></option>
                 <?php } ?>
             </select>
-			<input type="hidden" name="ratee" value="<?php $this->page["user"]->uid ?>" />
+			<input type="hidden" name="ratee" value="<?php echo $this->page["user"]->uid; ?>" />
 			<input type="button" value="submit" onClick="submit()"/>
 		    </form>
 		<?php } ?>
