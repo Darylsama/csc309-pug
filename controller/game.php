@@ -2,11 +2,18 @@
 
 include_once("model/Model.php");
 
+/**
+ * game controller
+ * encapsulate actions related to the game entity
+ */
 class GameController {
 
+	// model objects
     private $game_model;
     private $sport_model;
 	private $user_model;
+	
+	// page array, used to encapsulate some page data
     private $page;
 
     public function __construct() {
@@ -17,8 +24,14 @@ class GameController {
         $page = array();
     }
 
+	/*
+	 * invokes the list game called 
+	 * by list_games.php and set the
+	 * detail content of page for list_games_page.php
+	 * */
     public function invoke_list_games() {
-
+		
+		// set games to be an array of game object that use their gid as the key
         $games = $this->game_model->get_all_games();
 
         $this->page["page"] = "view/list_games_page.php";
@@ -32,6 +45,8 @@ class GameController {
 
     /**
      * handler for creating a new game
+	 * can called by new_game.php
+	 * should create a checking function
      */
     public function invoke_new_game() {
 
@@ -44,14 +59,16 @@ class GameController {
             $creation = date("Y-m-d");
             $sport = htmlspecialchars($_POST["sport"]);
             $description = htmlspecialchars($_POST["description"]);
-
+			
+			// set the gid to be 0 as default
             $game = $this->game_model->create_game($gid, $name, $organizer, $creation, $sport, $description);
+            // another id will be generated automatically by mysql for the game when this instance is persisted
             $this->game_model->persist_game($game);
 
             header("Location: view_game.php?gid=" . $game->gid);
 
-        } else {
-
+        } else {	// the client dosen't send anything, so stay on this page
+			
             $this->page["page"] = "view/create_game_page.php";
             $this->page["title"] = "Create New Game";
 
@@ -66,6 +83,7 @@ class GameController {
 
     /**
      * invoked when the user opened the view game page
+	 * and set the detail content of page for view_game_page.php
      */
     public function invoke_view_game() {
 
@@ -98,6 +116,8 @@ class GameController {
 
     /**
      * invoke this when a user express interest for a particular game
+	 * and wait for being selected by the organizer
+	 * need to write the checking method to verify the parameters given by the client later
      */
     public function invoke_interest() {
 
@@ -113,6 +133,7 @@ class GameController {
     
     /**
      * invoked this when a game organizer select a player to participate in a game
+	 * need to write the checking method to verify the parameters given by the client later
      */
     public function invoke_select_player() {
         
@@ -121,7 +142,8 @@ class GameController {
         
             $gid = htmlspecialchars($_POST["gid"]);
             $pid = htmlspecialchars($_POST["pid"]);
-
+			
+			// all other users in this game before become a friend of this user
             $this->user_model->create_friendships($pid, $gid);
             $this->game_model->join_game($pid, $gid);
 
