@@ -32,6 +32,30 @@ class AdminController {
          
          include "view/template.php";
     }
+	
+	public function invoke_add_sport() {
+		if (isset($_SERVER['CONTENT_LENGTH']) &&
+			(int) $_SERVER['CONTENT_LENGTH'] > 0) {
+			$sportsname = htmlspecialchars($_POST["sportsname"]);
+			$description = htmlspecialchars($_POST["description"]);
+			
+			$sports = $this->sport_model->create_sport(0, $sportsname, $description);
+			$sports = $this->sport_model->persist_sport($sport);
+			
+			
+		}
+			
+		else {
+			$this->page["page"] = "view/admin_dashboard_page.php";
+			$this->page["title"] = "Dashboard";
+			include "view/template.php";
+			
+		}
+		
+	}
+		
+		
+	
     
 }
 
