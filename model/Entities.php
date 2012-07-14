@@ -60,7 +60,7 @@ class Game {
     public $gid; 	// unique id for game
     public $name;	// name of this game
     public $organizer;	//user id of the organizer of this game
-    public $creation;	//
+    public $creation;	//the date of this creation
     public $sport;		//the sport type of this game
     public $desc;		//description of this game
     
