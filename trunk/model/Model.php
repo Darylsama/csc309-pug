@@ -270,7 +270,7 @@ class UserModel {
 
 
 /**
- *
+ * encapsulate all sports related model operations
  */
 class SportModel {
 
@@ -298,6 +298,7 @@ class SportModel {
             $sport ->sid = $row["sid"];
         }
     }
+	
 
     /**
      * associate a sport for with a particualr user
@@ -681,7 +682,7 @@ class GameModel {
 
 
 /**
- * 
+ * encapsulate all ratings related model operations
  */
 class RatingModel {
 
@@ -706,11 +707,11 @@ class RatingModel {
         $stmt -> bindParam(':ratee', $rating -> ratee);
         $stmt -> bindParam(':value', $rating -> value);
         $stmt -> bindParam(':comment', $rating -> comment);
-        $stmt -> bindParam(':type', $rating -> type);
+  		$stmt -> bindParam(':type', $rating->type);
         $stmt -> bindParam(':time', $time);
         $stmt -> execute();
 
-        // set the id for the current rating
+	    // set the id for the current rating
         $stmt2 = get_dao() -> prepare("select rid from ratings where rater = :rater and ratee = :ratee and time = :time;");
         $stmt2 -> bindParam(':rater', $rating -> rater);
         $stmt2 -> bindParam(':ratee', $rating -> ratee);
