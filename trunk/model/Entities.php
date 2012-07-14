@@ -10,12 +10,11 @@
  */
 class User {
 
-    public $uid;
-    public $username;
-    public $password;
-    // password is apart of the entity because persist function uses it to save the user information into a database
-    public $permission;
-    public $firstname;
+    public $uid; 		//unique id for each user
+    public $username; 	//the username chosed by user, should be unique
+    public $password; 	// password is apart of the entity because persist function uses it to save the user information into a database
+    public $permission; // 1 is normal user and 2 is an admin
+    public $firstname; 
     public $lastname;
   
     public function __construct($uid, $username, $password, $permission, $firstname, $lastname) {
@@ -36,33 +35,34 @@ class User {
  */
 class Sport {
 	
-    public $sid;
-	public $name;
-	public $description;
+    public $sid;		//unique id for a sport entity
+	public $name;		//name of this sport
+	public $description;//the description of this sport
 	
 	public function __construct($sid, $name, $description) {
 		
-		$this->sid = $sid;
-		$this->name = $name;
-		$this->description = $description;
+		$this->sid = $sid; 		
+		$this->name = $name;	
+		$this->description = $description; 
 	}
 }
 
 
 /**
- * encapsulate the information found in a game
+ * game entity
+ * used to represent a game in this pick-up game system
  */
 class Game {
     
     
     // foreign keys: organizer: sport
     // consider constructing those as object 
-    public $gid;
-    public $name;
-    public $organizer;
-    public $creation;
-    public $sport;
-    public $desc;
+    public $gid; 	// unique id for game
+    public $name;	// name of this game
+    public $organizer;	//user id of the organizer of this game
+    public $creation;	//
+    public $sport;		//the sport type of this game
+    public $desc;		//description of this game
     
     public function __construct($gid, $name, $organizer, $creation, $sport, $desc) {
         
@@ -76,14 +76,18 @@ class Game {
 }
 
 
+/*
+ * rating entity 
+ * used to represent a rating object given by a rater to ratee
+ */
 class Rating {
 	
-	public $rid;
-	public $rater;
-	public $ratee;
-	public $value;
-	public $comment;
-	public $type;
+	public $rid;	//unique id for each rating entity
+	public $rater;	//user id of the rater
+	public $ratee;	//user id of the ratee
+	public $value;	//the value given by the rater to ratee
+	public $comment;//comment given by the rater to ratee
+	public $type;	//0 is the rating for ratee as organizer, 1 is the rating for ratee as player
 	
 	
 	public function __construct($rid, $rater, $ratee, $value, $comment, $type) {
@@ -100,17 +104,16 @@ class Rating {
 	
 }
 
-class Announcement {
-	
-}
-
-
+/*
+ * message entity 
+ * used to represent the message object sent by one user to another user
+ */
 class Messages {
 	
-	public $mid;
-	public $to;
-	public $from;
-	public $content;
+	public $mid;	//unique id for messages
+	public $to;		//the user id of the user this message is sent to
+	public $from;	//the user id of the user this message is sent by
+	public $content;//the content of this message
 	
 	public function __construct($mid, $to, $from, $content) {
 		
