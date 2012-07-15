@@ -201,6 +201,11 @@ class UserController {
 			//this user can rate this friend
 			$this->page["page"] = "view/view_friend_page.php";
 			$this->page["title"] = "User Information: friend";
+			$this->page["css"] = array("view/css/rating.css");
+			$this->page["js"] = array(
+                "view/js/rating.js",
+                "view/js/player_rating.js"
+            );
 			$uid = $userid2;
 			$this->page["user"] = $this->user_model->get_user_by_id($uid);
 			$this->page["player_rates"] = $this->rating_model->get_user_avg_rating($uid);

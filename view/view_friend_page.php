@@ -69,49 +69,65 @@
 
 		<h2>Ratings</h2>
 		
+	    <h3>Average Rating as Player: </h3>
 		<?php if (isset($this->page["player_rates"])){ ?>
-		    <span>The average rate of this user as a player: <?php echo $this->page["player_rates"];?> <br/></span>
+		<div class="player-rating-avg"
+	        data-ratee=""
+	        data-action=""
+	        data-value="<?php echo $this->page["player_rates"];?>"
+	        data-comment=""
+	        data-widget-style="0">
+        </div>
 		<?php } else {?>
-			<span>The average rate of thie user as a player:
 		    <div class='alert alert-info' style='width:600px;'> 
 			<button type='button' class='close' data-dismiss='alert'>&times;</button>
 			This user hasn't been rated as a player by other users yet.
 			</div>
 			</span>
 		<?php } ?>
+		
+		<h3>Your Rating for This Player: </h3>
 		<?php if ($this->page["rate_player_before"]) { ?>
-			<span>
-			<div class='alert alert-success' style='width:600px;' >
-			<button class='close' data-dismiss='alert'>&times;</button>
-			You have given rates to this friend as a player before
-			</div>
-			<br/>
-			</span>
+	    <!-- change this to actual rating? -->
+		<span>
+		<div class='alert alert-success' style='width:600px;' >
+		<button class='close' data-dismiss='alert'>&times;</button>
+		You have given rates to this friend as a player before
+		</div>
+		<br/>
+		</span>
 		<?php } else { ?>
-			<form name="myform" method="post" action="rate_friend_as_player.php?">
-			<select name="value">
-                <?php for ($i = 1; $i <= 5; $i++ ) { ?>
-                <option><?php echo $i ?></option>
-                <?php } ?>
-            </select>
-
-			<input type="hidden" name="ratee" value="<?php echo $this->page["user"]->uid; ?>" >
-			<input type="button" value="submit" onClick="submit()"/>
-			</form>
+		<div class="player-rating-user"
+	        data-ratee="<?php echo $this->page["user"]->uid; ?>"
+	        data-action="rate_friend_as_player.php"
+	        data-value="0"
+	        data-comment=""
+	        data-widget-style="2">
+	     </div>
 		<?php } ?>
 		
 		
-		
+	
+	    <h3>Average Rating as Organizer:</h3>
 		<?php if (isset($this->page["organizer_rates"])) { ?>
-		    <span>The average rates of this user as an organizer: <?php echo $this->page["organizer_rates"]; ?></span>
+		<div class="organizer-rating-avg"
+	        data-ratee=""
+	        data-action=""
+	        data-value="<?php echo $this->page["organizer_rates"]; ?>"
+	        data-comment=""
+	        data-widget-style="0">
+        </div>
 		<?php } else { ?>
-		    <span>The average rate of thie user as a player:
-		    <div class='alert alert-info' style='width:600px;'> 
-			<button type='button' class='close' data-dismiss='alert'>&times;</button>
-			This user hasn't been rated as an organizer by other users yet.
-			</div>
-			</span>
+		<!-- let the user be the first one rating this? -->
+	    <div class='alert alert-info' style='width:600px;'> 
+		<button type='button' class='close' data-dismiss='alert'>&times;</button>
+		This user hasn't been rated as an organizer by other users yet.
+		</div>
+		
+		</span>
 		<?php } ?>
+		
+		
 		<?php if (!$this->page["can_rate_organizer"]) { ?>
 			<span><div class='alert' style='width:600px;' >
 				<button class='close' data-dismiss='alert'>&times;</button>
@@ -120,23 +136,22 @@
 				<br/>
 			</span>
 		<?php } else if ($this->page["rate_organizer_before"]) { ?>
-			<span>
-			<div class='alert alert-success' style='width:600px;' >
-			<button class='close' data-dismiss='alert'>&times;</button>
-			You have given rates to this friend as an organizer before
-			</div>
-			<br/>
-			</span>
+		<!-- change this to actual rating? -->
+		<span>
+		<div class='alert alert-success' style='width:600px;' >
+		<button class='close' data-dismiss='alert'>&times;</button>
+		You have given rates to this friend as an organizer before
+		</div>
+		<br/>
+		</span>
 		<?php } else { ?>
-			<form name="myform" method="POST" action="rate_friend_as_organizer.php?">
-			<select name="value">
-                <?php for ($i = 1; $i <= 5; $i++ ) { ?>
-                <option><?php echo $i ?></option>
-                <?php } ?>
-            </select>
-			<input type="hidden" name="ratee" value="<?php echo $this->page["user"]->uid; ?>" />
-			<input type="button" value="submit" onClick="submit()"/>
-		    </form>
+		<div class="organizer-rating-user"
+	        data-ratee="<?php echo $this->page["user"]->uid; ?>"
+	        data-action="rate_friend_as_organizer.php?"
+	        data-value="0"
+	        data-comment=""
+	        data-widget-style="2">
+	    </div>
 		<?php } ?>
 
 		

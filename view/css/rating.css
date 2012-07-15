@@ -1,0 +1,48 @@
+/*
+courtesy of webdesigntut
+http://webdesign.tutsplus.com/tutorials/htmlcss-tutorials/quick-tip-create-a-rating-system-with-css-web-fonts-and-sprites/
+*/
+
+/* change class to "rated" to show a full star */
+/* change class to "half-rated" to show a half star */
+/* remove class to show no star */
+
+.rating-w-images li {
+    list-style: none;
+    margin: 0px;
+    padding: 0px;
+    display:inline;
+}
+
+.rating-w-images {
+    list-style: none;
+    margin: 0px;
+    padding: 0px;
+    display:inline;
+}
+
+.rating-label {
+	font-size:20px;
+}
+
+.rating-w-images li {
+
+    list-style: none;
+    margin: -2px;
+    padding: 0px;
+    border: none;
+    outline: none;
+    
+    width: 24px;
+    height: 30px;
+    
+    background: transparent url('../img/sprites.png') no-repeat -54px 0;
+    display: inline-block;
+    
+    cursor: pointer;
+}
+
+.rating-w-images li.rated { background-position: 0 0; }
+    
+.rating-w-images li.half-rated { background-position: -27px 0; }
+
