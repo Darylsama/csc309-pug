@@ -70,13 +70,23 @@
 		<h2>Ratings</h2>
 		
 		<?php if (isset($this->page["player_rates"])){ ?>
-		    <span>The average rate of this user as a player: <?php echo $this->page["player_rates"];?> </span>
+		    <span>The average rate of this user as a player: <?php echo $this->page["player_rates"];?> <br/></span>
 		<?php } else {?>
-		    <span>This user hasn't been rated as players by other users yet</span>
+			<span>The average rate of thie user as a player:
+		    <div class='alert alert-info' style='width:600px;'> 
+			<button type='button' class='close' data-dismiss='alert'>x</button>
+			This user hasn't been rated as a player by other users yet.
+			</div>
+			</span>
 		<?php } ?>
-		<br />
 		<?php if ($this->page["rate_player_before"]) { ?>
-			<span>You have given rates to this friend as a player before</span>
+			<span>
+			<div class='alert alert-success' style='width:600px;' >
+			<button class='close' data-dismiss='alert'>x</button>
+			You have given rates to this friend as a player before
+			</div>
+			<br/>
+			</span>
 		<?php } else { ?>
 			<form name="myform" method="post" action="rate_friend_as_player.php?">
 			<select name="value">
@@ -95,13 +105,28 @@
 		<?php if (isset($this->page["organizer_rates"])) { ?>
 		    <span>The average rates of this user as an organizer: <?php echo $this->page["organizer_rates"]; ?></span>
 		<?php } else { ?>
-		    <span>This user hasn't been rated as organizer yet</span>
+		    <span>The average rate of thie user as a player:
+		    <div class='alert alert-info' style='width:600px;'> 
+			<button type='button' class='close' data-dismiss='alert'>x</button>
+			This user hasn't been rated as an organizer by other users yet.
+			</div>
+			</span>
 		<?php } ?>
-		<br />
 		<?php if (!$this->page["can_rate_organizer"]) { ?>
-			<span>You can not rate this friend as an organizer untill you have joined a game organized by this friend</span>
+			<span><div class='alert' style='width:600px;' >
+				<button class='close' data-dismiss='alert'>x</button>
+				You can not give this user any rate until you join the game organized by this user before.
+				</div>
+				<br/>
+			</span>
 		<?php } else if ($this->page["rate_organizer_before"]) { ?>
-			<span>You have given rates to this friend as an organizer before</span>
+			<span>
+			<div class='alert alert-success' style='width:600px;' >
+			<button class='close' data-dismiss='alert'>x</button>
+			You have given rates to this friend as an organizer before
+			</div>
+			<br/>
+			</span>
 		<?php } else { ?>
 			<form name="myform" method="POST" action="rate_friend_as_organizer.php?">
 			<select name="value">
