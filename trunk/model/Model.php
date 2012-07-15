@@ -162,7 +162,7 @@ class UserModel {
 
         if ($stmt -> execute()) {
             $resultset = $stmt -> fetch();
-            return isset($resultset) ? true : false;
+            return isset($resultset["uid1"]) ? true : false;
         }
 
     }
