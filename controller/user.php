@@ -12,6 +12,7 @@ class UserController {
 	private $user_model;
 	private $sport_model;
 	private $rating_model;
+	private $game_model;
     
     // page array, used to encapsulate some page data
     private $page;
@@ -129,10 +130,19 @@ class UserController {
 	public function invoke_profile() {
 		
 		$user = get_loggedin_user();
+		$uid = $user->uid;
 		
         $this->page["page"] = "view/profile_page.php";
         $this->page["title"] = "Dashboard";
 		$this->page["current_sports"] = $this->sport_model->get_sports($user);
+		$this->page["organized_game"] = $this->game_model->get_games($this->user_model->get_user_by_id($uid));
+		$this->page["joined_game"] = $this->game_model->get_joined_games($uid);
+		$this->page["interested_game"] = $this->game_model->get_interested_games($uid);
+		$this->page["player_rates"] = $this->rating_model->get_user_avg_rating($uid);
+		$this->page["organizer_rates"] = $this->rating_model->get_organizer_avg_rating($uid);
+		
+		
+		
         include "view/template.php";
 	}
 	
@@ -158,6 +168,8 @@ class UserController {
 	 *  called by view_user.php.
 	 *  set the content of page for
 	 *  view_friend_page.php or view_user_page.php
+	 * 	set the details of contents of 
+	 *  view_friend_page or view_user_page 
 	 */
 	public function invoke_view_user() {
 		
@@ -166,16 +178,18 @@ class UserController {
 		$userid1 = get_loggedin_user()->uid;
 		$userid2 = $_GET["uid"];
 		
+
 		
 		if (! ($this->user_model->is_friend($userid1, $userid2))) {
 			//if not friend and only view some basic information
 			
+
 			$this->page["page"] = "view/view_user_page.php";
 			$this->page["title"] = "User Information";	
 			$uid = $userid2;
 			$this->page["user"] = $this->user_model->get_user_by_id($uid);
-			$this->page["rating"] = $this->rating_model->get_user_avg_rating($uid);
-			
+			$this->page["player_rating"] = $this->rating_model->get_user_avg_rating($uid);
+			$this->page["organizer_rates"] = $this->rating_model->get_organizer_avg_rating($uid);
 			$this->page["joined_game"] = $this->game_model->get_joined_games($uid);
 
 			$this->page["interested_game"] = $this->game_model->get_interested_games($uid);
@@ -185,7 +199,6 @@ class UserController {
 		else {
 			//if they're friends 
 			//this user can rate this friend
-			
 			$this->page["page"] = "view/view_friend_page.php";
 			$this->page["title"] = "User Information: friend";
 			$uid = $userid2;
