@@ -38,8 +38,7 @@ class RatingController {
 			// we must check the value is 1.int 2.0-10 both on client side using js and server side 
 			// js will play the main role, php as the second prevent
 			$value = intval(htmlspecialchars($_POST["value"]));
-			// $comment = htmlspecialchars($_POST["comment"]);
-			$comment = "";// set comment to be empty as default, will implement later
+			$comment = htmlspecialchars($_POST["comment"]);
 			$rater = get_loggedin_user();
 			
 			// how to determine value is int?
