@@ -59,17 +59,43 @@
 		<hr />
 		<?php 
 			echo "The average rates as a player:<br/>";
-			if (isset($this->page["rating"])){
-				
-				echo $this->page["rating"];
+			if (isset($this->page["player_rating"])){
+				echo $this->page["player_rating"];
+				echo "<br/>";
 			}		
 			else{
-				echo "This user hasn't been rated as users by other users yet.";
+				echo "<div class='alert alert-info' style='width:600px;'>" .
+						"<button type='button' class='close' data-dismiss='alert'>x</button>" .
+						"This user hasn't been rated as a player by other users yet." .
+						"</div>" .
+						"<br/>";
 			}
 		?>
+		<?php echo "<div class='alert' style='width:600px;'> " .
+				"<button class='close' data-dismiss='alert'>x</button>" .
+				"You can not give this user any rate until you two become friend." .
+				"</div>" .
+				"<br/>"?>
 		
-		<?php echo "You can not give this user any rate until you two become friend."?>
-      
+		<?php 
+			echo "The average rates as an organizer:<br/>";
+			if (isset($this->page["organizer_rating"])){
+				echo $this->page["organzier_rating"];
+				echo "<br/>";
+			}		
+			else{
+				echo "<div class='alert alert-info' style='width:600px;'>" .
+						"<button type='button' class='close' data-dismiss='alert'>x</button>" .
+						"This user hasn't been rated as an organizer by other users yet." .
+						"</div>" .
+						"<br/>";
+			}
+		?>
+		<?php echo "<div class='alert' style='width:600px;' > " .
+				"<button class='close' data-dismiss='alert'>x</button>" .
+				"You can not give this user any rate until you join the game organized by this user before." .
+				"</div>" .
+				"<br/>"?>
       
 
     </div>
