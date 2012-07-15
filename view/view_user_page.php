@@ -65,14 +65,14 @@
 			}		
 			else{
 				echo "<div class='alert alert-info' style='width:600px;'>" .
-						"<button type='button' class='close' data-dismiss='alert'>x</button>" .
+						"<button type='button' class='close' data-dismiss='alert'>&times;</button>" .
 						"This user hasn't been rated as a player by other users yet." .
 						"</div>" .
 						"<br/>";
 			}
 		?>
 		<?php echo "<div class='alert' style='width:600px;'> " .
-				"<button class='close' data-dismiss='alert'>x</button>" .
+				"<button class='close' data-dismiss='alert'>&times;</button>" .
 				"You can not give this user any rate until you two become friend." .
 				"</div>" .
 				"<br/>"?>
@@ -85,14 +85,14 @@
 			}		
 			else{
 				echo "<div class='alert alert-info' style='width:600px;'>" .
-						"<button type='button' class='close' data-dismiss='alert'>x</button>" .
+						"<button type='button' class='close' data-dismiss='alert'>&times;</button>" .
 						"This user hasn't been rated as an organizer by other users yet." .
 						"</div>" .
 						"<br/>";
 			}
 		?>
 		<?php echo "<div class='alert' style='width:600px;' > " .
-				"<button class='close' data-dismiss='alert'>x</button>" .
+				"<button class='close' data-dismiss='alert'>&times;</button>" .
 				"You can not give this user any rate until you join the game organized by this user before." .
 				"</div>" .
 				"<br/>"?>
