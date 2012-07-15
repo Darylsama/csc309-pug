@@ -74,7 +74,7 @@
 		<?php } else {?>
 			<span>The average rate of thie user as a player:
 		    <div class='alert alert-info' style='width:600px;'> 
-			<button type='button' class='close' data-dismiss='alert'>x</button>
+			<button type='button' class='close' data-dismiss='alert'>&times;</button>
 			This user hasn't been rated as a player by other users yet.
 			</div>
 			</span>
@@ -82,7 +82,7 @@
 		<?php if ($this->page["rate_player_before"]) { ?>
 			<span>
 			<div class='alert alert-success' style='width:600px;' >
-			<button class='close' data-dismiss='alert'>x</button>
+			<button class='close' data-dismiss='alert'>&times;</button>
 			You have given rates to this friend as a player before
 			</div>
 			<br/>
@@ -107,14 +107,14 @@
 		<?php } else { ?>
 		    <span>The average rate of thie user as a player:
 		    <div class='alert alert-info' style='width:600px;'> 
-			<button type='button' class='close' data-dismiss='alert'>x</button>
+			<button type='button' class='close' data-dismiss='alert'>&times;</button>
 			This user hasn't been rated as an organizer by other users yet.
 			</div>
 			</span>
 		<?php } ?>
 		<?php if (!$this->page["can_rate_organizer"]) { ?>
 			<span><div class='alert' style='width:600px;' >
-				<button class='close' data-dismiss='alert'>x</button>
+				<button class='close' data-dismiss='alert'>&times;</button>
 				You can not give this user any rate until you join the game organized by this user before.
 				</div>
 				<br/>
@@ -122,7 +122,7 @@
 		<?php } else if ($this->page["rate_organizer_before"]) { ?>
 			<span>
 			<div class='alert alert-success' style='width:600px;' >
-			<button class='close' data-dismiss='alert'>x</button>
+			<button class='close' data-dismiss='alert'>&times;</button>
 			You have given rates to this friend as an organizer before
 			</div>
 			<br/>
