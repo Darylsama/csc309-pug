@@ -116,7 +116,6 @@ function add_rating_handler(rate_form) {
 		
 		$(staritem).click(function(event) {
 			$(rate_form).children("[name=value]").val($(this).attr("data-rateval"));
-			console.log($(rate_form).children("[name=value]").val());
 		});
 		
 	});
