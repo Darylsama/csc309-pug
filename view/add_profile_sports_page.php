@@ -9,19 +9,23 @@
         
       <h2><?php echo get_loggedin_user() -> username; ?>     
       </h2>
-      <hr />
       
+      <hr/>
       <h2>Name: <?php echo get_loggedin_user() -> firstname . " " .  get_loggedin_user() -> lastname; ?></h2>
       <hr/>
+      
 	  <form action="edit_profile.php"> 		
 	  <button id="profile" href="edit_profile.php">edit your profile</button>
 	  </form>
+	  
 	  <form action="change_password.php">
 	  <button id="password" href="change_password.php">change your password</button>
       </form>
+      
       <hr/>
       <h2>Sports</h2>
       <hr/>
+      
       <!-- sports listing -->
       <ul>
       <?php foreach ($this->page["current_sports"] as $sport) { ?>
@@ -29,10 +33,20 @@
       <?php } ?>
       </ul>
       
-      
-      <form action="add_profile_sports.php">
-      <button>add sports</button>
+      <form action="update_profile_sports.php" METHOD="POST">
+      <?php foreach ($this->page["all_sports"] as $sport) {
+      	if (! in_array($sport, $this->page["current_sports"])){ ?>
+      		<input type="checkbox" name="sports[]" value= "<?php echo $sport->sid ?>"><?php echo $sport->name; ?></input>
+      		<br/>
+      		<span><?php echo $sport->description; ?></span>
+      		<br/>    	
+      	<?php } 
+      	}?>
+      	<button>submit</button>
       </form>
+
+      
+
       
       
       <hr />
