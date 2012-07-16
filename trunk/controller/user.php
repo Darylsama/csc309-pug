@@ -261,14 +261,15 @@ class UserController {
 		
 				$this->user_model->update_profile($uid, $username, $firstname, $lastname);
 
-				$this->page["page"]="view/profile_page.php";
+	/*			$this->page["page"]="view/profile_page.php";
 				$this->page["title"]="Dashboard";
 				$this->page["current_sports"] = $this->sport_model->get_sports($user);
 				$this->page["organized_game"] = $this->game_model->get_games($this->user_model->get_user_by_id($uid));
 				$this->page["joined_game"] = $this->game_model->get_joined_games($uid);
 				$this->page["interested_game"] = $this->game_model->get_interested_games($uid);
 				$this->page["player_rates"] = $this->rating_model->get_user_avg_rating($uid);
-				$this->page["organizer_rates"] = $this->rating_model->get_organizer_avg_rating($uid);
+				$this->page["organizer_rates"] = $this->rating_model->get_organizer_avg_rating($uid); */
+				header("Location: profile.php");
 				include "view/template.php";
 				
 			}
@@ -279,10 +280,53 @@ class UserController {
 			$this->page["title"] = "edit profile";
 			include "view/template.php";
 		}
+	}
+	
+	
+	function invoke_change_password() {
 		
 		
 		
 	}
+	
+	function invoke_update_password() {
+		
+		
+	}
+	
+	function invoke_add_sports() {
+		$user = get_loggedin_user();
+		$uid = $user->uid;
+		$this->page["current_sports"]=$this->sport_model->get_sports($user);
+		$this->page["all_sports"] = $this->sport_model->get_all_sports();
+		$this->page["organized_game"] = $this->game_model->get_games($this->user_model->get_user_by_id($uid));
+		$this->page["joined_game"] = $this->game_model->get_joined_games($uid);
+		$this->page["interested_game"] = $this->game_model->get_interested_games($uid);
+		$this->page["player_rates"] = $this->rating_model->get_user_avg_rating($uid);
+		$this->page["organizer_rates"] = $this->rating_model->get_organizer_avg_rating($uid);
+		$this->page["page"] = "view/add_profile_sports_page.php";
+		$this->page["title"] = "Dashboard";
+		
+		include("view/template.php");
+		
+
+	}
+	
+	function invoke_update_sports(){
+		$user=get_loggedin_user();
+
+		$sports = $_POST["sports"];
+
+		foreach ($sports as $sid){
+			echo $sid;
+			$sport = $this->sport_model->get_sport($sid);
+			$this->sport_model->add_sports($user, $sport);
+		}		
+		
+		header("Location: profile.php");
+	}
+	
+	
 	
 }
 
