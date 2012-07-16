@@ -263,6 +263,25 @@ class UserModel {
             return FALSE;
         }
     }
+    
+    
+    public function update_profile($uid, $username, $firstname, $lastname){
+    	$stmt = get_dao()->prepare("update users set username = :username, firstname = :firstname, lastname = :lastname where uid = :uid ;");
+    	$stmt->bindParam(":uid", $uid);
+    	$stmt->bindParam(":username", $username);
+    	$stmt->bindParam(":firstname", $firstname);
+    	$stmt->bindParam(":lastname", $lastname);
+    	
+    	if ($stmt->execute()){
+    		return TRUE;
+    	}
+    	else{
+    		return FALSE;
+    	}
+    	
+    	
+    	
+    }
 }
 
 

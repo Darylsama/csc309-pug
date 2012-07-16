@@ -16,12 +16,20 @@
       
       <h2>Sports</h2>
       
+      <hr/>
+	  <form action="edit_profile.php"> 		
+	  <button id="profile" href="edit_profile.php">edit your profile</button>
+	  </form>
+	  <button id="password" href="change_password.php">change your password</button>
+      
+      <hr/>
       <!-- sports listing -->
       <ul>
       <?php foreach ($this->page["current_sports"] as $sport) { ?>
         <li><span><?php echo $sport -> name; ?></span></li>
       <?php } ?>
       </ul>
+      <button>add sports</button>
       
       <hr />
       <table>
@@ -96,9 +104,7 @@
 			}
 		?>
 		
-		<hr/>
-		
-		<button>edit your profile</button>
+
       
     </div>
   </div>

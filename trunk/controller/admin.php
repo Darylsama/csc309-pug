@@ -33,6 +33,7 @@ class AdminController {
          include "view/template.php";
     }
 	
+
 	public function invoke_view_sports() {
 		$user = get_loggedin_user();
 		if ($user -> type != 2) {
@@ -48,7 +49,10 @@ class AdminController {
 	}
 	
 
-	
+	/*
+	 * add sport to the whole system, so the user can select 
+	 * which sports of these they are experted at
+	 */
 	public function invoke_add_sport() {
 		$user = get_loggedin_user();
 		if ($user -> type != 2) {
