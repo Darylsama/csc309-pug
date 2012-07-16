@@ -226,6 +226,64 @@ class UserController {
 		}
 	}
 	
+	function invoke_edit_profile() {
+		
+		$user = get_loggedin_user();
+		$this->page["title"]="edit_profile";
+		$this->page["page"]="edit_profile_page.php";
+		$this->page["username"] = $user->username;
+		$this->page["firstname"] = $user->firstname;
+		$this->page["lastname"] = $user->lastname;
+		include "view/template.php";
+		
+	}
+	
+	function invoke_update_profile(){
+		
+		$user= get_loggedin_user();
+		$uid=$user->uid;
+		if (isset($_SERVER['CONTENT_LENGTH']) &&
+			(int) $_SERVER['CONTENT_LENGTH'] > 0) {
+			    
+			
+            $username = htmlspecialchars($_POST["username"]);
+			if ($this->user_model->username_exist($username) and $username!=$user->username){
+				$this->page["page"] = "view/edit_profile_page.php";
+				$this->page["title"] = "edit_profile";
+				$this->page["err"] = "the user name already exist, please choose anthor username";
+				include "view/template.php";
+			}
+			
+			else {
+				
+            	$firstname = htmlspecialchars($_POST["firstname"]);
+            	$lastname = htmlspecialchars($_POST["lastname"]);
+		
+				$this->user_model->update_profile($uid, $username, $firstname, $lastname);
+
+				$this->page["page"]="view/profile_page.php";
+				$this->page["title"]="Dashboard";
+				$this->page["current_sports"] = $this->sport_model->get_sports($user);
+				$this->page["organized_game"] = $this->game_model->get_games($this->user_model->get_user_by_id($uid));
+				$this->page["joined_game"] = $this->game_model->get_joined_games($uid);
+				$this->page["interested_game"] = $this->game_model->get_interested_games($uid);
+				$this->page["player_rates"] = $this->rating_model->get_user_avg_rating($uid);
+				$this->page["organizer_rates"] = $this->rating_model->get_organizer_avg_rating($uid);
+				include "view/template.php";
+				
+			}
+
+		} else {
+		    
+		    $this->page["page"] = "view/edit_profile_page.php";
+			$this->page["title"] = "edit profile";
+			include "view/template.php";
+		}
+		
+		
+		
+	}
+	
 }
 
 ?>
