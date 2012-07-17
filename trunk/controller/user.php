@@ -226,6 +226,11 @@ class UserController {
 		}
 	}
 	
+	/*
+	 *invoke the edit_profile handler 
+	 * and set the page content of edit_profile.php page
+	 * on which can let user to edit their profile  
+	 */
 	function invoke_edit_profile() {
 		
 		$user = get_loggedin_user();
@@ -238,6 +243,9 @@ class UserController {
 		
 	}
 	
+	/*
+	 * 
+	 */
 	function invoke_update_profile(){
 		
 		$user= get_loggedin_user();
@@ -283,17 +291,66 @@ class UserController {
 	}
 	
 	
+	/*
+	 * 
+	 */ 
 	function invoke_change_password() {
 		
+		$user = get_loggedin_user();
+		$uid = $user->uid;
+		$this->page["current_sports"]=$this->sport_model->get_sports($user);
+		$this->page["all_sports"] = $this->sport_model->get_all_sports();
+		$this->page["organized_game"] = $this->game_model->get_games($this->user_model->get_user_by_id($uid));
+		$this->page["joined_game"] = $this->game_model->get_joined_games($uid);
+		$this->page["interested_game"] = $this->game_model->get_interested_games($uid);
+		$this->page["player_rates"] = $this->rating_model->get_user_avg_rating($uid);
+		$this->page["organizer_rates"] = $this->rating_model->get_organizer_avg_rating($uid);
+		$this->page["title"]="Dashboard";
+		$this->page["page"]="view/change_password_page.php";
 		
+		
+		include("view/template.php");
 		
 	}
 	
+	/*
+	 * 
+	 */ 
 	function invoke_update_password() {
+		$user = get_loggedin_user();
+		$username = $user->username;
+		$uid = $user->uid;
+
+		if (isset($_POST["old_password"]) && isset($_POST["new_password"]) && isset($_POST['new_password2'])) {
+
+
+			$user = $this->user_model->get_user($username, $_POST["old_password"]);	
+			if ($user == false){
+
+				$this->invoke_change_password();
+			}	
+			else if ($_POST["new_password"] != $_POST['new_password2']){
+				$this->invoke_change_password();
+			}
+			else{
+				echo "aaa";
+				$this->user_model->update_password($uid, $_POST["new_password"]);
+				header("Location: profile.php");
+			}
+		}
+		else{
+
+			$this->invoke_change_password();
+		}
 		
-		
+	
 	}
 	
+	/*
+	 * invoke the add sports handler
+	 * set the detail content of add_profile_sports.php page
+	 * 
+	 */
 	function invoke_add_sports() {
 		$user = get_loggedin_user();
 		$uid = $user->uid;
@@ -312,6 +369,10 @@ class UserController {
 
 	}
 	
+	/*
+	 * invoke the update handler to update the sports profile of a user
+	 * then redirect user to profile.php
+	 */
 	function invoke_update_sports(){
 		$user=get_loggedin_user();
 
