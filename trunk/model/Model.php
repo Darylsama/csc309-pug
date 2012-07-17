@@ -273,7 +273,23 @@ class UserModel {
     	$stmt->bindParam(":lastname", $lastname);
     	
     	if ($stmt->execute()){
-    		return TRUE;
+    	    $stmt = get_dao()->prepare("select * from users where uid = :uid ;");
+            $stmt->bindParam(":uid", $uid);
+
+            $stmt->execute();
+            
+            $row = $stmt -> fetch();
+            
+            $username = $row["username"];
+            $password = $row["password"];
+            $permission = $row["type"];
+            $firstname = $row["firstname"];
+            $lastname = $row["lastname"];
+            
+            $user = $this -> create_user($uid, $username, $password, $permission, $firstname, $lastname);
+            
+            return $user;
+    	    
     	}
     	else{
     		return FALSE;
