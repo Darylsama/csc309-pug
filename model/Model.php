@@ -277,11 +277,22 @@ class UserModel {
     	}
     	else{
     		return FALSE;
-    	}
-    	
-    	
-    	
+    	}	
     }
+	
+	public function update_password($uid, $password){
+		$stmt = get_dao()->prepare("update users set password = :password where uid = :uid;");
+		$stmt->bindParam(":uid", $uid);
+		$stmt->bindParam(":password", $password);
+		if ($stmt->execute()){
+			return TRUE;
+		}
+		else{
+			return False;
+		}
+		
+		
+	}
 }
 
 
