@@ -267,8 +267,10 @@ class UserController {
             	$firstname = htmlspecialchars($_POST["firstname"]);
             	$lastname = htmlspecialchars($_POST["lastname"]);
 		
-				$this->user_model->update_profile($uid, $username, $firstname, $lastname);
+				$user_new = $this->user_model->update_profile($uid, $username, $firstname, $lastname);
 
+				set_loggedin_user($user_new);
+				
 	/*			$this->page["page"]="view/profile_page.php";
 				$this->page["title"]="Dashboard";
 				$this->page["current_sports"] = $this->sport_model->get_sports($user);
