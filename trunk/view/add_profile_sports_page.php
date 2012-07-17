@@ -101,9 +101,9 @@
 	  <hr />
 		<?php 
 			echo "The average rates of you as a player:<br/>";
-			if (isset($this->page["player_rating"])){
+			if (isset($this->page["player_rates"])){
 				
-				echo $this->page["player_rating"];
+				echo $this->page["player_rates"];
 				echo "<br/>";
 			}		
 			else{
@@ -112,9 +112,9 @@
 		?>
 		<?php 
 			echo "The average rates of you as an organizer:<br/>";
-			if (isset($this->page["player_rating"])){
+			if (isset($this->page["organizer_rates"])){
 				
-				echo $this->page["player_rating"];
+				echo $this->page["organizer_rates"];
 				echo "<br/>";
 			}		
 			else{

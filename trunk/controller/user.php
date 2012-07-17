@@ -188,7 +188,7 @@ class UserController {
 			$this->page["title"] = "User Information";	
 			$uid = $userid2;
 			$this->page["user"] = $this->user_model->get_user_by_id($uid);
-			$this->page["player_rating"] = $this->rating_model->get_user_avg_rating($uid);
+			$this->page["player_rates"] = $this->rating_model->get_user_avg_rating($uid);
 			$this->page["organizer_rates"] = $this->rating_model->get_organizer_avg_rating($uid);
 			$this->page["joined_game"] = $this->game_model->get_joined_games($uid);
 
@@ -203,8 +203,8 @@ class UserController {
 			$this->page["title"] = "User Information: friend";
 			$this->page["css"] = array("view/css/rating.css");
 			$this->page["js"] = array(
-                "view/js/rating.js",
-                "view/js/player_rating.js"
+            "view/js/rating.js",
+            "view/js/player_rating.js"
             );
 			$uid = $userid2;
 			$this->page["user"] = $this->user_model->get_user_by_id($uid);
