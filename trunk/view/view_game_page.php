@@ -68,8 +68,10 @@
 
       <?php } else if ($this->page["status"] == 2) {?>
       <!-- current user is interested in the game -->
-      <span class="label label-success">You have expressed interest in this game.</span>
-
+      <form method="post" action="cancel_interest.php" name="cancel_interest">
+      	<input name='gid' type="hidden" value="<?php echo $this->page["game"]->gid;?>"/>
+      	<input type="submit" class="label label-success" value="You have expressed interest in this game. click to cancel."/>
+	  </form>
       
       
       <?php } else if ($this->page["status"] == 3) { ?>
