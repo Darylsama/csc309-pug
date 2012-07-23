@@ -130,6 +130,19 @@ class GameController {
             header("Location: view_game.php?gid=" . $gid);
         }
     }
+
+	public function invoke_cancel_interest() {
+		
+		if (isset($_SERVER['CONTENT_LENGTH']) &&
+			(int) $_SERVER['CONTENT_LENGTH'] > 0) {
+				
+			$gid = htmlspecialchars($_POST["gid"]);
+			$this->game_model->cancel_interest(get_loggedin_user(), $gid);	
+			
+			header("Location: view_game.php?gid=" . $gid);
+		}
+	}
+	
     
     /**
      * invoked this when a game organizer select a player to participate in a game

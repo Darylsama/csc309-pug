@@ -573,11 +573,20 @@ class GameModel {
      */
     public function express_interest($user, $gid) {
          
-        $stmt = get_dao() -> prepare("insert into matches (uid, gid, selected) values (:uid, :gid, false)");
+        $stmt = get_dao() -> prepare("insert into matches (uid, gid, selected) values (:uid, :gid, false);");
         $stmt->bindParam(':uid', $user->uid);
         $stmt->bindParam(':gid', $gid);
         $stmt -> execute();
     }
+	
+	
+	public function cancel_interest($user, $gid) {
+		$stmt = get_dao() -> prepare("delete from matches where gid = :gid and uid = :uid;");
+		$stmt-> bindParam(':gid', $gid);
+		$stmt-> bindParam(':uid', $user->uid);
+		$stmt -> execute();
+		
+	}
 
     /**
      * let a player with $uid join a game with $gid
