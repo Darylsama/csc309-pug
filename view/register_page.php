@@ -7,7 +7,7 @@
 
 
 		<!-- register form -->
-		<div class="span6 hero-unit">
+		<div class="span8 hero-unit">
 			<?php 
 				if (isset($this->page["err"])){
 					echo "<div class='alert alert-error'>";
@@ -63,7 +63,7 @@
 				
 			</form>
 		</div>
-		<div class="span6" ></div>
+		<div class="span2" ></div>
 		<!-- some padding -->
 	</div>
 </div>

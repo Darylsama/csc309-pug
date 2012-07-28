@@ -5,7 +5,7 @@
     include "view/sidebar.php"
     ?>
 
-    <div class="span10">
+    <div class="span9">
       <table>
         <thead>
           <tr>

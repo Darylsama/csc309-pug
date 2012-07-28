@@ -2,8 +2,8 @@
 $current_page = basename($_SERVER["PHP_SELF"], ".php");
 ?>
 
-<div class="span2">
-  <ul class="nav nav-pills nav-stacked">
+<div class="span3 sidebar-wrapper">
+  <ul class="nav nav-pills nav-stacked sidebar">
 
     <?php if (get_loggedin_user() -> permission == 2) { ?>
     <!-- user control panel, for admin users only -->

@@ -1,0 +1,65 @@
+/* change sidebar color */
+.sidebar {
+    
+    padding: 0px 0px;
+    margin: 0px 0px;
+    background: #DDD;
+}
+
+/* change sidebar link font color */
+.nav-pills > li > a {
+    color: #444;
+    
+}
+
+.nav-pills > li.active > a, 
+.nav-pills > li.active > a:hover {
+    background-color: #888;
+
+    /* box shadow around active item */
+    -webkit-box-shadow: inset 0px 1px 1px 0px rgba(88, 88, 88, 0.8);
+    box-shadow: inset 0px 1px 1px 0px rgba(88, 88, 88, 0.8);
+}
+
+/* hover effect for sidebar menu items */
+.nav-pills > li > a:hover {
+    color: white;
+    background-color: #888;
+}
+
+/* align menu text lable to the right*/
+.nav-pills > li {
+    
+    text-align:right;
+}
+
+/* remove margin */
+/* remove border radius */
+.nav-pills > li > a {
+    margin: 0px;
+    -webkit-border-radius: 0px;
+       -moz-border-radius: 0px;
+            border-radius: 0px;
+}
+
+
+
+@media (min-width: 768px) {
+
+   .sidebar-wrapper {
+
+        height: 100%;
+        width:100%
+        
+        /* gradient effect */
+        background: #888888; /* Old browsers */
+        background: -moz-linear-gradient(top,  #888888 0%, #444444 100%); /* FF3.6+ */
+        background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#888888), color-stop(100%,#444444)); /* Chrome,Safari4+ */
+        background: -webkit-linear-gradient(top,  #888888 0%,#444444 100%); /* Chrome10+,Safari5.1+ */
+        background: -o-linear-gradient(top,  #888888 0%,#444444 100%); /* Opera 11.10+ */
+        background: -ms-linear-gradient(top,  #888888 0%,#444444 100%); /* IE10+ */
+        background: linear-gradient(to bottom,  #888888 0%,#444444 100%); /* W3C */
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#888888', endColorstr='#444444',GradientType=0 ); /* IE6-9 */
+
+    }
+}

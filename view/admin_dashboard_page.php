@@ -4,7 +4,7 @@
     
     <?php include "view/sidebar.php" ?>
     
-    <div class="span10">
+    <div class="span9">
    		<h2><?php echo "Administrator" ?>     
       	</h2>		
     

@@ -10,7 +10,7 @@
 				document.give_rates.submit();
 			}
 	</script>
-    <div class="span10">
+    <div class="span9">
 		
 		<h1><?php echo $this->page["user"]->username; ?></h1>
 		<!-- <?php echo $this->page["user"]->uid ?> -->
