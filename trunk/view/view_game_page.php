@@ -11,7 +11,6 @@
       </h1>
       <br /> <span><?php echo $this->page["game"]->organizer->username; ?> @ <?php echo $this->page["game"]->creation; ?>
       </span> <br /> <br />
-
       <?php echo $this->page["game"]->desc; ?>
       <br />
       <hr />

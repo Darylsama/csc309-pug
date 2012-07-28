@@ -61,7 +61,7 @@ class GameController {
             $description = htmlspecialchars($_POST["description"]);
 			
 			// set the gid to be 0 as default
-            $game = $this->game_model->create_game($gid, $name, $organizer, $creation, $sport, $description);
+            $game = $this->game_model->create_game($gid, $name, $organizer, NULL, NULL, $creation, $sport, $description);
             // another id will be generated automatically by mysql for the game when this instance is persisted
             $this->game_model->persist_game($game);
 

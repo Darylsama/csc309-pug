@@ -60,15 +60,19 @@ class Game {
     public $gid; 	// unique id for game
     public $name;	// name of this game
     public $organizer;	//user id of the organizer of this game
+    public $start_time; //the start time of this game
+	public $end_time;	//the end time of this game
     public $creation;	//the date of this creation
     public $sport;		//the sport type of this game
     public $desc;		//description of this game
     
-    public function __construct($gid, $name, $organizer, $creation, $sport, $desc) {
+    public function __construct($gid, $name, $organizer, $start_time, $end_time, $creation, $sport, $desc) {
         
         $this->gid = $gid;
         $this->name = $name;
         $this->organizer = $organizer;
+		$this->start_time = $start_time;
+		$this->end_time = $end_time;
         $this->creation = $creation;
         $this->sport = $sport;
         $this->desc = $desc;
