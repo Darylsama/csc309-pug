@@ -439,8 +439,8 @@ class GameModel {
      * @param string $desc the description of the game
      * @return Game the game entity that encapsulate the game
      */
-    public function create_game($gid, $name, $organizer, $creation, $sport, $desc) {
-        return new Game($gid, $name, $organizer, $creation, $sport, $desc);
+    public function create_game($gid, $name, $organizer, $start_time, $end_time, $creation, $sport, $desc) {
+        return new Game($gid, $name, $organizer, $start_time, $end_time, $creation, $sport, $desc);
     }
 
     /**
