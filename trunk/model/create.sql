@@ -31,6 +31,7 @@ CREATE  TABLE IF NOT EXISTS `mydb`.`games` (
   `gid` INT UNSIGNED NOT NULL AUTO_INCREMENT ,
   `name` VARCHAR(64) NOT NULL ,
   `organizer` INT NOT NULL ,
+  `start_time` TIMESTAMP NULL ,
   `creation` DATE NULL ,
   `sport` INT NULL ,
   `desc` VARCHAR(1024) NULL ,
