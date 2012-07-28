@@ -16,11 +16,6 @@
 
     <!-- Le styles -->
     <link href="view/css/style.css" rel="stylesheet">
-    <style>
-        body {
-            padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
-        }
-    </style>
     
     <!-- custom css code for individual page -->
     <?php if (isset($this->page["css"])) { ?>

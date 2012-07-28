@@ -90,7 +90,10 @@ class GameController {
         // general information about the page
         $this->page["page"] = "view/view_game_page.php";
         $this->page["title"] = "View Game";
-        $this->page["js"] = array("view/js/select_player.js");
+        $this->page["js"] = array(
+        	"view/js/select_player.js",
+        	"view/js/express_interest.js"
+        );
 
         // the game to be displayed on the page
         $gid = $_GET["gid"];

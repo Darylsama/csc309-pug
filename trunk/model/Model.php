@@ -485,7 +485,7 @@ class GameModel {
             $sport = $sport_model -> get_sport($row["sport"]);
             $desc = $row["desc"];
 
-            $game = $this -> create_game($gid, $name, $organizer, $creation, $sport, $desc);
+            $game = $this -> create_game($gid, $name, $organizer, null, null, $creation, $sport, $desc);
 
             return $game;
         }
@@ -520,7 +520,7 @@ class GameModel {
                 $sport = $user_sports[$row["sport"]];
                 $desc = $row["desc"];
 
-                $game = $this -> create_game($gid, $name, $organizer, $creation, $sport, $desc);
+                $game = $this -> create_game($gid, $name, $organizer, null, null, $creation, $sport, $desc);
                 $user_games[$gid] = $game;
             }
             return $user_games;
@@ -555,7 +555,7 @@ class GameModel {
                 $sport = $sports[$row["sport"]];
                 $desc = $row["desc"];
 
-                $game = $this -> create_game($gid, $name, $organizer, $creation, $sport, $desc);
+                $game = $this -> create_game($gid, $name, $organizer, null, null, $creation, $sport, $desc);
                 $user_games[$gid] = $game;
             }
             return $user_games;

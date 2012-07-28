@@ -53,7 +53,7 @@
 			
 		};
 	</script>
-	<div class="span10">
+	<div class="span9">
 		
 		
 		

@@ -1,9 +1,47 @@
 /* custom style sheet */
 
 /*
-using default css provided by the bootstrap
-any custom styles defined in this file will override the default boostrap styles
-uses relative path with respect to THIS FILE since the style sheets are requested separated than the php scripts 
+	using default css provided by the bootstrap
+	any custom styles defined in this file will override the default boostrap styles
+	uses relative path with respect to THIS FILE since the style sheets are requested separated than the php scripts 
 */
+
 @import url(../../assets/css/bootstrap.css);
 @import url(../../assets/css/bootstrap-responsive.css);
+
+@import url(sidebar.css);
+
+/* padding top  */
+body {
+	background: url("../img/low_contrast_linen.png");
+	padding-top: 40px; /* 40px to make the container go all the way to the bottom of the topbar */
+}
+
+/* default property for container */
+.container-fluid {
+	
+	margin: 0 auto;
+    background: white;
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+/* FIX ALL WIDTH AND HEIGHT ONCE BROWSER WIDTH EXCEED 768px */
+/* HERO UNITS AS WELL AS SIDEBAR WIDTH CAUSES HEADACHES BEYOND THIS POINT */
+@media (min-width: 768px) {
+	
+    .row-fluid {
+    
+        height:800px;
+    }
+
+	.container-fluid {
+	
+		background: #ffffff;
+		
+        width:980px;
+        max-width:100%;
+		height:100%;
+		min-height:760px;
+	}
+}
