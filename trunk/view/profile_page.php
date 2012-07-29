@@ -4,7 +4,7 @@
     <!-- sidebar -->
     <?php include "view/sidebar.php" ?>
 
-    <div class="span9">
+    <div class="span9 content">
         
         
       <h2><?php echo get_loggedin_user() -> username; ?>     
