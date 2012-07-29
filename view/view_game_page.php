@@ -5,7 +5,7 @@
     <?php include "view/sidebar.php" ?>
 
 
-    <div class="span9">
+    <div class="span9 content">
       <h1>
         <?php echo $this->page["game"]->name; ?> (<?php echo $this->page["game"]->sport->name; ?>)
       </h1>

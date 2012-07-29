@@ -11,10 +11,21 @@
 
 @import url(sidebar.css);
 
+
+
+/* DEBUG STYLE*/
+.span1, .span2, .span3, .span4, .span5, .span6, .span7, .span8, .span9, .span10, .span11, .span12 {
+	/* outline: 1px dotted blue;*/ 
+}
+
 /* padding top  */
 body {
 	background: url("../img/low_contrast_linen.png");
 	padding-top: 40px; /* 40px to make the container go all the way to the bottom of the topbar */
+}
+
+.content {
+	padding:10px;
 }
 
 /* default property for container */
@@ -25,6 +36,8 @@ body {
     padding-left: 0px;
     padding-right: 0px;
 }
+
+
 
 /* FIX ALL WIDTH AND HEIGHT ONCE BROWSER WIDTH EXCEED 768px */
 /* HERO UNITS AS WELL AS SIDEBAR WIDTH CAUSES HEADACHES BEYOND THIS POINT */
