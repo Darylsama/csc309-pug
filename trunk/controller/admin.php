@@ -93,10 +93,29 @@ class AdminController {
 		
 	}
 	
-		
-		
 	
-    
+	function invoke_manage_users(){
+		$users = $this->user_model->get_all_users();
+		$this->page["users_information"] = array();
+		foreach ($users as $user) {
+			$uid = $user->uid;
+			$this->page["users_information"][$user->uid]= array();
+			$this->page["users_information"][$user->uid]["username"] = $user->username;
+			$this->page["users_information"][$user->uid]["type"] = $user->type;
+			$this->page["users_information"][$user->uid]["joined_games"]=count($this->game_model->get_joined_games($uid)) ;
+			$this->page["users_information"][$user->uid]["interested_games"]= count($this->game_model->get_interested_games($uid));
+			$this->page["users_information"][$user->uid]["organized_games"] = count($this->game_model->get_games($this->user_model->get_user_by_id($uid)));
+			
+		}
+		
+		include "view/manage_users_part.php";
+		
+	}
+	
+	function invoke_manage_games(){
+		
+	}
+
 }
 
 ?>
