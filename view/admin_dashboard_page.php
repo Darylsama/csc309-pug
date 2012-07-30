@@ -9,6 +9,7 @@
       	</h2>		
     
     	<div class="btn">
+    	
     		<button class="btn btn-primary">
     			manage users
     		</button>
@@ -24,14 +25,10 @@
 			<button class="btn btn-danger">
 				send announcement
 			</button>
-			    	
-    			
-    		
-		
-
-   			
-   			
+			
    		</div>
+    	
+    	
     	
     	
     	
