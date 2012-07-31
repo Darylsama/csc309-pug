@@ -12,6 +12,7 @@ class AdminController {
     private $user_model;
     private $sport_model;
     private $rating_model;
+    private $game_model;
     
     // page array, used to encapsulate some page data
     private $page;
@@ -27,6 +28,7 @@ class AdminController {
     
     public function invoke_dashboard() {
         
+         $this->page["js"] = array( "view/js/admin_dashboard.js");
          $this->page["page"] = "view/admin_dashboard_page.php";
          $this->page["title"] = "Administrivia";
          
@@ -101,14 +103,16 @@ class AdminController {
 			$uid = $user->uid;
 			$this->page["users_information"][$user->uid]= array();
 			$this->page["users_information"][$user->uid]["username"] = $user->username;
-			$this->page["users_information"][$user->uid]["type"] = $user->type;
+			$this->page["users_information"][$user->uid]["type"] = $user->permission;
 			$this->page["users_information"][$user->uid]["joined_games"]=count($this->game_model->get_joined_games($uid)) ;
 			$this->page["users_information"][$user->uid]["interested_games"]= count($this->game_model->get_interested_games($uid));
 			$this->page["users_information"][$user->uid]["organized_games"] = count($this->game_model->get_games($this->user_model->get_user_by_id($uid)));
-			
+			$this->page["users_information"][$user->uid]["player_rates"] = $this->rating_model->get_user_avg_rating($uid);
+			$this->page["users_information"][$user->uid]["organizer_rates"] = $this->rating_model->get_organizer_avg_rating($uid);
+					
 		}
 		
-		include "view/manage_users_part.php";
+		include "view/admin_manage_users_part.php";
 		
 	}
 	

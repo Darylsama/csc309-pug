@@ -10,7 +10,7 @@
     
     	<div class="btn">
     	
-    		<button class="btn btn-primary">
+    		<button class="btn btn-primary" onClick="get_manage_users()">
     			manage users
     		</button>
     		<button class="btn btn-info">
@@ -27,13 +27,13 @@
 			</button>
 			
    		</div>
-    	
-    	
-    	
-    	
+   		<div id="main-part">	
+ 
     	
     	
    
+    	</div>
     </div>
+   
   </div>
 </div>
