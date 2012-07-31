@@ -8,9 +8,9 @@ $user = get_loggedin_user();
 if (isset($user)) {
     // if the user is currently logged in
     
-    include_once("controller/user.php");
-    $user_controller = new UserController();
-    $user_controller->invoke_view_user();
+    include_once("controller/admin.php");
+    $admin_controller = new AdminController();
+    $admin_controller->invoke_manage_users();
     
 } else {
     // if the user is currently not logged in
