@@ -22,6 +22,23 @@ function get_manage_sports() {
 	});
 }
 
+function delete_sport(){
+	$.ajax({
+		url: 'admin_delete_sport.php',
+		type: 'GET',
+		success:function(data){
+			if (data == ''){
+				
+			}
+			else{
+				$("#main-part").html(data);
+			}
+			
+		}
+	})
+	
+}
+
 function get_manage_games() {
 	$.ajax({ 
 		url: 'admin_manage_games.php',
@@ -42,3 +59,5 @@ function get_send_announcement(){
 	
 	
 }
+
+

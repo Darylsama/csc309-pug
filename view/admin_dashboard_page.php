@@ -16,7 +16,7 @@
     		<button class="btn btn-info">
     			manage games
     		</button>	
-    		<button class="btn btn-success">
+    		<button class="btn btn-success" onClick="get_manage_sports()">
     			manage sports
     		</button>
 			<button class="btn btn-warning">
