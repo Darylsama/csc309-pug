@@ -20,7 +20,7 @@
 				<td><?php echo $user["interested_games"]?></td>
 				<td><?php echo $user["joined_games"]?></td>
 				<td><?php echo $user["organized_games"]?></td>
-				<td></td>
+				<td><?php echo $user["friends"]?></td>
 				<td><?php echo $user["organizer_rates"]?></td>
 				<td><?php echo $user["player_rates"]?></td>
 				
