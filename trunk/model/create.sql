@@ -32,6 +32,7 @@ CREATE  TABLE IF NOT EXISTS `mydb`.`games` (
   `name` VARCHAR(64) NOT NULL ,
   `organizer` INT NOT NULL ,
   `start_time` TIMESTAMP NULL ,
+  `end_time` TIMESTAMP NULL,
   `creation` DATE NULL ,
   `sport` INT NULL ,
   `desc` VARCHAR(1024) NULL ,

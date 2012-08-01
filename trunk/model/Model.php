@@ -357,6 +357,14 @@ class SportModel {
         $stmt -> bindParam(':sid', $sport -> sid);
         $stmt -> execute();
     }
+    
+    public function delete_sports($sid){
+    	
+    	$stmt = get_dao() -> prepare("delete from sports where sid = :sid;");
+    	$stmt -> bindParam(":sid", $sid);
+    	$stmt -> execute();
+    	
+    }
 
     /**
      * return a sports by its sid

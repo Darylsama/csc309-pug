@@ -35,20 +35,6 @@ class AdminController {
          include "view/template.php";
     }
 	
-
-	public function invoke_view_sports() {
-		$user = get_loggedin_user();
-		if ($user -> type != 2) {
-			$this -> page["err"] = "You are not the admin user so use do not have the privilege to use this functionality.";
-		}
-		else {
-			$this->page["page"] = "view/admin_dashboard_page.php";
-			$this -> page["sports"] = $sport_model->get_all_sports();
-			$this->page["title"] = "Dashboard";
-			include "view/template.php";
-		}
-		
-	}
 	
 
 	/*
@@ -57,7 +43,7 @@ class AdminController {
 	 */
 	public function invoke_add_sport() {
 		$user = get_loggedin_user();
-		if ($user -> type != 2) {
+		if ($user -> permission != 2) {
 			$this->page["err"] = "You are not the admin user so use do not have the privilege to use this functionality.";	
 		}
 		
@@ -95,6 +81,20 @@ class AdminController {
 		
 	}
 	
+	function invoke_delete_sport(){
+		$user = get_loggedin_user();
+		
+		if ($user -> permission != 2) {
+			return "You do not have enough permissions.";	
+		}
+		else if (isset($_SERVER['CONTENT_LENGTH']) &&
+			(int) $_SERVER['CONTENT_LENGTH'] > 0) {
+			
+			
+			
+		}
+		
+	}
 	
 	function invoke_manage_users(){
 		$users = $this->user_model->get_all_users();
@@ -123,12 +123,22 @@ class AdminController {
 			$gid = $game->gid;
 			$this->page["game_info"][$gid]["name"] = $game->name;
 			$this->page["game_info"][$gid]["organizer"] = $game->orgaizer;
-			$this->page["start_date"];
-			$this->page["duration"];
-			$this->page[""];
-			$this->page["status"];
+			$this->page["game_info"][$gid]["start_time"];
+			$this->page["game_info"][$gid]["end_time"];
 		}
 		include "view/admin_manage_games_part.php";
+	}
+	
+	function invoke_manage_sports(){
+		$sports = $this->sport_model->get_all_sports();
+		$this->page["sports_info"] = array();
+		foreach ($sports as $sport){
+			$sid = $sport->sid;
+			$this->page["sports_info"][$sid]["name"] = $sport->name;
+			$this->page["sports_info"][$sid]["description"] = $sport->description;
+			
+		}
+		include "view/admin_manage_sports_part.php";
 	}
 
 }
