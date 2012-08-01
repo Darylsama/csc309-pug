@@ -101,15 +101,15 @@ class AdminController {
 		$this->page["users_information"] = array();
 		foreach ($users as $user) {
 			$uid = $user->uid;
-			$this->page["users_information"][$user->uid]= array();
-			$this->page["users_information"][$user->uid]["username"] = $user->username;
-			$this->page["users_information"][$user->uid]["type"] = $user->permission;
-			$this->page["users_information"][$user->uid]["joined_games"]=count($this->game_model->get_joined_games($uid)) ;
-			$this->page["users_information"][$user->uid]["interested_games"]= count($this->game_model->get_interested_games($uid));
-			$this->page["users_information"][$user->uid]["organized_games"] = count($this->game_model->get_games($this->user_model->get_user_by_id($uid)));
-			$this->page["users_information"][$user->uid]["player_rates"] = $this->rating_model->get_user_avg_rating($uid);
-			$this->page["users_information"][$user->uid]["organizer_rates"] = $this->rating_model->get_organizer_avg_rating($uid);
-					
+			$this->page["users_information"][$uid]= array();
+			$this->page["users_information"][$uid]["username"] = $user->username;
+			$this->page["users_information"][$uid]["type"] = $user->permission;
+			$this->page["users_information"][$uid]["joined_games"]=count($this->game_model->get_joined_games($uid)) ;
+			$this->page["users_information"][$uid]["interested_games"]= count($this->game_model->get_interested_games($uid));
+			$this->page["users_information"][$uid]["organized_games"] = count($this->game_model->get_games($this->user_model->get_user_by_id($uid)));
+			$this->page["users_information"][$uid]["player_rates"] = $this->rating_model->get_user_avg_rating($uid);
+			$this->page["users_information"][$uid]["organizer_rates"] = $this->rating_model->get_organizer_avg_rating($uid);
+			$this->page["users_information"][$uid]["friends"]	= count($this->user_model->get_friends($user->uid));	
 		}
 		
 		include "view/admin_manage_users_part.php";
@@ -117,7 +117,18 @@ class AdminController {
 	}
 	
 	function invoke_manage_games(){
-		
+		$games = $this->game_model->get_games();
+		$this->page["game_info"] = array();
+		foreach ($games as $game){
+			$gid = $game->gid;
+			$this->page["game_info"][$gid]["name"] = $game->name;
+			$this->page["game_info"][$gid]["organizer"] = $game->orgaizer;
+			$this->page["start_date"];
+			$this->page["duration"];
+			$this->page[""];
+			$this->page["status"];
+		}
+		include "view/admin_manage_games_part.php";
 	}
 
 }
