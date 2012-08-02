@@ -380,9 +380,9 @@ class SportModel {
             $name = $row["name"];
             $description = $row["description"];
 
-            $user = $this -> create_sport($sid, $name, $description);
+            $sport = $this -> create_sport($sid, $name, $description);
 
-            return $user;
+            return $sport;
         }
     }
 

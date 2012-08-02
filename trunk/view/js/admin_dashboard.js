@@ -22,10 +22,21 @@ function get_manage_sports() {
 	});
 }
 
+function edit_sport(sid){
+	$.post(
+		'admin_edit_sport.php',
+		{'sid': sid},
+		function(data){
+			$("#main-part").html(data);
+		}
+	);	
+	
+}
+
 function delete_sport(){
 	$.ajax({
 		url: 'admin_delete_sport.php',
-		type: 'GET',
+		type: 'POST',
 		success:function(data){
 			if (data == ''){
 				
