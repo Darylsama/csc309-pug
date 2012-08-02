@@ -40,18 +40,39 @@ class AdminController {
 	public function invoke_edit_sport(){
 		$user = get_loggedin_user();
 		if ($user -> permission != 2) {
-			$this->page["err"] = "You are not the admin user so use do not have the privilege to use this functionality.";	
+			return "You are not the admin user so use do not have the privilege to use this functionality.";	
 		}
 		else if (isset($_SERVER['CONTENT_LENGTH']) &&
 			(int) $_SERVER['CONTENT_LENGTH'] > 0) {
 			$sid = htmlspecialchars($_POST["sid"]);
-			$sport = $this->sport_model->get_sport($sid);	
+			$sport = $this->sport_model->get_sport($sid);
+			$this->page["sid"] = $sid;	
 			$this->page["name"] = $sport->name;
 			$this->page["description"] = $sport->description;
 			include "view/admin_edit_sport_part.php";
 		}
 		
 	}
+	
+	
+	public function invoke_update_sport(){
+		$user = get_loggedin_user();
+		if ($user -> permission != 2) {
+			return "You are not the admin user so use do not have the privilege to use this functionality.";	
+		}
+		else if (isset($_SERVER['CONTENT_LENGTH']) &&
+			(int) $_SERVER['CONTENT_LENGTH'] > 0) {
+			
+			$sid = htmlspecialchars($_POST["sid"]);
+			$name = htmlspecialchars($_POST["name"]);
+			$description= htmlspecialchars($_POST["description"]);
+			
+			$this->sport_model->update_sport($sid, $name, $description);
+			$this->invoke_manage_sports();
+		}
+		
+	}
+	
 	
 
 	/*
@@ -61,12 +82,12 @@ class AdminController {
 	public function invoke_add_sport() {
 		$user = get_loggedin_user();
 		if ($user -> permission != 2) {
-			$this->page["err"] = "You are not the admin user so use do not have the privilege to use this functionality.";	
+			return "You are not the admin user so use do not have the privilege to use this functionality.";	
 		}
 		
 		else if (isset($_SERVER['CONTENT_LENGTH']) &&
 			(int) $_SERVER['CONTENT_LENGTH'] > 0) {
-			$sportsname = htmlspecialchars($_POST["sportsname"]);
+			$sportsname = htmlspecialchars($_POST["name"]);
 			$description = htmlspecialchars($_POST["description"]);
 			
 			if (! isset($sportsname)){
@@ -85,29 +106,23 @@ class AdminController {
 						
 				$sports = $this->sport_model->create_sport(0, $sportsname, $description);
 				$this->sport_model->persist_sport($sports);
+				$this->invoke_manage_sports();
 			}
 			
 		}
 			
-		else {
-			$this->page["page"] = "view/admin_dashboard_page.php";
-			$this->page["title"] = "Dashboard";
-			include "view/template.php";
-			
-		}
 		
 	}
 	
 	function invoke_delete_sport(){
 		$user = get_loggedin_user();
 		
-		if ($user -> permission != 2) {
-			return "You do not have enough permissions.";	
-		}
-		else if (isset($_SERVER['CONTENT_LENGTH']) &&
+		if (isset($_SERVER['CONTENT_LENGTH']) &&
 			(int) $_SERVER['CONTENT_LENGTH'] > 0) {
-			
-			
+				
+			$sid = htmlspecialchars($_POST["sid"]);
+			$this->sport_model->delete_sport($sid);
+			$this->invoke_manage_sports();
 			
 		}
 		

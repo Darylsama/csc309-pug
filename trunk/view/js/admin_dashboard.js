@@ -33,21 +33,52 @@ function edit_sport(sid){
 	
 }
 
-function delete_sport(){
+function add_sport_page(){
+	var data = '<hr/> <br/><div>sport name<br/><form><input id="name" type="text" /><br/>description<br/><textarea id="description" style="width: 632px; height: 50px;"></textarea><br/></form><button class="btn btn-primary" onClick="add_sport()">add sport</button><button class="btn btn-success" onClick="get_manage_sports()">cancel</button></div>'
+	$("#main-part").html(data);
+}
+
+
+
+function add_sport(){
+	var name = $('#name').val();
+	var description = $('#description').val();
 	$.ajax({
-		url: 'admin_delete_sport.php',
+		url: 'admin_add_sport.php',
 		type: 'POST',
-		success:function(data){
-			if (data == ''){
-				
-			}
-			else{
-				$("#main-part").html(data);
-			}
-			
+		data: {'name':name, 'description':description},
+		success: function(data){
+			$('#main-part').html(data);
 		}
 	})
 	
+}
+
+function update_sport(sid){
+	var name = $('#name').val();
+	var description = $('#description').val();
+	$.ajax({
+		url: 'admin_update_sport.php',
+		type: 'POST',
+		data: {'sid':sid, 'name':name, 'description':description},
+		success:function(data){
+			$("#main-part").html(data);
+		}
+	})
+	
+}
+
+function delete_sport(sid){
+	if (confirm("Delete this sport?")){ 
+		$.ajax({
+			url: 'admin_delete_sport.php',
+			type: 'POST',
+			data: {'sid':sid},
+			success:function(data){
+				$("#main-part").html(data);
+			}
+		});
+	}	
 }
 
 function get_manage_games() {
