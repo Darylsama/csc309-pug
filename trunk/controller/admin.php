@@ -154,7 +154,7 @@ class AdminController {
 		foreach ($games as $game){
 			$gid = $game->gid;
 			$this->page["game_info"][$gid]["name"] = $game->name;
-			$this->page["game_info"][$gid]["organizer"] = $this->user_model->get_user_by_id($game->organizer)->username;
+			$this->page["game_info"][$gid]["organizer"] = $game->organizer->username;
 			$this->page["game_info"][$gid]["start_time"]= $game->start_time;
 			$this->page["game_info"][$gid]["end_time"] = $game->end_time;
 		}
