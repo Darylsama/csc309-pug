@@ -37,6 +37,23 @@ class AdminController {
 	
 	
 
+	public function invoke_edit_sport(){
+		$user = get_loggedin_user();
+		if ($user -> permission != 2) {
+			$this->page["err"] = "You are not the admin user so use do not have the privilege to use this functionality.";	
+		}
+		else if (isset($_SERVER['CONTENT_LENGTH']) &&
+			(int) $_SERVER['CONTENT_LENGTH'] > 0) {
+			$sid = htmlspecialchars($_POST["sid"]);
+			$sport = $this->sport_model->get_sport($sid);	
+			$this->page["name"] = $sport->name;
+			$this->page["description"] = $sport->description;
+			include "view/admin_edit_sport_part.php";
+		}
+		
+	}
+	
+
 	/*
 	 * add sport to the whole system, so the user can select 
 	 * which sports of these they are experted at
