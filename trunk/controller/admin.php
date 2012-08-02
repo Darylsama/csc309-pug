@@ -149,14 +149,14 @@ class AdminController {
 	}
 	
 	function invoke_manage_games(){
-		$games = $this->game_model->get_games();
+		$games = $this->game_model->get_all_games();
 		$this->page["game_info"] = array();
 		foreach ($games as $game){
 			$gid = $game->gid;
 			$this->page["game_info"][$gid]["name"] = $game->name;
-			$this->page["game_info"][$gid]["organizer"] = $game->orgaizer;
-			$this->page["game_info"][$gid]["start_time"];
-			$this->page["game_info"][$gid]["end_time"];
+			$this->page["game_info"][$gid]["organizer"] = $this->user_model->get_user_by_id($game->organizer)->username;
+			$this->page["game_info"][$gid]["start_time"]= $game->start_time;
+			$this->page["game_info"][$gid]["end_time"] = $game->end_time;
 		}
 		include "view/admin_manage_games_part.php";
 	}

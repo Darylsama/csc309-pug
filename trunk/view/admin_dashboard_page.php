@@ -13,7 +13,7 @@
     		<button class="btn btn-primary" onClick="get_manage_users()">
     			manage users
     		</button>
-    		<button class="btn btn-info">
+    		<button class="btn btn-info" onClick="get_manage_games()">
     			manage games
     		</button>	
     		<button class="btn btn-success" onClick="get_manage_sports()">
