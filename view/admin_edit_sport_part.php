@@ -2,20 +2,19 @@
 <br/>
 <div>
 sport name<br/>
-<form >
-<input type="text" value= '<?php echo $this->page["name"]?>'/>
+
+<form>
+<input id="name" type="text" value= '<?php echo $this->page["name"]?>'/>
 <br/>
 description<br/>
-<textarea style='width: 632px; height: 50px;'>
+<textarea id="description" style='width: 632px; height: 50px;'>
 <?php echo $this->page["description"]?>
 </textarea>
 <br/>
-<input type="submit" class="btn btn-primary" value="update sport"/>
-
 
 </form>
-
-<button class="btn btn-danger">delete sport</button>
-<button class="btn btn-success">go back</button>
+<button class="btn btn-primary" onClick="update_sport(<?php echo $this->page["sid"] ?>)">update sport</button>
+<button class="btn btn-danger" onClick="delete_sport(<?php echo $this->page["sid"] ?>)">delete sport</button>
+<button class="btn btn-success" onClick="get_manage_sports()">go back</button>
 	
 </div>

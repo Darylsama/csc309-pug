@@ -15,7 +15,7 @@
 				<td><?php echo $sport["description"]?></td>		
 			</tr>
 		<?php } ?>
-		<tr onClick="">
+		<tr onClick="add_sport_page()">
 			<td></td>
 			<td>click to add sport</td>
 		</tr>

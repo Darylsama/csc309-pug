@@ -352,13 +352,24 @@ class SportModel {
      */
     public function add_sports($user, $sport) {
 
-        $stmt = get_dao() -> prepare("insert into user_sports (uid, sid) values (:uid, :sid)");
+        $stmt = get_dao() -> prepare("insert into user_sports (uid, sid) values (:uid, :sid);");
         $stmt -> bindParam(':uid', $user -> uid);
         $stmt -> bindParam(':sid', $sport -> sid);
         $stmt -> execute();
     }
     
-    public function delete_sports($sid){
+    /*
+     * 
+     */
+    public function update_sport($sid, $name, $description){
+    	$stmt = get_dao() -> prepare("update sports set name = :name, description = :description where sid = :sid;");
+    	$stmt -> bindParam(":name", $name);
+    	$stmt -> bindParam(":description", $description);
+    	$stmt -> bindParam(":sid", $sid);
+    	$stmt -> execute();
+    }
+    
+    public function delete_sport($sid){
     	
     	$stmt = get_dao() -> prepare("delete from sports where sid = :sid;");
     	$stmt -> bindParam(":sid", $sid);
