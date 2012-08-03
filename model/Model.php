@@ -572,11 +572,13 @@ class GameModel {
                 $gid = $row["gid"];
                 $name = $row["name"];
                 $organizer = $users[$row["organizer"]];
+                $start_time = strtotime($row["start_time"]);
+                $duration = $row["duration"];
                 $creation = $row["creation"];
                 $sport = $sports[$row["sport"]];
                 $desc = $row["desc"];
 
-                $game = $this -> create_game($gid, $name, $organizer, null, null, $creation, $sport, $desc);
+                $game = $this -> create_game($gid, $name, $organizer, $start_time, $duration, $creation, $sport, $desc);
                 $user_games[$gid] = $game;
             }
             return $user_games;

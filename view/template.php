@@ -36,6 +36,7 @@
 
     <script src="./assets/js/jquery.js"></script>
     <script src="./assets/js/jquery-ui.js"></script>
+    <script src="./assets/js/jquery.dataTables.js"></script>
     <script src="./view/js/script.js"></script>
     
     <!-- custom javascript code for individual page -->
