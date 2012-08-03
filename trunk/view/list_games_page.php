@@ -7,7 +7,7 @@
 
     <div class="span9 content">
     
-      <table id="game_table" style="width:100%" >
+      <table id="game_table" >
         <thead>
           <tr>
             <th>Name</th>
