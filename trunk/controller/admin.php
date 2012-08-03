@@ -114,19 +114,6 @@ class AdminController {
 		
 	}
 	
-	function invoke_delete_sport(){
-		$user = get_loggedin_user();
-		
-		if (isset($_SERVER['CONTENT_LENGTH']) &&
-			(int) $_SERVER['CONTENT_LENGTH'] > 0) {
-				
-			$sid = htmlspecialchars($_POST["sid"]);
-			$this->sport_model->delete_sport($sid);
-			$this->invoke_manage_sports();
-			
-		}
-		
-	}
 	
 	function invoke_manage_users(){
 		$users = $this->user_model->get_all_users();
