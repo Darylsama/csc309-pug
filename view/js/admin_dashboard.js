@@ -68,18 +68,6 @@ function update_sport(sid){
 	
 }
 
-function delete_sport(sid){
-	if (confirm("Delete this sport?")){ 
-		$.ajax({
-			url: 'admin_delete_sport.php',
-			type: 'POST',
-			data: {'sid':sid},
-			success:function(data){
-				$("#main-part").html(data);
-			}
-		});
-	}	
-}
 
 function get_manage_games() {
 	$.ajax({ 
@@ -92,10 +80,6 @@ function get_manage_games() {
 	});
 }
 
-function get_manage_system(){
-	
-	
-}
 
 function get_send_announcement(){
 	

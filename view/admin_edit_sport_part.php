@@ -14,7 +14,6 @@ description<br/>
 
 </form>
 <button class="btn btn-primary" onClick="update_sport(<?php echo $this->page["sid"] ?>)">update sport</button>
-<button class="btn btn-danger" onClick="delete_sport(<?php echo $this->page["sid"] ?>)">delete sport</button>
 <button class="btn btn-success" onClick="get_manage_sports()">go back</button>
 	
 </div>
