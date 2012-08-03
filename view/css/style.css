@@ -44,7 +44,7 @@ body {
 /* HERO UNITS AS WELL AS SIDEBAR WIDTH CAUSES HEADACHES BEYOND THIS POINT */
 @media (min-width: 768px) {
 	
-    .row-fluid {
+    .content-wrapper {
     
         height:800px;
     }
