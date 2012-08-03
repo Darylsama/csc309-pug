@@ -458,8 +458,8 @@ class GameModel {
      * @param string $desc the description of the game
      * @return Game the game entity that encapsulate the game
      */
-    public function create_game($gid, $name, $organizer, $start_time, $end_time, $creation, $sport, $desc) {
-        return new Game($gid, $name, $organizer, $start_time, $end_time, $creation, $sport, $desc);
+    public function create_game($gid, $name, $organizer, $start_time, $duration, $creation, $sport, $desc) {
+        return new Game($gid, $name, $organizer, $start_time, $duration, $creation, $sport, $desc);
     }
 
     /**
@@ -468,9 +468,11 @@ class GameModel {
      */
     public function persist_game($game) {
 
-        $stmt = get_dao() -> prepare("insert into games (name, organizer, creation, sport, `desc`) values (:name, :organizer, :creation, :sport, :desc)");
+        $stmt = get_dao() -> prepare("insert into games (name, organizer, start_time, duration, creation, sport, `desc`) values (:name, :organizer, :start_time, :duration, :creation, :sport, :desc)");
         $stmt -> bindParam(':name', $game -> name);
         $stmt -> bindParam(':organizer', $game -> organizer);
+        $stmt -> bindParam(':start_time', $game -> start_time);
+        $stmt -> bindParam(':duration', $game -> duration);
         $stmt -> bindParam(':creation', $game -> creation);
         $stmt -> bindParam(':sport', $game -> sport);
         $stmt -> bindParam(':desc', $game -> desc);
