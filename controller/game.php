@@ -37,6 +37,7 @@ class GameController {
         $this->page["page"] = "view/list_games_page.php";
         $this->page["title"] = "Pick-up Games";
         $this->page["js"] = array("view/js/list_game.js");
+        $this->page["css"] = array("view/css/list_games.css");
 
         
         $this->page["games"] = $games;
