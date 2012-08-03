@@ -1,5 +1,5 @@
 <div class="container-fluid">
-  <div class="row-fluid">
+  <div class="row-fluid content-wrapper">
 
     <!-- sidebar -->
     <?php include "view/sidebar.php" ?>
@@ -36,56 +36,47 @@
       
       
       <hr />
-      <table>
-      	<thead>
-        	<tr><?php echo "Joined game list:<br/>"?></tr>
-        </thead>
-		<tbody>
-			<?php foreach ($this->page["joined_game"] as $gid => $name) { ?>
-        	<tr>
-        		<td>
-        		<a href="view_game.php?gid=<?php echo $gid; ?>"><?php echo $name; ?></a>
-          		</td>
-          	</tr>
-          	<?php } ?>
-		</tbody>
-	  </table>
-	  
-	  <br/>
-	  <br/>
-	  <table>
-		<thead>
-			<tr><?php echo "Interested game list:<br/>"?></tr>
-		</thead>
-		<tbody>
-			<?php foreach ($this->page["interested_game"] as $gid => $name) { ?>
-        	<tr>
+      
+     <div class="row-fluid">
+     
+     <div class="span4">
+     <?php echo "Joined game list"?>
+     <?php foreach ($this->page["joined_game"] as $gid => $name) { ?>
+        <tr>
         	<td>
-        		<a href="view_game.php?gid=<?php echo $gid; ?>"><?php echo $name; ?></a>
+        	<a href="view_game.php?gid=<?php echo $gid; ?>"><?php echo $name; ?></a>
         	</td>
-        	</tr>
-        	<?php } ?>
-       	</tbody>
-      </table>
-      <br/>
-	  <br/>
-		<table>
-		<thead><tr></tr><?php echo "organized game list:<br/>"?></tr></thead>
-		<tbody>
-			<?php foreach ($this->page["organized_game"] as $game) { ?>
-			<tr>
-			<td>
-				<a href="view_game.php?gid=<?php echo $game->gid?>"><?php echo $game->name?></a>
-			</td>
-			</tr>	
-			<?php } ?> 
-		</tbody>
-		</table>
-	  <br/>
-	  <br/>
+        </tr>
+  	<?php } ?>
+     </div>
+     
+     <div class="span4">
+     <?php echo "Interested game list:<br/>"?>
+	<?php foreach ($this->page["interested_game"] as $gid => $name) { ?>
+	<tr>
+	<td>
+		<a href="view_game.php?gid=<?php echo $gid; ?>"><?php echo $name; ?></a>
+	</td>
+	</tr>
+	<?php } ?>
+     </div>
+     
+     <div class="span4">
+     <?php echo "organized game list:<br/>"?>
+     
+     <?php foreach ($this->page["organized_game"] as $game) { ?>
+		<a href="view_game.php?gid=<?php echo $game->gid?>"><?php echo $game->name?></a><br />
+	<?php } ?> 
+     </div>
+     
+     </div>
+      
+  
 	  
-	  <hr />
-		<?php 
+	  <div class="row-fluid">
+	  
+	  <div class="span6">
+  		<?php 
 			echo "The average rates of you as a player:<br/>";
 			if (isset($this->page["player_rates"])){
 				
@@ -96,7 +87,10 @@
 				echo "You have not been rated as an player yet.<br/>";
 			}
 		?>
-		<?php 
+	  </div>
+	  
+  	  <div class="span6">
+  	  		<?php 
 			echo "The average rates of you as an organizer:<br/>";
 			if (isset($this->page["organizer_rates"])){
 				
@@ -107,7 +101,10 @@
 				echo "You have not been rated as an organizer yet.<br/>";
 			}
 		?>
-		
+	  </div>
+  	  
+  	  </div>
+	  
 
       
     </div>

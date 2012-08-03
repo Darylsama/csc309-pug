@@ -1,5 +1,5 @@
 <div class="container-fluid">
-  <div class="row-fluid">
+  <div class="row-fluid content-wrapper">
 
     <?php
     include "view/sidebar.php"
