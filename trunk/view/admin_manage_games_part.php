@@ -15,7 +15,7 @@
 				
 				<td><?php echo $game["organizer"] ?></td>
 				<td><?php echo $game["start_time"] ?></td>
-				<td><?php echo $game["end_time"]?></td>		
+				<td><?php echo $game["duration"]?></td>		
 			</tr>
 		<?php } ?>
 	</tbody>

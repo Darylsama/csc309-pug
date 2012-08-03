@@ -51,17 +51,28 @@ class GameController {
     public function invoke_new_game() {
 
         if (isset($_SERVER['CONTENT_LENGTH']) &&
-                        (int) $_SERVER['CONTENT_LENGTH'] > 0) {
+            (int) $_SERVER['CONTENT_LENGTH'] > 0) {
 
             $gid = 0;
             $name = htmlspecialchars($_POST["gamename"]);
             $organizer = get_loggedin_user()->uid;
+            
+            // processing star time
+            $post_date = $_POST["start_date"];
+            $post_time = $_POST["start_time"];
+            $str_timestamp = $post_date . " " . $post_time . ":00";
+            $start_time = date("Y-m-d H:i:s", strtotime($str_timestamp));
+
+            // duration of the game
+            $duration = (int) $_POST["duration"];
+            
+            // other informations
             $creation = date("Y-m-d");
             $sport = htmlspecialchars($_POST["sport"]);
             $description = htmlspecialchars($_POST["description"]);
 			
 			// set the gid to be 0 as default
-            $game = $this->game_model->create_game($gid, $name, $organizer, NULL, NULL, $creation, $sport, $description);
+            $game = $this->game_model->create_game($gid, $name, $organizer, $start_time, $duration, $creation, $sport, $description);
             // another id will be generated automatically by mysql for the game when this instance is persisted
             $this->game_model->persist_game($game);
 
@@ -71,6 +82,7 @@ class GameController {
 			
             $this->page["page"] = "view/create_game_page.php";
             $this->page["title"] = "Create New Game";
+            $this->page["js"] = array("view/js/create_game.js");
 
             $sports = $this->sport_model->get_sports(get_loggedin_user());
             $this->page["sports"] = $sports;

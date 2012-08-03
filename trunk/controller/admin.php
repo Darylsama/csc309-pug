@@ -156,7 +156,7 @@ class AdminController {
 			$this->page["game_info"][$gid]["name"] = $game->name;
 			$this->page["game_info"][$gid]["organizer"] = $game->organizer->username;
 			$this->page["game_info"][$gid]["start_time"]= $game->start_time;
-			$this->page["game_info"][$gid]["end_time"] = $game->end_time;
+			$this->page["game_info"][$gid]["duration"] = $game->duration;
 		}
 		include "view/admin_manage_games_part.php";
 	}
