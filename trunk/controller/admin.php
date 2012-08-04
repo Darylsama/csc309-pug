@@ -159,6 +159,14 @@ class AdminController {
 		}
 		include "view/admin_manage_sports_part.php";
 	}
+	
+	function invoke_manage_system(){
+		
+		$this->page["system_info"]=array();
+		
+		
+	}
+	
 
 }
 

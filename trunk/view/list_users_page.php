@@ -11,15 +11,15 @@
 		var usershref = new Array();
 		
 		
-		<?php foreach ($this->page["users"] as $user) { ?>
+		<?php foreach ($this->page["user_info"] as $uid=>$user) { ?>
 			
-			users.push("<?php echo $user->username; ?>");
-			usershref.push("view_user.php?uid=<?php echo $user->uid; ?>");
+			users.push("<?php echo $user["username"]; ?>");
+			usershref.push("view_user.php?uid=<?php echo $uid; ?>");
 		<?php } ?>	
-		<?php foreach ($this->page["friends"] as $user) { ?>
+		<?php foreach ($this->page["friend_info"] as $uid=>$user) { ?>
 
-			friends.push("<?php echo $user->username; ?>");
-			friendshref.push("view_user.php?uid=<?php echo $user->uid; ?>");
+			friends.push("<?php echo $user["username"]; ?>");
+			friendshref.push("view_user.php?uid=<?php echo $uid; ?>");
 		<?php } ?>
 		
 
@@ -50,7 +50,6 @@
 				content = content.concat("</a></td></tr>");
 			};
 			table.innerHTML = content;
-			
 		};
 	</script>
 	<div class="span9 content">
@@ -64,17 +63,21 @@
 		<br/>
 		<br/>
 		
-		<table>
+		<table id="user_table">
         <thead>
           <tr>
             <th>User Name</th>
+            <th>rate as player</th>
+            <th>rate as organizer</th>
           </tr>
         </thead>
         <tbody id="1">
-          <?php foreach ($this->page["users"] as $user) { ?>
+          <?php foreach ($this->page["user_info"] as $uid=>$user) { ?>
           <tr>
-          	<td><a href="view_user.php?uid=<?php echo $user->uid; ?>"><?php echo $user -> username; ?>
+          	<td><a href="view_user.php?uid=<?php echo $uid; ?>"><?php echo $user["username"]; ?>
             </a></td>
+            <td><?php echo $user["player_rates"]; ?></td>
+            <td><?php echo $user["organizer_rates"]; ?> </td>
           </tr>
           <?php } ?>
         </tbody>

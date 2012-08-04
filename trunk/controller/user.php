@@ -150,14 +150,29 @@ class UserController {
 	/** 
 	 * invokes the list user handler
 	 * called by list_user.php
-	 * set the content for page of list_user_page.php
+	 * set the content for page of list_user_pages.php
 	 */
 	public function invoke_list_users() {
 		$uid = get_loggedin_user()->uid;
-		$this->page["page"] = "view/list_user_page.php";
+		$this->page["page"] = "view/list_users_page.php";
+		$this->page["js"] = array("view/js/list_users.js");
+		$this->page["css"]= array("view/css/list_users.css");
 		$this->page["title"] = "Genneral Users Information";
-		$this->page["users"] = $this->user_model->get_all_users();
-		$this->page["friends"] = $this->user_model->get_friends($uid); 
+		$this->page["user_info"] = array();
+		$users = $this->user_model->get_all_users();
+		foreach ($users as $user){
+			$this->page["user_info"][$user->uid]["username"] = $user->username;
+			$this->page["user_info"][$user->uid]["player_rates"] = $this->rating_model->get_user_avg_rating($uid);
+			$this->page["user_info"][$user->uid]["organizer_rates"] = $this->rating_model->get_organizer_avg_rating($uid);
+		}
+		$friends = $this->user_model->get_friends($uid);
+		$this->page["friend_info"] =array();
+		
+		foreach ($friends as $user){
+			$this->page["friend_info"][$user->uid]["username"] = $user->username;
+			$this->page["friend_info"][$user->uid]["player_rates"] = $this->rating_model->get_user_avg_rating($uid);
+			$this->page["friend_info"][$user->uid]["organizer_rates"] = $this->rating_model->get_organizer_avg_rating($uid);
+		} 
 
 		include "view/template.php";
 	}
