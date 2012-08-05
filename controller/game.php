@@ -32,7 +32,7 @@ class GameController {
     public function invoke_list_games() {
 		
 		// set games to be an array of game object that use their gid as the key
-        $games = $this->game_model->get_all_games();
+        $games = $this->game_model->get_joinable_games(get_loggedin_user());
 
         $this->page["page"] = "view/list_games_page.php";
         $this->page["title"] = "Pick-up Games";
