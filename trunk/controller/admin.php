@@ -118,7 +118,7 @@ class AdminController {
 			}
 			else if ((strlen($description) <= 1024) && strlen($sportsname) <=64 ) {
 						
-				$sports = $this->sport_model->create_sport(0, $sportsname, $description);
+				$sports = $this->sport_model->create_sport(0, $sportsname, $description,0);
 				$this->sport_model->persist_sport($sports);
 				$this->invoke_manage_sports();
 			}

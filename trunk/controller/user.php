@@ -113,7 +113,8 @@ class UserController {
                 	$password, 
                 	$permission, 
                 	$firstname,
-                	$lastname
+                	$lastname,
+                	0
             	);
 				$this->user_model->persist_user($user);
 				// redirect user to the login page

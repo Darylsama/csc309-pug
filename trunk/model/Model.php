@@ -102,7 +102,7 @@ class UserModel {
             $firstname = $row["firstname"];
             $lastname = $row["lastname"];
 
-            $user = $this -> create_user($uid, $username, $password, $permission, $firstname, $lastname);
+            $user = $this -> create_user($uid, $username, $password, $permission, $firstname, $lastname,0);
 
             return $user;
         }
@@ -127,7 +127,7 @@ class UserModel {
 
             if ($user_row != NULL) {
 
-                $user = $this -> create_user($user_row["uid"], $user_row["username"], $user_row["password"], $user_row["type"], $user_row["firstname"], $user_row["lastname"]);
+                $user = $this -> create_user($user_row["uid"], $user_row["username"], $user_row["password"], $user_row["type"], $user_row["firstname"], $user_row["lastname"],0);
 
                 return $user;
 
@@ -159,7 +159,7 @@ class UserModel {
                 $firstname = $row["firstname"];
                 $lastname = $row["lastname"];
 
-                $users[$uid] = $this -> create_user($uid, $username, $password, $permission, $firstname, $lastname);
+                $users[$uid] = $this -> create_user($uid, $username, $password, $permission, $firstname, $lastname,0);
             }
 
             return $users;
@@ -306,7 +306,7 @@ class UserModel {
             $firstname = $row["firstname"];
             $lastname = $row["lastname"];
             
-            $user = $this -> create_user($uid, $username, $password, $permission, $firstname, $lastname);
+            $user = $this -> create_user($uid, $username, $password, $permission, $firstname, $lastname,0);
             
             return $user;
     	    
@@ -420,8 +420,9 @@ class SportModel {
             $row = $stmt -> fetch();
             $name = $row["name"];
             $description = $row["description"];
+            $status = $row["status"];
 
-            $sport = $this -> create_sport($sid, $name, $description);
+            $sport = $this -> create_sport($sid, $name, $description, $status);
 
             return $sport;
         }
@@ -435,12 +436,12 @@ class SportModel {
     public function get_sports($user) {
 
         $user_sports = array();
-        $stmt = get_dao() -> prepare("select sports.sid as sid, sports.name as name, sports.description as description from user_sports inner join sports on user_sports.sid = sports.sid where uid = :uid;");
+        $stmt = get_dao() -> prepare("select sports.sid as sid, sports.name as name, sports.description as description, sports.status as status from user_sports inner join sports on user_sports.sid = sports.sid where uid = :uid;");
         $stmt -> bindParam(':uid', $user -> uid);
 
         if ($stmt -> execute()) {
             while (($row = $stmt -> fetch()) != null) {
-                $sport = $this -> create_sport($row["sid"], $row["name"], $row["description"]);
+                $sport = $this -> create_sport($row["sid"], $row["name"], $row["description"], $row["status"]);
                 $user_sports[$row["sid"]] = $sport;
             }
             return $user_sports;
@@ -459,7 +460,7 @@ class SportModel {
         if ($stmt -> execute()) {
 
             while (($row = $stmt -> fetch()) != null) {
-                $sport = $this -> create_sport($row["sid"], $row["name"], $row["description"]);
+                $sport = $this -> create_sport($row["sid"], $row["name"], $row["description"], $row["status"]);
                 $user_sports[$row["sid"]] = $sport;
             }
             return $user_sports;
@@ -476,7 +477,7 @@ class SportModel {
         if ($stmt -> execute()) {
 
             while (($row = $stmt -> fetch()) != null) {
-                $sport = $this -> create_sport($row["sid"], $row["name"], $row["description"]);
+                $sport = $this -> create_sport($row["sid"], $row["name"], $row["description"],$row["status"]);
                 $user_sports[$row["sid"]] = $sport;
             }
             return $user_sports;
@@ -559,11 +560,13 @@ class GameModel {
 
             $name = $row["name"];
             $organizer = $user_model -> get_user_by_id($row["organizer"]);
+            $start_time = strtotime($row["start_time"]);
+            $duration = $row["duration"];
             $creation = $row["creation"];
             $sport = $sport_model -> get_sport($row["sport"]);
             $desc = $row["desc"];
 
-            $game = $this -> create_game($gid, $name, $organizer, null, null, $creation, $sport, $desc);
+            $game = $this -> create_game($gid, $name, $organizer, $start_time, $duration, $creation, $sport, $desc, 0);
 
             return $game;
         }
@@ -594,11 +597,13 @@ class GameModel {
                 $gid = $row["gid"];
                 $name = $row["name"];
                 $organizer = get_loggedin_user();
+                $start_time = strtotime($row["start_time"]);
+                $duration = $row["duration"];
                 $creation = $row["creation"];
                 $sport = $user_sports[$row["sport"]];
                 $desc = $row["desc"];
 
-                $game = $this -> create_game($gid, $name, $organizer, null, null, $creation, $sport, $desc);
+                $game = $this -> create_game($gid, $name, $organizer, $start_time, $duration, $creation, $sport, $desc, 0);
                 $user_games[$gid] = $game;
             }
             return $user_games;
@@ -635,7 +640,7 @@ class GameModel {
                 $sport = $sports[$row["sport"]];
                 $desc = $row["desc"];
 
-                $game = $this -> create_game($gid, $name, $organizer, $start_time, $duration, $creation, $sport, $desc);
+                $game = $this -> create_game($gid, $name, $organizer, $start_time, $duration, $creation, $sport, $desc,0);
                 $user_games[$gid] = $game;
             }
             return $user_games;
@@ -677,7 +682,7 @@ class GameModel {
                 $sport = $sports[$row["sport"]];
                 $desc = $row["desc"];
     
-                $game = $this -> create_game($gid, $name, $organizer, $start_time, $duration, $creation, $sport, $desc);
+                $game = $this -> create_game($gid, $name, $organizer, $start_time, $duration, $creation, $sport, $desc,0);
                 $user_games[$gid] = $game;
             }
             return $user_games;
@@ -780,7 +785,7 @@ class GameModel {
                 $firstname = $row["firstname"];
                 $lastname = $row["lastname"];
                  
-                $user = $user_model->create_user($uid, $username, $password, $permission, $firstname, $lastname);
+                $user = $user_model->create_user($uid, $username, $password, $permission, $firstname, $lastname,0);
                 $users[$uid] = $user;
             }
              
@@ -811,7 +816,7 @@ class GameModel {
                 $firstname = $row["firstname"];
                 $lastname = $row["lastname"];
 
-                $user = $user_model->create_user($uid, $username, $password, $permission, $firstname, $lastname);
+                $user = $user_model->create_user($uid, $username, $password, $permission, $firstname, $lastname,0);
                 $users[$uid] = $user;
             }
 
