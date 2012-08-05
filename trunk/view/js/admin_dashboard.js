@@ -51,7 +51,45 @@ function add_sport(){
 			$('#main-part').html(data);
 		}
 	})
+}
+
+function delete_sport(sid){
+	$.ajax({
+		url: 'admin_delete_sport.php',
+		type: 'POST',
+		data:{'sid':sid},
+		success: function(data){
+			$('#main-part').html(data);
+		}
+		
+	})
+}
+
+function delete_user(uid){
+	if (confirm("Are you sure that you want to delete this user?")){
+		$.ajax({
+		url: 'admin_delete_user.php',
+		type: 'POST',
+		data: {'uid': uid},
+		success: function(data){
+			$("#main-part").html(data);
+		}
+	})}
+}
+
+
+
+function delete_game(gid){
 	
+	$.ajax({
+		url: 'admin_delete_game.php',
+		type: "POST",
+		data: {'gid': gid },
+		success: function(data){
+			$("#main-part").html(data);
+		}
+	
+	})
 }
 
 function update_sport(sid){
@@ -81,9 +119,27 @@ function get_manage_games() {
 }
 
 
+
+function get_manage_system(){
+	$.ajax({
+		url: 'admin_manage_system.php',
+		type: 'GET',
+		datatype:"html",
+		success: function(data){
+			$("#main-part").html(data);
+		}
+		
+	});
+}
+
+
 function get_send_announcement(){
 	
 	
+	
 }
+
+
+
 
 

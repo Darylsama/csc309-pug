@@ -73,7 +73,21 @@ class AdminController {
 		
 	}
 	
-	
+	public function invoke_delete_sport(){
+		$user = get_loggedin_user();
+		if ($user -> permission != 2){
+			return "You are not the admin user so use do not have the privilege to use this functionality.";	
+		}
+		else if (isset($_SERVER['CONTENT_LENGTH']) &&
+			(int) $_SERVER['CONTENT_LENGTH'] > 0) {
+			
+			$sid = htmlspecialchars($_POST["sid"]);
+			$this->sport_model->delete_sport($sid);
+			
+			$this->invoke_manage_sports();
+		}
+		
+	}
 
 	/*
 	 * add sport to the whole system, so the user can select 
@@ -149,7 +163,7 @@ class AdminController {
 	}
 	
 	function invoke_manage_sports(){
-		$sports = $this->sport_model->get_all_sports();
+		$sports = $this->sport_model->get_all_valid_sports();
 		$this->page["sports_info"] = array();
 		foreach ($sports as $sport){
 			$sid = $sport->sid;
@@ -163,6 +177,11 @@ class AdminController {
 	function invoke_manage_system(){
 		
 		$this->page["system_info"]=array();
+		$this->page["system_info"]["total_users"] = count($this->user_model->get_all_users());
+		$this->page["system_info"]["total_games"] = count($this->game_model->get_all_games());
+		$this->page["system_info"]["total_sports"] = count($this->sport_model->get_all_sports());
+		
+		include "view/admin_manage_system_part.php";
 		
 		
 	}

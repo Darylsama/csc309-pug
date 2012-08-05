@@ -32,6 +32,9 @@ insert into sports (name, description) values ('Football', 'played between two t
 insert into sports (name, description) values ('Golf', ' a precision club and ball sport, in which competing players (or golfers) use many types of clubs to hit balls into a series of holes on a golf course using the fewest number of strokes');
 insert into sports (name, description) values ('Ice hockey', 'a team sport played on ice, in which skaters use wooden or composite sticks to shoot a hard rubber puck into their opponent''s net');
 
+update sports set status = 0;
+
+
 
 #a list of preset user - sports relationship
 insert into user_sports (uid, sid) values (1, 1);

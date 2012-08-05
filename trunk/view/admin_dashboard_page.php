@@ -19,7 +19,7 @@
     		<button class="btn btn-success" onClick="get_manage_sports()">
     			manage sports
     		</button>
-			<button class="btn btn-warning">
+			<button class="btn btn-warning" onClick="get_manage_system()">
 				manage system
 			</button>
 			<button class="btn btn-danger">
@@ -27,6 +27,8 @@
 			</button>
 			
    		</div>
+   		<br/>
+   		<hr/>
    		<div id="main-part">	
  
     	

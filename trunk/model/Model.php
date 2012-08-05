@@ -371,10 +371,10 @@ class SportModel {
     
     public function delete_sport($sid){
     	
-    	$stmt = get_dao() -> prepare("delete from sports where sid = :sid;");
-    	$stmt -> bindParam(":sid", $sid);
-    	$stmt -> execute();
+    	$stmt = get_dao() -> prepare("update sports set status = 1 where sid =:sid;");
+    	$stmt->bindParam(":sid", $sid);
     	
+		$stmt->execute();
     }
 
     /**
@@ -437,7 +437,23 @@ class SportModel {
 
         return false;
     }
+    
+	public function get_all_valid_sports(){
+		
+		$user_sports = array();
+        $stmt = get_dao() -> prepare("select * from sports where status = 0;");
 
+        if ($stmt -> execute()) {
+
+            while (($row = $stmt -> fetch()) != null) {
+                $sport = $this -> create_sport($row["sid"], $row["name"], $row["description"]);
+                $user_sports[$row["sid"]] = $sport;
+            }
+            return $user_sports;
+        }
+
+        return false;
+	}
 }
 
 
