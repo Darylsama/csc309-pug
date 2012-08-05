@@ -23,6 +23,8 @@ insert into users (username, password, type, firstname, lastname) values ('portt
 insert into users (username, password, type, firstname, lastname) values ('Donec', 'Donec', 1, 'Ori', 'Newton');
 insert into users (username, password, type, firstname, lastname) values ('pellentesque', 'non', 1, 'Theodore', 'Marks');
 
+update users set status = 0;
+
 
 #a legid listing of sports
 insert into sports (name, description) values ('Archery', 'the art, practice, or skill of propelling arrows with the use of a bow');
@@ -103,6 +105,7 @@ insert into games (name, organizer, start_time, duration, creation, sport, `desc
 insert into games (name, organizer, start_time, duration, creation, sport, `desc`) values ('Phasellus Ornare Fusce Championship', 9, "2012-05-10 16:00:00", 3, '2012-04-21', 1, 'id, ante. Nunc mauris sapien, cursus in, hendrerit consectetuer, cursus et, magna. Praesent interdum ligula eu enim. Etiam imperdiet dictum magna. Ut tincidunt orci quis lectus. Nullam suscipit, est ac facilisis facilisis, magna tellus faucibus leo, in lobortis tellus justo sit amet nulla. Donec non justo. Proin non massa non ante bibendum ullamcorper. Duis cursus, diam at pretium aliquet, metus urna convallis erat, eget tincidunt dui augue eu tellus. Phasellus elit pede, malesuada vel, venenatis vel, faucibus id, libero. Donec consectetuer mauris id sapien. Cras dolor dolor, tempus non, lacinia at, iaculis quis, pede. Praesent eu dui. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aenean eget magna. Suspendisse tristique neque venenatis lacus. Etiam bibendum fermentum');
 insert into games (name, organizer, start_time, duration, creation, sport, `desc`) values ('Cras Vulputate Elimination', 9, "2012-06-17 10:00:00", 4, '2012-04-04', 5, 'Suspendisse tristique neque venenatis lacus. Etiam bibendum fermentum metus. Aenean sed pede nec ante blandit viverra. Donec tempus, lorem fringilla ornare placerat, orci lacus vestibulum lorem, sit amet ultricies sem magna nec quam. Curabitur vel lectus. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec dignissim magna a tortor. Nunc commodo auctor velit. Aliquam nisl. Nulla eu neque pellentesque massa lobortis ultrices. Vivamus rhoncus. Donec est. Nunc ullamcorper, velit in aliquet lobortis, nisi nibh lacinia orci, consectetuer euismod est arcu ac orci. Ut semper pretium neque. Morbi quis urna. Nunc quis arcu vel quam dignissim pharetra. Nam ac nulla. In tincidunt congue turpis. In condimentum. Donec at arcu. Vestibulum ante ipsum');
 
+update games set status = 0;
 
 # a number of users has already expressed their interest in some of the pickup gaems 
 insert into matches (uid, gid, selected) values (10, 1, 0);

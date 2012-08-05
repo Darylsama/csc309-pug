@@ -404,7 +404,15 @@ class UserController {
 		header("Location: profile.php");
 	}
 	
-	
+	function invoke_delete_sport(){
+		$user = get_loggedin_user();
+		$uid = $user->uid;
+		
+		$sid = $_POST["sid"];
+		
+		$this->sport_model->delete_user_sport($uid, $sid);
+		
+	}
 	
 }
 

@@ -376,6 +376,15 @@ class SportModel {
     	
 		$stmt->execute();
     }
+    
+    public function delete_user_sport($uid, $sid){
+    	
+    	$stmt = get_dao()-> prepare("delete from user_sports where uid=:uid and sid =:sid;");
+    	$stmt->bindParam(":uid", $uid);
+    	$stmt->bindParam(":sid", $sid);
+    	
+    	$stmt->execute();
+    }
 
     /**
      * return a sports by its sid
