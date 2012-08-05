@@ -117,14 +117,20 @@ class Messages {
 	public $mid;	//unique id for messages
 	public $to;		//the user id of the user this message is sent to
 	public $from;	//the user id of the user this message is sent by
-	public $content;//the content of this message
+	public $subject;//the subject of this message
+	public $body;//the content of this message
+	public $create_time;
 	
-	public function __construct($mid, $to, $from, $content) {
+	
+	public function __construct($mid, $to, $from, $subject, $body, $create_time) {
 		
 		$this->mid = $mid;
 		$this->to = $to;
 		$this->from = $from;
-		$this->content = $content;
+		$this->subject = $subject;
+		$this->body = $body;
+		$this->create_time = $create_time;
+		
 		
 	}
 	

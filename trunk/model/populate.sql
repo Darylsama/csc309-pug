@@ -221,3 +221,5 @@ insert into friendship (uid1, uid2) values (17, 11);
 insert into friendship (uid1, uid2) values (17, 13);
 insert into friendship (uid1, uid2) values (17, 15);
 insert into friendship (uid1, uid2) values (17, 16);
+
+

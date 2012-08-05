@@ -17,6 +17,7 @@ CREATE  TABLE IF NOT EXISTS `mydb`.`users` (
   `type` TINYINT NOT NULL ,
   `lastname` VARCHAR(64) NOT NULL ,
   `firstname` VARCHAR(64) NOT NULL ,
+  `status` INT NULL ,
   PRIMARY KEY (`uid`) ,
   UNIQUE INDEX `uid_UNIQUE` (`uid` ASC) )
 ENGINE = InnoDB;
@@ -36,6 +37,7 @@ CREATE  TABLE IF NOT EXISTS `mydb`.`games` (
   `creation` DATE NULL ,
   `sport` INT NULL ,
   `desc` VARCHAR(1024) NULL ,
+  `staus` INT NULL ,
   PRIMARY KEY (`gid`) ,
   UNIQUE INDEX `gid_UNIQUE` (`gid` ASC) )
 ENGINE = InnoDB;
@@ -95,6 +97,7 @@ CREATE  TABLE IF NOT EXISTS `mydb`.`sports` (
   `sid` INT UNSIGNED NOT NULL AUTO_INCREMENT ,
   `name` VARCHAR(64) NULL ,
   `description` VARCHAR(1024) NULL ,
+  `status` INT NULL ,
   PRIMARY KEY (`sid`) ,
   UNIQUE INDEX `sid_UNIQUE` (`sid` ASC) )
 ENGINE = InnoDB;
@@ -107,8 +110,9 @@ DROP TABLE IF EXISTS `mydb`.`messages` ;
 
 CREATE  TABLE IF NOT EXISTS `mydb`.`messages` (
   `mid` INT UNSIGNED NOT NULL AUTO_INCREMENT ,
-  `from` INT NULL ,
-  `to` INT NULL ,
+  `receiver` INT NULL ,
+  `sender` INT NULL ,
+  `subject` VARCHAR(45) NULL ,
   `body` VARCHAR(1024) NULL ,
   `time` DATE NULL ,
   PRIMARY KEY (`mid`) ,
