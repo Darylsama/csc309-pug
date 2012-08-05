@@ -51,7 +51,16 @@ class UserController {
                 
 				include "view/template.php";
                 
-			} else {
+			} else if($user->status == 1){
+				$this->page["page"] = "view/login_page.php";
+                $this->page["title"] = "Login";
+                $this->page["err"] = "Your account has been deleted.";
+                
+				include "view/template.php";
+				
+			}
+			
+			else{
 			    
 				set_loggedin_user($user);
                 header("Location: profile.php");

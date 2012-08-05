@@ -174,6 +174,14 @@ class AdminController {
 		include "view/admin_manage_sports_part.php";
 	}
 	
+	
+	function invoke_delete_game(){
+		
+		$sid = htmlspecialchars($_POST["sid"]);
+		
+		$this->game_model->delete_game();
+	}
+	
 	function invoke_manage_system(){
 		
 		$this->page["system_info"]=array();
