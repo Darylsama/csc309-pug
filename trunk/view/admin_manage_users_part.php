@@ -3,10 +3,10 @@
 	<thead>
 		<tr>
 			<th>Username</th>
-			<th># Interested game</th>
-			<th># Joined game</th>
-			<th># Organizered game</th>
-			<th># Friends</th>
+			<th>Interested game</th>
+			<th>Joined game</th>
+			<th>Organizered game</th>
+			<th>Friends</th>
 			<th>organizer rate</th>
 			<th>player rate</th>
 			<th>type</th>
