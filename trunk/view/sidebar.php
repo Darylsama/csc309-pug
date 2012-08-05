@@ -34,14 +34,7 @@ $current_page = basename($_SERVER["PHP_SELF"], ".php");
     <?php echo ($current_page == "list_users") ? 'class="active"' : ""; ?>>
       <a href="list_users.php"> View Users </a>
     </li>
-    
-    <li
-    <?php echo ($current_page == "message_box") ? 'class = "active"' : ""; ?>>
-    	<a href='message_box.php'>Message box</a>
-    </li>
-    
-
-    
+   
     
   </ul>
 </div>
