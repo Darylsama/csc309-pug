@@ -16,8 +16,9 @@ class User {
     public $permission; // 1 is normal user and 2 is an admin
     public $firstname; 
     public $lastname;
+    public $status;
   
-    public function __construct($uid, $username, $password, $permission, $firstname, $lastname) {
+    public function __construct($uid, $username, $password, $permission, $firstname, $lastname, $status) {
 
         $this->uid = $uid;
         $this->username = $username;
@@ -25,6 +26,7 @@ class User {
         $this->permission = $permission;
         $this->firstname = $firstname;
         $this->lastname = $lastname;
+        $this->status = $status;
     }
 }
 
@@ -38,12 +40,14 @@ class Sport {
     public $sid;		//unique id for a sport entity
 	public $name;		//name of this sport
 	public $description;//the description of this sport
+	public $status;
 	
-	public function __construct($sid, $name, $description) {
+	public function __construct($sid, $name, $description, $status) {
 		
 		$this->sid = $sid; 		
 		$this->name = $name;	
 		$this->description = $description; 
+		$this->status = $status;
 	}
 }
 
@@ -65,8 +69,9 @@ class Game {
     public $creation;	//the date of this creation
     public $sport;		//the sport type of this game
     public $desc;		//description of this game
+    public $status;
     
-    public function __construct($gid, $name, $organizer, $start_time, $duration, $creation, $sport, $desc) {
+    public function __construct($gid, $name, $organizer, $start_time, $duration, $creation, $sport, $desc, $status) {
         
         $this->gid = $gid;
         $this->name = $name;
@@ -76,6 +81,7 @@ class Game {
         $this->creation = $creation;
         $this->sport = $sport;
         $this->desc = $desc;
+        $this->status = $status;
     }
 }
 

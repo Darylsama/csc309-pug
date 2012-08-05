@@ -22,8 +22,8 @@ class UserModel {
     /**
      * create new user object
      */
-    public function create_user($uid, $username, $password, $permission, $firstname, $lastname) {
-        return new User($uid, $username, $password, $permission, $firstname, $lastname);
+    public function create_user($uid, $username, $password, $permission, $firstname, $lastname, $status) {
+        return new User($uid, $username, $password, $permission, $firstname, $lastname, $status);
     }
 
     /**
@@ -32,12 +32,13 @@ class UserModel {
     public function persist_user($user) {
 
         // insert user into database
-        $stmt = get_dao() -> prepare("insert into users (username, password, type, lastname, firstname) values (:username, :password, :type, :lastname, :firstname);");
+        $stmt = get_dao() -> prepare("insert into users (username, password, type, lastname, firstname, status) values (:username, :password, :type, :lastname, :firstname, :status);");
         $stmt -> bindParam(':username', $user -> username);
         $stmt -> bindParam(':password', $user -> password);
         $stmt -> bindParam(':type', $user -> permission);
         $stmt -> bindParam(':lastname', $user -> lastname);
         $stmt -> bindParam(':firstname', $user -> firstname);
+        $stmt -> bindParam(':status', $user->status);
         $stmt -> execute();
 
         // set the uid for the current user
@@ -50,6 +51,25 @@ class UserModel {
             $user ->uid = $row["uid"];
         }
     }
+    
+   	public function delete_user($uid){
+   		
+   		$stmt = get_dao()->prepare("update users set status = 1 where uid =:uid; delete from friendship where uid1 = :uid or uid2 = :uid; update games set status = 1 where organizer = :uid; select gid from games where organizer = :uid;");
+		$stmt -> bindParam(":uid", $uid);
+		if ($stmt->execute()){
+			$row = $stmt->fetch();
+			while (isset($row["gid"])){
+				$stmt2 = get_dao()->prepare("delete from matches where gid =:gid;");
+				$stmt2->bindParam(":gid", $row["gid"]);
+				
+				$stmt->execute();
+			}
+			$row =  $stmt->fetch;
+		}
+		else{
+			return FALSE;
+		}
+   	}
 
     /**
      * return whether the given username already exist in the database
@@ -323,8 +343,8 @@ class SportModel {
     /**
      * create a new sport
      */
-    public function create_sport($sid, $name, $description) {
-        return new Sport($sid, $name, $description);
+    public function create_sport($sid, $name, $description, $status) {
+        return new Sport($sid, $name, $description, $status);
     }
 
     /**
@@ -332,9 +352,10 @@ class SportModel {
      */
     public function persist_sport($sport) {
 
-        $stmt = get_dao() -> prepare("insert into sports (name, description) values (:name, :description)");
+        $stmt = get_dao() -> prepare("insert into sports (name, description, status) values (:name, :description, :status)");
         $stmt -> bindParam(':name', $sport -> name);
         $stmt -> bindParam(':description', $sport -> description);
+        $stmt -> bindParam(":status", $sport->status);
         $stmt -> execute();
 
         // set the sid for the current sport
@@ -483,8 +504,8 @@ class GameModel {
      * @param string $desc the description of the game
      * @return Game the game entity that encapsulate the game
      */
-    public function create_game($gid, $name, $organizer, $start_time, $duration, $creation, $sport, $desc) {
-        return new Game($gid, $name, $organizer, $start_time, $duration, $creation, $sport, $desc);
+    public function create_game($gid, $name, $organizer, $start_time, $duration, $creation, $sport, $desc, $status) {
+        return new Game($gid, $name, $organizer, $start_time, $duration, $creation, $sport, $desc, $status);
     }
 
     /**
@@ -493,7 +514,7 @@ class GameModel {
      */
     public function persist_game($game) {
 
-        $stmt = get_dao() -> prepare("insert into games (name, organizer, start_time, duration, creation, sport, `desc`) values (:name, :organizer, :start_time, :duration, :creation, :sport, :desc)");
+        $stmt = get_dao() -> prepare("insert into games (name, organizer, start_time, duration, creation, sport, `desc`, status) values (:name, :organizer, :start_time, :duration, :creation, :sport, :desc, :status)");
         $stmt -> bindParam(':name', $game -> name);
         $stmt -> bindParam(':organizer', $game -> organizer);
         $stmt -> bindParam(':start_time', $game -> start_time);
@@ -501,6 +522,7 @@ class GameModel {
         $stmt -> bindParam(':creation', $game -> creation);
         $stmt -> bindParam(':sport', $game -> sport);
         $stmt -> bindParam(':desc', $game -> desc);
+        $stmt -> bindParam(":status", $game->status);
         $stmt -> execute();
 
         // set the gid for the current sport
@@ -509,6 +531,16 @@ class GameModel {
             $row = $stmt -> fetch();
             $game ->gid = $row["gid"];
         }
+    }
+    
+    public function delete_game($gid){
+    	$stmt = get_dao() -> prepare("delete from games where gid =:gid;");
+    	$stmt->bindParam(":gid", $gid);
+    	$stmt->execute();
+    	
+    	$stmt2 = get_dao() -> prepare("delete from matches where gid =:gid;");
+    	$stmt2->bindParam(":gid", $gid);
+    	$stmt->execute();
     }
 
     /**

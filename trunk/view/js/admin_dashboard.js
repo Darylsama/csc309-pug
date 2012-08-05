@@ -139,6 +139,8 @@ function get_send_announcement(){
 	
 }
 
+$(document).ready(get_manage_users);
+
 
 
 
