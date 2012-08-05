@@ -889,4 +889,119 @@ class RatingModel {
         }
     }
 }
+
+
+
+class MessageModel{
+	
+	
+	
+	public function create_message($mid, $to, $from, $subject, $content, $create_time){
+		return new Message($mid, $to, $from, $subject, $content, $create_time);
+	}
+	
+	public function persist_message($message){
+		
+		$create_time = date("Y-m-d h:i:s");
+		$stmt = get_dao() -> prepare("insert into messages (to, from, subject, body, time) values (:to, :from, :subject, :body, :time);");
+		$stmt->bindParam(":to", $message->to);
+		$stmt->bindParam(":from", $message->from);
+		$stmt->bindParam(":subject", $message->subject);
+		$stmt->bindParam(":body", $message->body);
+		$stmt->bindParam(":time", $message->create_time);
+		$stmt->execute();
+		
+		 // set the id for the current message
+		$stmt2 = get_dao() -> prepare("select mid from messages where to =:to and from = :from and time = :time;");
+		$stmt2->bindParam(":to", $message->to);
+		$stmt2->bindParam(":from", $message->from);
+		$stmt2->bindParam(":time", $create_time);
+		if ($stmt2->execute()) {
+            $row = $stmt2 -> fetch();
+            $message ->mid = $row["mid"];
+            return $message;
+        }
+        return false;
+	}
+        
+	public function get_received_messages($uid){
+		
+		$stmt = get_dao()->prepare("select * from messages where to = :uid;");
+		$stmt->bindParam(":uid", $uid);
+		
+		if ($stmt->execute()){
+			$messages = array();
+			
+			$row = $stmt->fetch();
+			while (isset($row["mid"] )){
+				$mid = $row["mid"];
+				$to = $row["to"];
+				$from =  $row["from"];
+				$subject = $row["subject"];
+				$body = $row["body"];
+				$time = $row["time"];
+				$message = new Message($mid, $to, $from, $subject, $body, $time);
+				
+				$message[$mid] = $message;	
+				
+				$row = $stmt->fetch();
+			}
+			
+			return $messages;
+		}
+		else{
+			return FALSE;
+		}
+	}
+	
+	public function get_send_message($uid){
+		$stmt = get_dao()->prepare("select * from messages where from = :uid;");
+		$stmt->bindParam(":uid", $uid);
+		
+		if ($stmt->execute()){
+			$messages = array();
+			$row = $stmt->fetch();
+			while (isset($row["mid"] )){
+				$mid = $row["mid"];
+				$to = $row["to"];
+				$from =  $row["from"];
+				$subject = $row["subject"];
+				$body = $row["body"];
+				$time = $row["time"];
+				$message = new Message($mid, $to, $from, $subject, $body, $time);
+				
+				$message[$mid] = $message;	
+				
+				$row = $stmt->fetch();
+			}
+			
+			return $messages;
+		}
+		else{
+			return FALSE;
+		}
+		
+	}
+	
+	public function get_message($mid){
+		
+		$stmt = get_dao()->prepare("select * from messages where mid =:mid;");
+		$stmt-> bindParam(":mid", $mid);
+		
+		if ($stmt->execute()){
+			$row = $stmt->fetch();
+			
+			return new Message($row["mid"], $row["to"], $row["from"],$row["subject"], $row["body"], $row["time"]);
+		}
+		else{
+			return FALSE;
+		}
+		
+	}
+	
+	
+	
+	
+	
+}
 ?>
