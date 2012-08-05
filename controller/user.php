@@ -372,7 +372,7 @@ class UserController {
 		$user = get_loggedin_user();
 		$uid = $user->uid;
 		$this->page["current_sports"]=$this->sport_model->get_sports($user);
-		$this->page["all_sports"] = $this->sport_model->get_all_sports();
+		$this->page["all_sports"] = $this->sport_model->get_all_valid_sports();
 		$this->page["organized_game"] = $this->game_model->get_games($this->user_model->get_user_by_id($uid));
 		$this->page["joined_game"] = $this->game_model->get_joined_games($uid);
 		$this->page["interested_game"] = $this->game_model->get_interested_games($uid);
