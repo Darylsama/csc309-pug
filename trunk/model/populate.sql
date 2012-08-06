@@ -6,6 +6,7 @@ use mydb
 insert into users (username, password, type, lastname, firstname) values ('admin', 'password', 2, 'Li', 'Xiang');
 insert into users (username, password, type, lastname, firstname) values ('yang', 'password', 2, 'Sun', 'Yang');
 insert into users (username, password, type, lastname, firstname) values ('daryl', 'password', 2, 'Zhou', 'Daryl');
+insert into users (username, password, type, lastname, firstname) values ('cicely', '1234', 2, 'Zhang', 'Chuanxi');
 
 #dummy users
 insert into users (username, password, type, firstname, lastname) values ('Proin', 'eu', 1, 'Xandra', 'Diaz');
