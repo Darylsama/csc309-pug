@@ -130,7 +130,7 @@ class AdminController {
 	
 	
 	function invoke_manage_users(){
-		$users = $this->user_model->get_all_users();
+		$users = $this->user_model->get_all_valid_users();
 		$this->page["users_information"] = array();
 		foreach ($users as $user) {
 			$uid = $user->uid;
