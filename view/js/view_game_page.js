@@ -1,3 +1,0 @@
-function cancel_game(){
-	
-}
