@@ -62,7 +62,7 @@ class RatingController {
 				//the truly id will be associated to rating object after persist_rating is called
 				$rating = $this->rating_model->create_rating(0, $rater->uid, $ratee, $value, $comment, 1);
            		$rating = $this->rating_model->persist_rating($rating);
-				header("Location: view_user.php?uid=" . $ratee);
+				header("Location: profile.php?uid=" . $ratee);
 			}
 
 		} else {
@@ -115,7 +115,7 @@ class RatingController {
 				//the truly id will be associated to rating object after persist_rating is called
 				$rating = $this->rating_model->create_rating(0, $rater->uid, $ratee, $value, $comment, 0);
            		$rating = $this->rating_model->persist_rating($rating);
-				header("Location: view_user.php?uid=" . $ratee);
+				header("Location: profile.php?uid=" . $ratee);
 			}
 
 		} else {

@@ -147,20 +147,69 @@ class UserController {
      */
 	public function invoke_profile() {
 		
-		$user = get_loggedin_user();
-		$uid = $user->uid;
+	    // retrieving user ids
+	    if (isset($_GET["uid"])) {
+    	    $profile_owner_id = htmlspecialchars($_GET["uid"]);
+	    }
+	    $loggedin_user = get_loggedin_user();
+        $loggedin_user_id = $loggedin_user->uid;
 		
+		// general page information
         $this->page["page"] = "view/profile_page.php";
-        $this->page["title"] = "Dashboard";
-		$this->page["current_sports"] = $this->sport_model->get_sports($user);
-		$this->page["organized_game"] = $this->game_model->get_games($this->user_model->get_user_by_id($uid));
-		$this->page["joined_game"] = $this->game_model->get_joined_games($uid);
-		$this->page["interested_game"] = $this->game_model->get_interested_games($uid);
-		$this->page["player_rates"] = $this->rating_model->get_user_avg_rating($uid);
-		$this->page["organizer_rates"] = $this->rating_model->get_organizer_avg_rating($uid);
-		
-		
-		
+        $this->page["title"] = "Profile : " . $loggedin_user -> username;
+        
+        // if the viewer is the profile owner
+        if (!isset($profile_owner_id) || $profile_owner_id == $loggedin_user_id) {
+            
+    		$this->page["current_sports"] = $this->sport_model->get_sports($loggedin_user);
+    		$this->page["organized_game"] = $this->game_model->get_games($this->user_model->get_user_by_id($loggedin_user_id));
+    		$this->page["joined_game"] = $this->game_model->get_joined_games($loggedin_user_id);
+    		$this->page["interested_game"] = $this->game_model->get_interested_games($loggedin_user_id);
+    		$this->page["player_rates"] = $this->rating_model->get_user_avg_rating($loggedin_user_id);
+    		$this->page["organizer_rates"] = $this->rating_model->get_organizer_avg_rating($loggedin_user_id);
+    		
+    		// use the owner template
+    		$this->page["page"] = "view/profile_page.php";
+    		
+    	// if the viewer of the profile is a friend of the owner of the profile
+        } else if ($this->user_model->is_friend($loggedin_user_id, $profile_owner_id)) {
+            
+            $this->page["css"] = array("view/css/rating.css");
+            $this->page["js"] = array(
+                "view/js/rating.js",
+                "view/js/player_rating.js"
+            );
+             
+            $this->page["user"] = $profile_owner = $this->user_model->get_user_by_id($profile_owner_id);
+            $this->page["player_rates"] = $this->rating_model->get_user_avg_rating($profile_owner_id);
+            $this->page["organizer_rates"] = $this->rating_model->get_organizer_avg_rating($profile_owner_id);
+            $this->page["joined_game"] = $this->game_model->get_joined_games($profile_owner_id);
+            $this->page["interested_game"] = $this->game_model->get_interested_games($profile_owner_id);
+            $this->page["organized_game"] = $this->game_model->get_games($profile_owner);
+            //if this user rated this friend before, he/she can't rate this friend again
+            $this->page["rate_player_before"] = $this->rating_model->rate_player_before($loggedin_user_id, $profile_owner_id);
+            //if this user rated this friend as organizer before, he/she can't rate this friend as organizer again
+            $this->page["rate_organizer_before"] = $this->rating_model->rate_organizer_before($loggedin_user_id, $profile_owner_id);
+            //an user can only rate a friend as organizer if he/she joined the game organized by this friend before
+            $this->page["can_rate_organizer"] = $this->rating_model->can_rate_organizer($loggedin_user_id, $profile_owner_id);
+           
+            // use the friend page template
+            $this->page["page"] = "view/view_friend_page.php";
+            
+        // if the viewer of the profile has no relation with the owner of the profile
+        } else {
+            
+            $this->page["user"] = $profile_owner = $this->user_model->get_user_by_id($profile_owner_id);
+            $this->page["player_rates"] = $this->rating_model->get_user_avg_rating($profile_owner_id);
+            $this->page["organizer_rates"] = $this->rating_model->get_organizer_avg_rating($profile_owner_id);
+            $this->page["joined_game"] = $this->game_model->get_joined_games($profile_owner_id);
+            $this->page["interested_game"] = $this->game_model->get_interested_games($profile_owner_id);
+            $this->page["organized_game"] = $this->game_model->get_games($profile_owner);
+            
+            // use the default template
+            $this->page["page"] = "view/view_user_page.php";
+        }
+        
         include "view/template.php";
 	}
 	
@@ -196,68 +245,6 @@ class UserController {
 	}
 	
 	
-	/**
-	 *  invokes the view user handers 
-	 *  called by view_user.php.
-	 *  set the content of page for
-	 *  view_friend_page.php or view_user_page.php
-	 * 	set the details of contents of 
-	 *  view_friend_page or view_user_page 
-	 */
-	public function invoke_view_user() {
-		
-		//userid1 is the id of current login user
-		//userid2 is the id of the profile the current want to view
-		$userid1 = get_loggedin_user()->uid;
-		$userid2 = $_GET["uid"];
-		
-
-		
-		if (! ($this->user_model->is_friend($userid1, $userid2))) {
-			//if not friend and only view some basic information
-			
-
-			$this->page["page"] = "view/view_user_page.php";
-			$this->page["title"] = "User Information";	
-			$uid = $userid2;
-			$this->page["user"] = $this->user_model->get_user_by_id($uid);
-			$this->page["player_rates"] = $this->rating_model->get_user_avg_rating($uid);
-			$this->page["organizer_rates"] = $this->rating_model->get_organizer_avg_rating($uid);
-			$this->page["joined_game"] = $this->game_model->get_joined_games($uid);
-
-			$this->page["interested_game"] = $this->game_model->get_interested_games($uid);
-			$this->page["organized_game"] = $this->game_model->get_games($this->user_model->get_user_by_id($uid));
-			include "view/template.php";
-		}
-		else {
-			//if they're friends 
-			//this user can rate this friend
-			$this->page["page"] = "view/view_friend_page.php";
-			$this->page["title"] = "User Information: friend";
-			$this->page["css"] = array("view/css/rating.css");
-			$this->page["js"] = array(
-            "view/js/rating.js",
-            "view/js/player_rating.js"
-            );
-			$uid = $userid2;
-			$this->page["user"] = $this->user_model->get_user_by_id($uid);
-			$this->page["player_rates"] = $this->rating_model->get_user_avg_rating($uid);
-			$this->page["organizer_rates"] = $this->rating_model->get_organizer_avg_rating($uid);
-			$this->page["joined_game"] = $this->game_model->get_joined_games($uid);
-			$this->page["interested_game"] = $this->game_model->get_interested_games($uid);
-			$this->page["organized_game"] = $this->game_model->get_games($this->user_model->get_user_by_id($uid));
-			
-			//if this user rated this friend before, he/she can't rate this friend again
-			$this->page["rate_player_before"] = $this->rating_model->rate_player_before($userid1, $uid);
-			//if this user rated this friend as organizer before, he/she can't rate this friend as organizer again
-			$this->page["rate_organizer_before"] = $this->rating_model->rate_organizer_before($userid1, $uid);
-			//an user can only rate a friend as organizer if he/she joined the game organized by this friend before
-			$this->page["can_rate_organizer"] = $this->rating_model->can_rate_organizer($userid1, $userid2);
-
-			include "view/template.php";
-			
-		}
-	}
 	
 	/*
 	 *invoke the edit_profile handler 

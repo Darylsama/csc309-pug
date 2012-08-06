@@ -14,12 +14,12 @@
 		<?php foreach ($this->page["user_info"] as $uid=>$user) { ?>
 			
 			users.push("<?php echo $user["username"]; ?>");
-			usershref.push("view_user.php?uid=<?php echo $uid; ?>");
+			usershref.push("profile.php?uid=<?php echo $uid; ?>");
 		<?php } ?>	
 		<?php foreach ($this->page["friend_info"] as $uid=>$user) { ?>
 
 			friends.push("<?php echo $user["username"]; ?>");
-			friendshref.push("view_user.php?uid=<?php echo $uid; ?>");
+			friendshref.push("profile.php?uid=<?php echo $uid; ?>");
 		<?php } ?>
 		
 
@@ -74,7 +74,7 @@
         <tbody id="1">
           <?php foreach ($this->page["user_info"] as $uid=>$user) { ?>
           <tr>
-          	<td><a href="view_user.php?uid=<?php echo $uid; ?>"><?php echo $user["username"]; ?>
+          	<td><a href="profile.php?uid=<?php echo $uid; ?>"><?php echo $user["username"]; ?>
             </a></td>
             <td><?php echo $user["player_rates"]; ?></td>
             <td><?php echo $user["organizer_rates"]; ?> </td>
