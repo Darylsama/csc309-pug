@@ -683,6 +683,39 @@ class GameModel {
         }
     }
 
+    public function get_all_valid_games() {
+
+        //  get all sports within the system
+        $sport_model = new SportModel();
+        $sports = $sport_model -> get_all_sports();
+
+        // get all corresponding users within the system
+        $user_model = new UserModel();
+        $users = $user_model -> get_all_users();
+
+        // then create the corresponding game objects
+        $user_games = array();
+        $stmt = get_dao() -> prepare("select * from games where status = 0;");
+        if ($stmt -> execute()) {
+            while (($row = $stmt -> fetch()) != null) {
+
+                $gid = $row["gid"];
+                $name = $row["name"];
+                $organizer = $users[$row["organizer"]];
+                $start_time = strtotime($row["start_time"]);
+                $duration = $row["duration"];
+                $creation = $row["creation"];
+                $sport = $sports[$row["sport"]];
+                $desc = $row["desc"];
+
+                $game = $this -> create_game($gid, $name, $organizer, $start_time, $duration, $creation, $sport, $desc,0);
+                $user_games[$gid] = $game;
+            }
+            return $user_games;
+        } else {
+            return false;
+        }
+    }
     
     /**
      * return a list of games that the particular user is interesetd in
@@ -701,7 +734,7 @@ class GameModel {
     
         // then create the corresponding game objects
         $user_games = array();
-        $stmt = get_dao() -> prepare("select * from games where start_time > NOW() and sport in (select sid from user_sports where uid = :uid)");
+        $stmt = get_dao() -> prepare("select * from games where start_time > NOW() and sport in (select sid from user_sports where uid = :uid) and status = 0;");
         $stmt->bindParam(":uid", $user->uid);
         
         if ($stmt -> execute()) {
