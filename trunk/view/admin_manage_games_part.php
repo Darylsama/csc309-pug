@@ -6,6 +6,7 @@
 			<th>organizer</th>
 			<th>start time</th>
 			<th>end time</th>
+			<th>action</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -14,8 +15,9 @@
 				<td><?php echo $game["name"] ?></td>
 				
 				<td><?php echo $game["organizer"] ?></td>
-				<td><?php echo $game["start_time"] ?></td>
+				<td><?php echo date("M j, Y G:00", $game["start_time"]) ?></td>
 				<td><?php echo $game["duration"]?></td>		
+				<td><span class="label" onClick="delete_game(<?php echo $gid;?>)">delete game</span></td>
 			</tr>
 		<?php } ?>
 	</tbody>

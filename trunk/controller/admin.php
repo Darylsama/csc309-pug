@@ -149,6 +149,24 @@ class AdminController {
 		
 	}
 	
+	function invoke_delete_user(){
+		
+		$user = get_loggedin_user();
+		if ($user -> permission != 2) {
+			return "You are not the admin user so use do not have the privilege to use this functionality.";	
+		}
+		else if (isset($_SERVER['CONTENT_LENGTH']) &&
+			(int) $_SERVER['CONTENT_LENGTH'] > 0) {
+			
+			$uid = htmlspecialchars($_POST["uid"]);
+			$this->user_model->delete_user($uid);
+			
+			$this->invoke_manage_users();
+		}
+		
+	}
+		
+	
 	function invoke_manage_games(){
 		$games = $this->game_model->get_all_games();
 		$this->page["game_info"] = array();
@@ -177,9 +195,19 @@ class AdminController {
 	
 	function invoke_delete_game(){
 		
-		$sid = htmlspecialchars($_POST["sid"]);
+		$user = get_loggedin_user();
+		if ($user -> permission != 2) {
+			return "You are not the admin user so use do not have the privilege to use this functionality.";	
+		}
+		else if (isset($_SERVER['CONTENT_LENGTH']) &&
+			(int) $_SERVER['CONTENT_LENGTH'] > 0) {
+			
+			$gid = htmlspecialchars($_POST["gid"]);
+			$this->game_model->delete_game($gid);
+			
+			$this->invoke_manage_games();
+		}
 		
-		$this->game_model->delete_game();
 	}
 	
 	function invoke_manage_system(){

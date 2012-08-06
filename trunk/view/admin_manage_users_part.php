@@ -14,7 +14,7 @@
 		</tr>
 	</thead>
 	<tbody>
-		<?php foreach ($this->page["users_information"] as $user) {?> 
+		<?php foreach ($this->page["users_information"] as $uid=>$user) {?> 
 			<tr>
 				<td><?php echo $user["username"] ?></td>
 				<td><?php echo $user["interested_games"]?></td>
@@ -31,7 +31,7 @@
 						echo "Normal";
 					} ?>
 				</td>
-				<td></td>		
+				<td><span class="label" onClick="delete_user(<?php echo $uid?>)">delete user</span></td>		
 			</tr>
 		<?php } ?>
 	</tbody>
