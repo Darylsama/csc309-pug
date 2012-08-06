@@ -259,11 +259,17 @@ class UserController {
 	function invoke_edit_profile() {
 		
 		$user = get_loggedin_user();
-		$this->page["title"]="edit_profile";
+		$this->page["title"]="Edit Profile";
 		$this->page["page"]="edit_profile_page.php";
+		$this->page["js"] = array("view/js/select_sports.js");
+		
 		$this->page["username"] = $user->username;
 		$this->page["firstname"] = $user->firstname;
 		$this->page["lastname"] = $user->lastname;
+		
+		$this->page["current_sports"] = $this->sport_model->get_sports($user);
+		$this->page["all_sports"] = $this->sport_model->get_all_sports();
+		
 		include "view/template.php";
 		
 	}
@@ -271,159 +277,74 @@ class UserController {
 	/*
 	 * 
 	 */
-	function invoke_update_profile(){
+	function invoke_update_profile() {
 		
 		$user= get_loggedin_user();
 		$uid=$user->uid;
-		if (isset($_SERVER['CONTENT_LENGTH']) &&
-			(int) $_SERVER['CONTENT_LENGTH'] > 0) {
-			    
-			
-            $username = htmlspecialchars($_POST["username"]);
-			if ($this->user_model->username_exist($username) and $username!=$user->username){
-				$this->page["page"] = "view/edit_profile_page.php";
-				$this->page["title"] = "edit_profile";
-				$this->page["err"] = "the user name already exist, please choose anthor username";
-				include "view/template.php";
-			}
-			
-			else {
-				
-            	$firstname = htmlspecialchars($_POST["firstname"]);
-            	$lastname = htmlspecialchars($_POST["lastname"]);
 		
-				$user_new = $this->user_model->update_profile($uid, $username, $firstname, $lastname);
-
-				set_loggedin_user($user_new);
-				
-	/*			$this->page["page"]="view/profile_page.php";
-				$this->page["title"]="Dashboard";
-				$this->page["current_sports"] = $this->sport_model->get_sports($user);
-				$this->page["organized_game"] = $this->game_model->get_games($this->user_model->get_user_by_id($uid));
-				$this->page["joined_game"] = $this->game_model->get_joined_games($uid);
-				$this->page["interested_game"] = $this->game_model->get_interested_games($uid);
-				$this->page["player_rates"] = $this->rating_model->get_user_avg_rating($uid);
-				$this->page["organizer_rates"] = $this->rating_model->get_organizer_avg_rating($uid); */
-				header("Location: profile.php");
-				include "view/template.php";
-				
-			}
-
-		} else {
+	    $update_password = false;
+        $update_sports = false;
+	    
+        $username = htmlspecialchars($_POST["username"]);
+        $firstname = htmlspecialchars($_POST["firstname"]);
+        $lastname = htmlspecialchars($_POST["lastname"]);
+        
+        $oldpass = $_POST["oldpass"];
+        $newpass = $_POST["newpass"];
+        $confirm = $_POST['confirm'];
+        
+        if (isset($_POST["sports"])) {
+            $sports = $_POST["sports"];
+            $update_sports = true;
+        }
+        
+	    // error checking user name
+		if ($this->user_model->username_exist($username) and $username!=$user->username) {
 		    
-		    $this->page["page"] = "view/edit_profile_page.php";
-			$this->page["title"] = "edit profile";
-			include "view/template.php";
-		}
-	}
-	
-	
-	/*
-	 * 
-	 */ 
-	function invoke_change_password() {
-		
-		$user = get_loggedin_user();
-		$uid = $user->uid;
-		$this->page["current_sports"]=$this->sport_model->get_sports($user);
-		$this->page["all_sports"] = $this->sport_model->get_all_sports();
-		$this->page["organized_game"] = $this->game_model->get_games($this->user_model->get_user_by_id($uid));
-		$this->page["joined_game"] = $this->game_model->get_joined_games($uid);
-		$this->page["interested_game"] = $this->game_model->get_interested_games($uid);
-		$this->page["player_rates"] = $this->rating_model->get_user_avg_rating($uid);
-		$this->page["organizer_rates"] = $this->rating_model->get_organizer_avg_rating($uid);
-		$this->page["title"]="Dashboard";
-		$this->page["page"]="view/change_password_page.php";
-		
-		
-		include("view/template.php");
-		
-	}
-	
-	/*
-	 * 
-	 */ 
-	function invoke_update_password() {
-		$user = get_loggedin_user();
-		$username = $user->username;
-		$uid = $user->uid;
-
-		if (isset($_POST["old_password"]) && isset($_POST["new_password"]) && isset($_POST['new_password2'])) {
-
-
-			$user = $this->user_model->get_user($username, $_POST["old_password"]);	
-			if ($user == false){
-
-				$this->invoke_change_password();
-			}	
-			else if ($_POST["new_password"] != $_POST['new_password2']){
-				$this->invoke_change_password();
-			}
-			else{
-				echo "aaa";
-				$this->user_model->update_password($uid, $_POST["new_password"]);
-				header("Location: profile.php");
-			}
-		}
-		else{
-
-			$this->invoke_change_password();
+			$this->page["title"] = "Edit Profile";
+			$this->page["page"] = "view/edit_profile_page.php";
+			$this->page["js"] = array("view/js/select_sports.js");
+			$this->page["err"] = "the user name already exist, please choose anthor username";
+			$this->invoke_edit_profile();
 		}
 		
-	
-	}
-	
-	/*
-	 * invoke the add sports handler
-	 * set the detail content of add_profile_sports.php page
-	 * 
-	 */
-	function invoke_add_sports() {
-		$user = get_loggedin_user();
-		$uid = $user->uid;
-		$this->page["current_sports"]=$this->sport_model->get_sports($user);
-		$this->page["all_sports"] = $this->sport_model->get_all_valid_sports();
-		$this->page["organized_game"] = $this->game_model->get_games($this->user_model->get_user_by_id($uid));
-		$this->page["joined_game"] = $this->game_model->get_joined_games($uid);
-		$this->page["interested_game"] = $this->game_model->get_interested_games($uid);
-		$this->page["player_rates"] = $this->rating_model->get_user_avg_rating($uid);
-		$this->page["organizer_rates"] = $this->rating_model->get_organizer_avg_rating($uid);
-		$this->page["page"] = "view/add_profile_sports_page.php";
-		$this->page["title"] = "Dashboard";
+		// error checking edit profile
+		if (strlen($oldpass) && strlen($newpass) && strlen($confirm)) {
+		    $user = $this->user_model->get_user($username, $_POST["oldpass"]);
+		    if ($user == false){
+		        // error message here
+		        $this->invoke_edit_profile();
+		    }
+		    else if ($newpass != $confirm){
+		        // error message here
+		        $this->invoke_edit_profile();
+		    }
+		    else{
+		        $update_password = true;
+		    }
+		}
 		
-		include("view/template.php");
+		// update user
+		$user_new = $this->user_model->update_profile($uid, $username, $firstname, $lastname);
+		set_loggedin_user($user_new);
 		
-
-	}
-	
-	/*
-	 * invoke the update handler to update the sports profile of a user
-	 * then redirect user to profile.php
-	 */
-	function invoke_update_sports(){
-		$user=get_loggedin_user();
-
-		$sports = $_POST["sports"];
-
-		foreach ($sports as $sid){
-			echo $sid;
-			$sport = $this->sport_model->get_sport($sid);
-			$this->sport_model->add_sports($user, $sport);
-		}		
+		// update password
+		if ($update_password) {
+		    $this->user_model->update_password($uid, $newpass);
+		}
+		
+		// update newly selected sports
+		if ($update_sports) {
+    		
+    		foreach ($sports as $sid){
+    		    $sport = $this->sport_model->get_sport($sid);
+    		    $this->sport_model->add_sports($user, $sport);
+    		}
+		}
 		
 		header("Location: profile.php");
-	}
 	
-	function invoke_delete_sport(){
-		$user = get_loggedin_user();
-		$uid = $user->uid;
-		
-		$sid = $_POST["sid"];
-		
-		$this->sport_model->delete_user_sport($uid, $sid);
-		
 	}
-	
 }
 
 ?>

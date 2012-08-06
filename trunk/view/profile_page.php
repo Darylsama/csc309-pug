@@ -6,73 +6,57 @@
 
     <div class="span9 content">
         
-        
-      <h2><?php echo get_loggedin_user() -> username; ?>     
-      </h2>
+      <h3><?php echo get_loggedin_user() -> username; ?></h3>
       <hr />
       
-      <h2>Name: <?php echo get_loggedin_user() -> firstname . " " .  get_loggedin_user() -> lastname; ?></h2>
-      <hr/>
-	  <form action="edit_profile.php"> 		
-	  <button id="profile" href="edit_profile.php">edit your profile</button>
-	  </form>
-	  <form action="change_password.php">
-	  <button id="password" href="change_password.php">change your password</button>
-      </form>
-      <hr/>
-      <h2>Sports</h2>
-      <hr/>
+      <h3>Name: <?php echo get_loggedin_user() -> firstname . " " .  get_loggedin_user() -> lastname; ?></h2>
+      <hr />
+      
+      <h3>Sports</h3>
       <!-- sports listing -->
       <ul>
       <?php foreach ($this->page["current_sports"] as $sport) { ?>
         <li><span><?php echo $sport -> name; ?></span></li>
       <?php } ?>
       </ul>
-      
-      
-      <form action="add_profile_sports.php">
-      <button>add sports</button>
-      </form>
-      
-      
       <hr />
+     
+     
       
+     <h3>Games</h3> 
      <div class="row-fluid">
      
-     <div class="span4">
-     <?php echo "Joined game list"?>
-     <?php foreach ($this->page["joined_game"] as $gid => $name) { ?>
-        <tr>
-        	<td>
-        	<a href="view_game.php?gid=<?php echo $gid; ?>"><?php echo $name; ?></a>
-        	</td>
-        </tr>
-  	<?php } ?>
-     </div>
-     
-     <div class="span4">
-     <?php echo "Interested game list:<br/>"?>
-	<?php foreach ($this->page["interested_game"] as $gid => $name) { ?>
-	<tr>
-	<td>
-		<a href="view_game.php?gid=<?php echo $gid; ?>"><?php echo $name; ?></a>
-	</td>
-	</tr>
-	<?php } ?>
-     </div>
-     
-     <div class="span4">
-     <?php echo "organized game list:<br/>"?>
-     
-     <?php foreach ($this->page["organized_game"] as $game) { ?>
-		<a href="view_game.php?gid=<?php echo $game->gid?>"><?php echo $game->name?></a><br />
-	<?php } ?> 
-     </div>
+         <div class="span4">
+         <ul class="nav nav-list">
+         <li class="nav-header">Joined Games</li>
+         <?php foreach ($this->page["joined_game"] as $gid => $name) { ?>
+    	 <li><a href="view_game.php?gid=<?php echo $gid; ?>"><?php echo $name; ?></a></li>
+      	 <?php } ?>
+      	 </ul>
+         </div>
+         
+         <div class="span4">
+         <ul class="nav nav-list">
+         <li class="nav-header">Interested Games</li>
+    	 <?php foreach ($this->page["interested_game"] as $gid => $name) { ?>
+    	 <li><a href="view_game.php?gid=<?php echo $gid; ?>"><?php echo $name; ?></a></li>
+    	 <?php } ?>
+    	 </ul>
+         </div>
+         
+         <div class="span4">
+         <ul class="nav nav-list">
+         <li class="nav-header">Organized Games</li>
+         <?php foreach ($this->page["organized_game"] as $game) { ?>
+    	 <li><a href="view_game.php?gid=<?php echo $game->gid?>"><?php echo $game->name?></a></li>
+    	 <?php } ?> 
+    	 </ul>
+         </div>
      
      </div>
-      
+     <hr />
   
-	  
+	 <h3>Ratings</h3>
 	  <div class="row-fluid">
 	  
 	  <div class="span6">
