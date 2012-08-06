@@ -8,14 +8,6 @@
    		<h2><?php echo "Administrator" ?>     
       	</h2>		
     
-        <div id="example">
-             <ul>
-                 <li><a href="admin_manage_users.php"><span>Manage Users</span></a></li>
-                 <li><a href="ahah_2.html"><span>Content 2</span></a></li>
-                 <li><a href="ahah_3.html"><span>Content 3</span></a></li>
-             </ul>
-        </div>
-        
     	<div class="btn">
     		<button class="btn btn-primary" onClick="get_manage_users()">
     			manage users
