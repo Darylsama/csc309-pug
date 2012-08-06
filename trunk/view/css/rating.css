@@ -22,6 +22,8 @@ http://webdesign.tutsplus.com/tutorials/htmlcss-tutorials/quick-tip-create-a-rat
 }
 
 .rating-label {
+	font-style:italic;
+	font-weight:bold;
 	font-size:30px;
 }
 

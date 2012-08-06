@@ -30,8 +30,6 @@
    		<hr/>
    		<div id="main-part">	
  
-    	
-    	
    
     	</div>
     </div>
