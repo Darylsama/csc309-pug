@@ -1,5 +1,9 @@
 function init_datepicker() {
-	$("#startdate-input").datepicker();
+
+	var tomorrow = new Date();
+	tomorrow.setDate(tomorrow.getDate() + 1);
+
+	$("#startdate-input").datepicker({minDate: tomorrow});
 }
 
 
