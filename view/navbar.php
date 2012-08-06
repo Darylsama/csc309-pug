@@ -17,7 +17,7 @@
 			    </a>
 			
 			    <ul class="dropdown-menu">
-			      <li><a href="profile.php">Edit Profile</a></li>
+			      <li><a href="edit_profile.php">Edit Profile</a></li>
 			      <li class="divider"></li>
 			      <li><a href="logout.php">Logout</a></li>
 			    </ul>

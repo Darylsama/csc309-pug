@@ -67,8 +67,8 @@
         <thead>
           <tr>
             <th>User Name</th>
-            <th>rate as player</th>
-            <th>rate as organizer</th>
+            <th>Player Rating</th>
+            <th>Organizer Rating</th>
           </tr>
         </thead>
         <tbody id="1">
