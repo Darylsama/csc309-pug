@@ -107,7 +107,7 @@ class GameController {
         $this->page["title"] = "View Game";
         $this->page["js"] = array(
         	"view/js/select_player.js",
-        	"view/js/express_interest.js"
+        	"view/js/view_game.js"
         );
 
         // the game to be displayed on the page
