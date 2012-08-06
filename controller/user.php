@@ -170,7 +170,8 @@ class UserController {
     		$this->page["interested_game"] = $this->game_model->get_interested_games($loggedin_user_id);
     		$this->page["player_rates"] = $this->rating_model->get_user_avg_rating($loggedin_user_id);
     		$this->page["organizer_rates"] = $this->rating_model->get_organizer_avg_rating($loggedin_user_id);
-    		
+    		$this->page["all_ratings"] = $this->rating_model->get_all_ratings($loggedin_user_id);
+
     		// use the owner template
     		$this->page["page"] = "view/profile_page.php";
     		

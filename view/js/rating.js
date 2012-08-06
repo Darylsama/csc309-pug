@@ -9,7 +9,8 @@ function init_rating_widget(wrapper) {
 	
 	var str_value = parseFloat($(wrapper).attr("data-value")).toFixed(1);
 	var value = Math.round(str_value);
-	
+
+	var rater = $(wrapper).attr("data-rater");
 	var comment = $(wrapper).attr("data-comment");
 	var option = $(wrapper).attr("data-widget-style");
 	
@@ -25,7 +26,7 @@ function init_rating_widget(wrapper) {
 "    <li data-rateval='4'></li>", 
 "    <li data-rateval='5'></li>", 
 "  </ul>", 
-"  <span class='rating-label'>" + str_value + " / 5.0 </span><br />",
+"  <span class='rating-label'>" + str_value + "</span><br />",
 "  <input name='value' type='hidden' value='" + value + "'>", 
 "</form>"
 		].join("\n");
@@ -39,6 +40,7 @@ function init_rating_widget(wrapper) {
 		// stars with comment
 		
 		var txt = [
+"  <span>" + rater + ":</span>", 
 "<form method='post'>", 
 "  <ul class='rating-w-images'>", 
 "    <li data-rateval='1'></li>", 
@@ -47,7 +49,7 @@ function init_rating_widget(wrapper) {
 "    <li data-rateval='4'></li>", 
 "    <li data-rateval='5'></li>", 
 "  </ul>", 
-"  <span class='rating-label'>" + str_value + " / 5.0 </span><br />",
+"  <span class='rating-label'>" + str_value + "</span><br />",
 "  <input name='ratee' type='hidden' value='" + ratee + "'>",
 "  <input name='value' type='hidden' value='" + value + "'>", 
 "  <p>" + comment + "</p>", 
@@ -73,7 +75,7 @@ function init_rating_widget(wrapper) {
 "    <li data-rateval='4'></li>", 
 "    <li data-rateval='5'></li>", 
 "  </ul>", 
-"  <span class='rating-label'>" + str_value + " / 5.0 </span><br />",
+"  <span class='rating-label'>" + str_value + "</span><br />",
 "  <input name='ratee' type='hidden' value='" + ratee + "'>",
 "  <input name='value' type='hidden' value='" + value + "'>", 
 "  <textarea name='comment'>" + comment + "</textarea><br />", 

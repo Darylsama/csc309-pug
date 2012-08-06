@@ -45,7 +45,7 @@ class RatingController {
 			if ((! is_int($value)) || $value>5 || $value<0){
 				$this->page["page"] = "";
 				$this->page["title"] ="";
-				$this->page["err"]= "the value should be an int between 0 and 10.";
+				$this->page["err"]= "the value should be an int between 0 and 5";
 				include "view/template.php";
 			}
 			
@@ -98,7 +98,7 @@ class RatingController {
 			if ((! is_int($value)) || $value>5 || $value<0){
 				$this->page["page"] = "";
 				$this->page["title"] ="";
-				$this->page["err"]= "the value should be an int between 0 and 10.";
+				$this->page["err"]= "the value should be an int between 0 and 5";
 				include "view/template.php";
 			}
 			

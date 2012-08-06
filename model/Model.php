@@ -1065,6 +1065,46 @@ class RatingModel {
             }
         }
     }
+    
+    
+    public function get_all_ratings($uid) {
+
+        // get a list of all users
+        $user_model = new UserModel();
+        $user_list = $user_model->get_all_users();
+        $user_dict = array();
+        foreach ($user_list as $user) {
+            $user_dict[$user->uid] = $user;
+        }
+        
+        
+        $stmt = get_dao() -> prepare("select * from ratings where ratee = :uid");
+        $stmt->bindParam(":uid", $uid);
+        
+        if ($stmt -> execute()) {
+            
+            // ratings[1] will be all the player ratings
+            // ratings[0] will be all the organizer ratings
+            $ratings = array(array(), array());
+            
+            while (($row = $stmt -> fetch()) != null) {
+                
+                $rid = $row["rid"];
+                $rater = $user_dict[$row["rater"]];
+                $ratee = $user_dict[$row["ratee"]];
+                $value = $row["value"];
+                $comment = $row["comment"];
+                $type = $row["type"];
+                $rating = $this->create_rating($rid, $rater, $ratee, $value, $comment, $type);
+                
+                $ratings[$type][] = $rating;
+            }
+            
+            return $ratings;
+        } else {
+            return false;
+        }
+    }
 }
 
 
