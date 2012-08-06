@@ -54,42 +54,45 @@ function add_sport(){
 }
 
 function delete_sport(sid){
-	$.ajax({
-		url: 'admin_delete_sport.php',
-		type: 'POST',
-		data:{'sid':sid},
-		success: function(data){
-			$('#main-part').html(data);
-		}
-		
-	})
+	if (confirm("Are you sure that you want to delete this sport?")){
+		$.ajax({
+			url: 'admin_delete_sport.php',
+			type: 'POST',
+			data:{'sid':sid},
+			success: function(data){
+				$('#main-part').html(data);
+			}
+		})
+	}
 }
 
 function delete_user(uid){
-	if (confirm("Are you sure that you want to delete this user?")){
+	if (confirm("Are you sure that you want to delete this game?")){
 		$.ajax({
-		url: 'admin_delete_user.php',
-		type: 'POST',
-		data: {'uid': uid},
-		success: function(data){
-			$("#main-part").html(data);
-		}
-	})}
+			url: 'admin_delete_user.php',
+			type: 'POST',
+			data: {'uid': uid},
+			success: function(data){
+				$("#main-part").html(data);
+			}
+		})
+	}
 }
 
 
 
 function delete_game(gid){
+	if (confirm("Are you sure that you want to delete this game?")){	
+		$.ajax({
+			url: 'admin_delete_game.php',
+			type: "POST",
+			data: {'gid': gid },
+			success: function(data){
+				$("#main-part").html(data);
+			}
 	
-	$.ajax({
-		url: 'admin_delete_game.php',
-		type: "POST",
-		data: {'gid': gid },
-		success: function(data){
-			$("#main-part").html(data);
-		}
-	
-	})
+		})
+	}
 }
 
 function update_sport(sid){

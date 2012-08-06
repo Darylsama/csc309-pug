@@ -54,17 +54,22 @@ class UserModel {
     
    	public function delete_user($uid){
    		
-   		$stmt = get_dao()->prepare("update users set status = 1 where uid =:uid; delete from friendship where uid1 = :uid or uid2 = :uid; update games set status = 1 where organizer = :uid; select gid from games where organizer = :uid;");
+   		$stmt = get_dao()->prepare("update users set status = 1 where uid =:uid; delete from friendship where uid1 = :uid or uid2 = :uid; update games set status = 1 where organizer = :uid;"); 
 		$stmt -> bindParam(":uid", $uid);
-		if ($stmt->execute()){
-			$row = $stmt->fetch();
+		$stmt->execute();
+		
+		$stmt2 = get_dao()->prepare("select gid from games where organizer = :uid;");
+		$stmt2 -> bindParam(":uid", $uid);
+		
+		if ($stmt2->execute()){
+			$row = $stmt2->fetch();
 			while (isset($row["gid"])){
-				$stmt2 = get_dao()->prepare("delete from matches where gid =:gid;");
-				$stmt2->bindParam(":gid", $row["gid"]);
+				$stmt3 = get_dao()->prepare("delete from matches where gid =:gid;");
+				$stmt3->bindParam(":gid", $row["gid"]);
 				
-				$stmt->execute();
+				$stmt3->execute();
 			}
-			$row =  $stmt->fetch;
+			$row =  $stmt2->fetch();
 		}
 		else{
 			return FALSE;
@@ -455,7 +460,7 @@ class SportModel {
     public function get_all_sports() {
 
         $user_sports = array();
-        $stmt = get_dao() -> prepare("select * from sports");
+        $stmt = get_dao() -> prepare("select * from sports;");
 
         if ($stmt -> execute()) {
 
@@ -469,22 +474,23 @@ class SportModel {
         return false;
     }
     
-	public function get_all_valid_sports(){
-		
-		$user_sports = array();
+        public function get_all_valid_sports() {
+
+        $user_sports = array();
         $stmt = get_dao() -> prepare("select * from sports where status = 0;");
 
         if ($stmt -> execute()) {
 
             while (($row = $stmt -> fetch()) != null) {
-                $sport = $this -> create_sport($row["sid"], $row["name"], $row["description"],$row["status"]);
+                $sport = $this -> create_sport($row["sid"], $row["name"], $row["description"], $row["status"]);
                 $user_sports[$row["sid"]] = $sport;
             }
             return $user_sports;
         }
 
         return false;
-	}
+    }
+	
 }
 
 
