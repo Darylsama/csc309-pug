@@ -569,7 +569,7 @@ class GameModel {
     }
     
     public function delete_game($gid){
-    	$stmt = get_dao() -> prepare("delete from games where gid =:gid;");
+    	$stmt = get_dao() -> prepare("update games set status = 1 where gid =:gid;");
     	$stmt->bindParam(":gid", $gid);
     	$stmt->execute();
     	
