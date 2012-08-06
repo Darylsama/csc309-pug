@@ -7,7 +7,7 @@ function init_rating_widget(wrapper) {
 	var ratee = $(wrapper).attr("data-ratee");
 	var action = $(wrapper).attr("data-action");
 	
-	var str_value = $(wrapper).attr("data-value");
+	var str_value = parseFloat($(wrapper).attr("data-value")).toFixed(1);
 	var value = Math.round(str_value);
 	
 	var comment = $(wrapper).attr("data-comment");

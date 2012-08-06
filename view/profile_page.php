@@ -60,31 +60,35 @@
 	  <div class="row-fluid">
 	  
 	  <div class="span6">
-  		<?php 
-			echo "The average rates of you as a player:<br/>";
-			if (isset($this->page["player_rates"])){
-				
-				echo $this->page["player_rates"];
-				echo "<br/>";
-			}		
-			else{
-				echo "You have not been rated as an player yet.<br/>";
-			}
-		?>
+	    <span>Player Reputation: </span>
+	    <br />
+  		<?php if (isset($this->page["player_rates"])) { ?>
+    		<div class="player-rating-avg"
+    	        data-ratee=""
+    	        data-action=""
+    	        data-value="<?php echo $this->page["player_rates"];?>"
+    	        data-comment=""
+    	        data-widget-style="0">
+            </div>
+		<?php } else{ ?>
+			<span class="label">Rating Not Available</span>
+		<?php } ?>
 	  </div>
 	  
   	  <div class="span6">
-  	  		<?php 
-			echo "The average rates of you as an organizer:<br/>";
-			if (isset($this->page["organizer_rates"])){
-				
-				echo $this->page["organizer_rates"];
-				echo "<br/>";
-			}		
-			else{
-				echo "You have not been rated as an organizer yet.<br/>";
-			}
-		?>
+      	<span>Organizer Reputation: </span>
+      	<br />
+        <?php if (isset($this->page["organizer_rates"])) { ?>
+    		<div class="organizer-rating-avg"
+    	        data-ratee=""
+    	        data-action=""
+    	        data-value="<?php echo $this->page["organizer_rates"]; ?>"
+    	        data-comment=""
+    	        data-widget-style="0">
+            </div>
+        <?php } else { ?>
+        	<span class="label">Rating Not Available</span>
+        <?php } ?>
 	  </div>
   	  
   	  </div>
