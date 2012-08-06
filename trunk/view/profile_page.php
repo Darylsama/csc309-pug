@@ -57,11 +57,10 @@
      <hr />
   
 	 <h3>Ratings</h3>
-	  <div class="row-fluid">
+	 <div class="row-fluid">
 	  
 	  <div class="span6">
-	    <span>Player Reputation: </span>
-	    <br />
+	    <span>Player Reputation: </span><br />
   		<?php if (isset($this->page["player_rates"])) { ?>
     		<div class="player-rating-avg"
     	        data-ratee=""
@@ -70,26 +69,13 @@
     	        data-comment=""
     	        data-widget-style="0">
             </div>
-            
-            <hr />
-            <?php foreach ($this->page["all_ratings"][1] as $rating) { ?>
-    		<div class="player-rating"
-    		    data-rater="<?php echo $rating->rater->username ?>"
-    	        data-ratee=""
-    	        data-action=""
-    	        data-value="<?php echo $rating->value; ?>"
-    	        data-comment="<?php echo $rating->comment; ?>"
-    	        data-widget-style="1">
-	        </div>
-            <?php } ?>
 		<?php } else{ ?>
 			<span class="label">Rating Not Available</span>
 		<?php } ?>
 	  </div>
 	  
   	  <div class="span6">
-      	<span>Organizer Reputation: </span>
-      	<br />
+      	<span>Organizer Reputation: </span><br />
         <?php if (isset($this->page["organizer_rates"])) { ?>
     		<div class="organizer-rating-avg"
     	        data-ratee=""
@@ -98,25 +84,12 @@
     	        data-comment=""
     	        data-widget-style="0">
             </div>
-            
-            <hr />
-            <?php foreach ($this->page["all_ratings"][0] as $rating) { ?>
-    		<div class="organizer-rating"
-    		    data-rater="<?php echo $rating->rater->username ?>"
-    	        data-ratee=""
-    	        data-action=""
-    	        data-value="<?php echo $rating->value; ?>"
-    	        data-comment="<?php echo $rating->comment; ?>"
-    	        data-widget-style="1">
-    	    </div>
-            <?php } ?>
-            
         <?php } else { ?>
         	<span class="label">Rating Not Available</span>
         <?php } ?>
 	  </div>
   	  
-  	  </div>
+  	 </div>
 	  
 
       
