@@ -20,7 +20,10 @@
       
       <!-- current user is the organizer for this game -->
       <span class="label label-success">You are the organizer for this game.</span>
-      <span class="label" onClick="cancel_game(<?php echo $this->page["game"]->gid?>)">Cancel this game</span>
+      <form method="post" action="cancel_game.php">
+      <input type="hidden" name="gid" value="<?php echo $this->page["game"]->gid?>"/>
+      <input class="label" type="submit" value="Cancel this game"/>
+      </form>
       <!-- players who are interested in playing this game -->
       <?php if (count($this->page["interested_players"]) > 0) { ?>
       <form id="select-form" method="post" action="select_player.php" name="part">

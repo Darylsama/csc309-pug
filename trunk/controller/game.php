@@ -131,6 +131,19 @@ class GameController {
         
         include "view/template.php";
     }
+    
+    public function invoke_delete_game(){
+    	$uid = get_loggedin_user()->uid;
+    	if (isset($_SERVER['CONTENT_LENGTH']) &&
+            (int) $_SERVER['CONTENT_LENGTH'] > 0) {
+        
+        	$gid = htmlspecialchars($_POST["gid"]);
+        	$this->game_model-> delete_game($gid);
+        	header("Location: profile.php?uid=".$uid);    
+        
+        }
+    	
+    }
 
     /**
      * invoke this when a user express interest for a particular game

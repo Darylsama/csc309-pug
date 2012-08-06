@@ -622,7 +622,7 @@ class GameModel {
         // then create the corresponding game objects for the current user
         // note that the supposedly foreign key attribute is set to the entities themselves
         $user_games = array();
-        $stmt = get_dao() -> prepare("select * from games where organizer = :organizer");
+        $stmt = get_dao() -> prepare("select * from games where organizer = :organizer and status = 0;");
         $stmt -> bindParam(':organizer', $user -> uid);
 
         if ($stmt -> execute()) {
@@ -904,7 +904,7 @@ class GameModel {
      */
     public function get_interested_games($uid){
         $game_list = array();
-        $stmt = get_dao() -> prepare("select * from games inner join matches where games.gid = matches.gid and selected = 0 and uid = :uid;");
+        $stmt = get_dao() -> prepare("select * from games inner join matches where games.gid = matches.gid and selected = 0 and uid = :uid and status = 0;");
         $stmt -> bindParam(":uid", $uid);
         if ($stmt->execute()) {
             while (($row = $stmt->fetch()) != NULL) {
@@ -920,7 +920,7 @@ class GameModel {
     public function get_joined_games($uid){
 
         $game_list = array();
-        $stmt = get_dao() -> prepare("select * from games inner join matches where games.gid = matches.gid and selected = 1 and uid = :uid;");
+        $stmt = get_dao() -> prepare("select * from games inner join matches where games.gid = matches.gid and selected = 1 and uid = :uid and status =0;");
         $stmt -> bindParam(":uid", $uid);
         if ($stmt -> execute()) {
             while (($row = $stmt->fetch()) != NULL) {
