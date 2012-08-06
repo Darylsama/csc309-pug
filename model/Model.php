@@ -68,8 +68,9 @@ class UserModel {
 				$stmt3->bindParam(":gid", $row["gid"]);
 				
 				$stmt3->execute();
+				$row =  $stmt2->fetch();
 			}
-			$row =  $stmt2->fetch();
+
 		}
 		else{
 			return FALSE;
