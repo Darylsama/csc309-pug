@@ -161,6 +161,9 @@ class UserController {
         // if the viewer is the profile owner
         if (!isset($profile_owner_id) || $profile_owner_id == $loggedin_user_id) {
             
+            $this->page["js"] = array("view/js/rating.js", "view/js/profile_page.js");
+            $this->page["css"] = array("view/css/rating.css");
+            
     		$this->page["current_sports"] = $this->sport_model->get_sports($loggedin_user);
     		$this->page["organized_game"] = $this->game_model->get_games($this->user_model->get_user_by_id($loggedin_user_id));
     		$this->page["joined_game"] = $this->game_model->get_joined_games($loggedin_user_id);
