@@ -46,11 +46,12 @@
       <?php if ($this->page["status"] == 0) { ?>
       
       <!-- current user is the organizer for this game -->
-      <span class="label label-success">You are the organizer for this game.</span>
       <form method="post" action="cancel_game.php">
+      <span class="label label-success">You are the organizer for this game.</span>
       <input type="hidden" name="gid" value="<?php echo $this->page["game"]->gid?>"/>
-      <input class="label" type="submit" value="Cancel this game"/>
+      <input type="submit" class="pull-right btn btn-primary" value="Cancel this game"/>
       </form>
+      
       <!-- players who are interested in playing this game -->
       <?php if (count($this->page["interested_players"]) > 0) { ?>
       <form id="select-form" method="post" action="select_player.php" name="part">
@@ -98,8 +99,9 @@
       <?php } else if ($this->page["status"] == 2) {?>
       <!-- current user is interested in the game -->
       <form method="post" action="cancel_interest.php" name="cancel_interest">
+      	<span class="label label-success">You have expressed interest in this game</span>
       	<input name='gid' type="hidden" value="<?php echo $this->page["game"]->gid;?>"/>
-      	<input type="submit" class="label label-success" value="You have expressed interest in this game. click to cancel."/>
+      	<input class="pull-right btn btn-primary" type="submit" value="Withdraw Interest" />
 	  </form>
       
       
@@ -107,8 +109,9 @@
       
       <!-- current user is selected in the game -->
       <form method = "post" action="cancel_join.php" name="cancel_join">
+      	<span class="label label-success">Congradulations, you have been selected to participate in this game</span>
       	<input name='gid' type='hidden' value="<?php echo $this->page["game"]->gid;?>"/>
-      	<input type="submit" class="label label-success" value="Congradulations, you have been selected to participate in this game. Click to exit this game."/>
+      	<input class="pull-right btn btn-primary" type="submit" value="Unjoin" />
       </form>
       <ul class="nav nav-list">
       <li class="nav-header">Other participating players</li>
