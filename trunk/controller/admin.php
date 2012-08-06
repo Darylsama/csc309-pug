@@ -168,7 +168,7 @@ class AdminController {
 		
 	
 	function invoke_manage_games(){
-		$games = $this->game_model->get_all_games();
+		$games = $this->game_model->get_all_valid_games();
 		$this->page["game_info"] = array();
 		foreach ($games as $game){
 			$gid = $game->gid;
