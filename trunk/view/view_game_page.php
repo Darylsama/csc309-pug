@@ -6,14 +6,41 @@
 
 
     <div class="span9 content">
-      <h1>
-        <?php echo $this->page["game"]->name; ?> (<?php echo $this->page["game"]->sport->name; ?>)
-      </h1>
-      <br /> <span><?php echo $this->page["game"]->organizer->username; ?> @ <?php echo $this->page["game"]->creation; ?>
-      </span> <br /> <br />
-      <?php echo $this->page["game"]->desc; ?>
-      <br />
-      <hr />
+
+    
+    <div class="row-fluid">
+        <div class="span8">
+            <h1><?php echo $this->page["game"]->name; ?> (<?php echo $this->page["game"]->sport->name; ?>)</h1>
+            <br />
+
+            <span>Start Time:
+                <?php echo 
+                    date("M j, Y G:00", $this->page["game"] -> start_time) .
+                    "&nbsp;" .
+                    ((int)date("G", $this->page["game"] -> start_time) >= 12 ? "PM" : "AM")
+                ?>
+            </span>
+            <br />
+            <br />            
+            
+            <span>Duration: <?php echo $this->page["game"]->duration ?> Hours</span>
+            <br />
+            <br />
+            
+            
+            <span>Organized by: <?php echo $this->page["game"]->organizer->username; ?> @ <?php echo $this->page["game"]->creation; ?>
+        </div>
+        
+        <div class="span4">
+          <div id="show-date" class="pull-right" data-time="<?php echo $this->page["game"]->start_time; ?>"></div>
+        </div>
+    </div>
+    <hr />
+    <p>
+    <?php echo $this->page["game"]->desc; ?>
+    </p>
+    <br/>
+    <hr />
 
 
       <?php if ($this->page["status"] == 0) { ?>
