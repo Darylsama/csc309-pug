@@ -173,6 +173,34 @@ class UserModel {
 
         return false;
     }
+    
+    
+	public function get_all_valid_users() {
+
+        $stmt = get_dao() -> prepare("select * from users where status =0;");
+
+        if ($stmt -> execute()) {
+
+            $users = array();
+
+            while (($row = $stmt -> fetch()) != null) {
+
+                $uid = $row["uid"];
+                $username = $row["username"];
+                $password = $row["password"];
+                $permission = $row["type"];
+                $firstname = $row["firstname"];
+                $lastname = $row["lastname"];
+
+                $users[$uid] = $this -> create_user($uid, $username, $password, $permission, $firstname, $lastname,0);
+            }
+
+            return $users;
+
+        }
+
+        return false;
+    }
 
     /**
      * should be really called "are_friends"
@@ -716,8 +744,14 @@ class GameModel {
 		$stmt = get_dao() -> prepare("delete from matches where gid = :gid and uid = :uid;");
 		$stmt-> bindParam(':gid', $gid);
 		$stmt-> bindParam(':uid', $user->uid);
-		$stmt -> execute();
-		
+		$stmt -> execute();	
+	}
+	
+	public function cancel_join($user, $gid) {
+		$stmt = get_dao() -> prepare("delete from matches where gid = :gid and uid = :uid;");
+		$stmt-> bindParam(':gid', $gid);
+		$stmt-> bindParam(':uid', $user->uid);
+		$stmt -> execute();	
 	}
 
     /**

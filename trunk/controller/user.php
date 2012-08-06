@@ -169,7 +169,7 @@ class UserController {
 		$this->page["css"]= array("view/css/list_users.css");
 		$this->page["title"] = "Genneral Users Information";
 		$this->page["user_info"] = array();
-		$users = $this->user_model->get_all_users();
+		$users = $this->user_model->get_all_valid_users();
 		foreach ($users as $user){
 			$this->page["user_info"][$user->uid]["username"] = $user->username;
 			$this->page["user_info"][$user->uid]["player_rates"] = $this->rating_model->get_user_avg_rating($uid);
