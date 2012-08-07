@@ -10,9 +10,7 @@ if (isset($user)) {
     
     include_once("controller/user.php");
     $user_controller = new UserController();
-    $user_controller->invoke_list_users();
-    
-    
+    $user_controller->invoke_list_user_data_src();
     
 } else {
     // if the user is currently not logged in
