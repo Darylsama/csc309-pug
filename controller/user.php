@@ -49,6 +49,7 @@ class UserController {
 			    
                 $this->page["page"] = "view/login_page.php";
                 $this->page["title"] = "Login";
+                $this->page["css"] = array("view/css/login.css");
                 $this->page["err"] = "Username/Password Incorrect.";
                 
 				include "view/template.php";
@@ -56,6 +57,7 @@ class UserController {
 			} else if($user->status == 1){
 				$this->page["page"] = "view/login_page.php";
                 $this->page["title"] = "Login";
+                $this->page["css"] = array("view/css/login.css");
                 $this->page["err"] = "Your account has been deleted.";
                 
 				include "view/template.php";
@@ -73,6 +75,7 @@ class UserController {
 			
             $this->page["page"] = "view/login_page.php";
             $this->page["title"] = "Login";
+            $this->page["css"] = array("view/css/login.css");
             include "view/template.php";
 		}
 	}
