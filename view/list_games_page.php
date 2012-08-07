@@ -22,7 +22,7 @@
           <tr>
             <td><a href="view_game.php?gid=<?php echo $game->gid; ?>"><?php echo $game -> name; ?></a></td>
             <td><?php echo $game -> sport -> name; ?></td>
-            <td><?php echo $game -> organizer -> username; ?></td>
+            <td><a href="profile.php?uid=<?php echo $game -> organizer -> uid?>"> <?php echo $game -> organizer -> username; ?></a></td>
             <td><?php echo date("M j, Y G:00", $game -> start_time); ?></td>
             <td><?php echo $game -> duration; ?></td>
           </tr>
