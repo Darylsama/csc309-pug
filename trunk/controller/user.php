@@ -131,11 +131,12 @@ class UserController {
 	}
 
 	public function invoke_delete_account(){
+	    
 		$uid = get_loggedin_user()->uid;
 		$this->user_model->delete_user($uid);
-		$this->page["page"] = "view/login_page.php";
-        $this->page["title"] = "Login";
-        include "view/template.php";
+		clear_current_user();
+		
+        header("Location: login.php");
 
 	}
     
