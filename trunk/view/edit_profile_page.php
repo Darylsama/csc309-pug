@@ -23,9 +23,12 @@
 			<form method="post" action="update_profile.php" name="update_profile" class="form-horizontal">
 				<fieldset>
 
-					<legend>Edit Profile</legend> <br />
+				    <legend>
+					<span>Edit Profile</span>
+					<span class="pull-right"><input type="submit" class="btn btn-primary pull-right" value="Update" /></span>
+					</legend> 
+					<br />
 					<!-- title -->
-
 					
 					
 					<h3>General Information</h3><br />
@@ -113,14 +116,15 @@
 					
 					<hr />
 					
-					<div class="control-group">
-						<input type="submit" class="btn btn-primary pull-right" value="update profile" />
-					</div>
 					<!-- submit -->
 				</fieldset>
 				
 				
 			</form>
+					
+			<div>
+			<a href="delete_account.php" class="btn btn-danger" />Delete Account</a>
+			</div>
 		</div>
 		<div class="span6" ></div>
 		<!-- some padding -->
