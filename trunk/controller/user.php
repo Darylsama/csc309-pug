@@ -235,16 +235,16 @@ class UserController {
 		$users = $this->user_model->get_all_valid_users();
 		foreach ($users as $user){
 			$this->page["user_info"][$user->uid]["username"] = $user->username;
-			$this->page["user_info"][$user->uid]["player_rates"] = $this->rating_model->get_user_avg_rating($uid);
-			$this->page["user_info"][$user->uid]["organizer_rates"] = $this->rating_model->get_organizer_avg_rating($uid);
+			$this->page["user_info"][$user->uid]["player_rates"] = $this->rating_model->get_user_avg_rating($user->uid);
+			$this->page["user_info"][$user->uid]["organizer_rates"] = $this->rating_model->get_organizer_avg_rating($user->uid);
 		}
 		$friends = $this->user_model->get_friends($uid);
 		$this->page["friend_info"] =array();
 		
 		foreach ($friends as $user){
 			$this->page["friend_info"][$user->uid]["username"] = $user->username;
-			$this->page["friend_info"][$user->uid]["player_rates"] = $this->rating_model->get_user_avg_rating($uid);
-			$this->page["friend_info"][$user->uid]["organizer_rates"] = $this->rating_model->get_organizer_avg_rating($uid);
+			$this->page["friend_info"][$user->uid]["player_rates"] = $this->rating_model->get_user_avg_rating($user->uid);
+			$this->page["friend_info"][$user->uid]["organizer_rates"] = $this->rating_model->get_organizer_avg_rating($user->uid);
 		} 
 
 		include "view/template.php";
