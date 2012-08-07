@@ -28,7 +28,7 @@
             <br />
             
             
-            <span>Organized by: <?php echo $this->page["game"]->organizer->username; ?> @ <?php echo $this->page["game"]->creation; ?>
+            <span>Organized by: <a href="profile.php?uid=<?php echo $this->page["game"]->organizer->uid ?>" ><?php echo $this->page["game"]->organizer->username; ?></a> @ <?php echo $this->page["game"]->creation; ?>
         </div>
         
         <div class="span4">
