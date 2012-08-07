@@ -1,0 +1,12 @@
+
+@media (min-width: 768px) {
+	.login-panel {
+		
+		display:block;
+		width:400px;
+		margin-top:200px;
+		
+		max-width:380px;
+		
+	}
+}
