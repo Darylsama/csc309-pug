@@ -16,6 +16,7 @@ class UserController {
     
     // page array, used to encapsulate some page data
     private $page;
+    private $data;
 
 	public function __construct() {
 	    
@@ -24,6 +25,7 @@ class UserController {
 		$this->game_model = new GameModel();
 		$this->rating_model = new RatingModel();
         $page = array();
+        $data = array();
 	}
 
 	/**
@@ -226,28 +228,48 @@ class UserController {
 	 * set the content for page of list_user_pages.php
 	 */
 	public function invoke_list_users() {
+	    
 		$uid = get_loggedin_user()->uid;
 		$this->page["page"] = "view/list_users_page.php";
 		$this->page["js"] = array("view/js/list_users.js");
-		$this->page["css"]= array("view/css/list_users.css");
+		$this->page["css"]= array("view/css/list_users.css", "view/css/toggle-switch.css");
 		$this->page["title"] = "Genneral Users Information";
-		$this->page["user_info"] = array();
-		$users = $this->user_model->get_all_valid_users();
-		foreach ($users as $user){
-			$this->page["user_info"][$user->uid]["username"] = $user->username;
-			$this->page["user_info"][$user->uid]["player_rates"] = $this->rating_model->get_user_avg_rating($user->uid);
-			$this->page["user_info"][$user->uid]["organizer_rates"] = $this->rating_model->get_organizer_avg_rating($user->uid);
-		}
-		$friends = $this->user_model->get_friends($uid);
-		$this->page["friend_info"] =array();
-		
-		foreach ($friends as $user){
-			$this->page["friend_info"][$user->uid]["username"] = $user->username;
-			$this->page["friend_info"][$user->uid]["player_rates"] = $this->rating_model->get_user_avg_rating($user->uid);
-			$this->page["friend_info"][$user->uid]["organizer_rates"] = $this->rating_model->get_organizer_avg_rating($user->uid);
-		} 
 
 		include "view/template.php";
+	}
+	
+	public function invoke_list_user_data_src() {
+
+	    if (isset($_GET)) {
+	        
+    	    $this->data["user_lnk"] = array();
+	    
+	        if (isset($_GET["user-class"]) && $_GET["user-class"] == "all") {
+                
+	            $users = $this->user_model->get_all_valid_users();
+    	        foreach ($users as $user) {
+    	            
+    	            $data_row = array();
+    	            $data_row["user"] = $user;
+    	            $data_row["player_rates"] = $this->rating_model->get_user_avg_rating($user->uid);
+    	            $data_row["organizer_rates"] = $this->rating_model->get_organizer_avg_rating($user->uid);
+    	            $this->data["user_lnk"][] = $data_row;
+    	        }
+	        } else if (isset($_GET["user-class"]) && $_GET["user-class"] == "friends") {
+	            
+	            $users = $this->user_model->get_friends(get_loggedin_user()->uid);
+    	        foreach ($users as $user) {
+    	            
+    	            $data_row = array();
+    	            $data_row["user"] = $user;
+    	            $data_row["player_rates"] = $this->rating_model->get_user_avg_rating($user->uid);
+    	            $data_row["organizer_rates"] = $this->rating_model->get_organizer_avg_rating($user->uid);
+    	            $this->data["user_lnk"][] = $data_row;
+    	        }
+	        }
+	        
+	        include "data/user_ds.php";
+	    }
 	}
 	
 	
