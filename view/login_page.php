@@ -15,17 +15,20 @@
         </p>
 
         <form id="login" name="login" action="login.php" method="post">
+		  <div class="input-prepend">
+          <span class="add-on">
+			<i class="icon-user"></i>
+	  	  </span><input name="username" id="username" type="text" class="input-large" placeholder="Username" />
+          </div>
+          <div class="input-prepend">
+          <span class="add-on">
+			<i class="icon-star"></i>
+		  </span><input name="password" id="password" type="password" class="input-large" placeholder="Password" />
+		  </div><input type="submit" id="loginbtn" class="btn btn-warning btn-medium" value="Log In" style="float: right"/>
 
-          <input name="username" id="username" type="text" class="input-large" placeholder="Username" />
-          <input name="password" id="password" type="password" class="input-large" placeholder="Password" />
-
-		  <span class="pull-right">
-            <input type="submit" id="loginbtn" class="btn btn-warning btn-large" value="Log In" />
-		  </span>
-		  <br/>
-          	<label class="checkbox"> Remember me       
-           		<input type="checkbox" id="rmme">
-            	<!-- right now broken --> </label>
+          <label class="checkbox"> Remember me       
+           	<input type="checkbox" id="rmme">
+            <!-- right now broken --> </label>
 		  <br/>
 		  <hr/>
           <p>
