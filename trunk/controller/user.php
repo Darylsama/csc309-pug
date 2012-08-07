@@ -156,7 +156,6 @@ class UserController {
 		
 		// general page information
         $this->page["page"] = "view/profile_page.php";
-        $this->page["title"] = "Profile : " . $loggedin_user -> username;
         
         // if the viewer is the profile owner
         if (!isset($profile_owner_id) || $profile_owner_id == $loggedin_user_id) {
@@ -172,6 +171,7 @@ class UserController {
     		$this->page["organizer_rates"] = $this->rating_model->get_organizer_avg_rating($loggedin_user_id);
 
     		// use the owner template
+            $this->page["title"] = "Profile : " . $loggedin_user -> username;
     		$this->page["page"] = "view/profile_page.php";
     		
     	// if the viewer of the profile is a friend of the owner of the profile
@@ -197,6 +197,7 @@ class UserController {
             $this->page["can_rate_organizer"] = $this->rating_model->can_rate_organizer($loggedin_user_id, $profile_owner_id);
            
             // use the friend page template
+            $this->page["title"] = "Profile : " . $profile_owner -> username;
             $this->page["page"] = "view/view_friend_page.php";
             
         // if the viewer of the profile has no relation with the owner of the profile
@@ -210,6 +211,7 @@ class UserController {
             $this->page["organized_game"] = $this->game_model->get_games($profile_owner);
             
             // use the default template
+            $this->page["title"] = "Profile : " . $profile_owner -> username;
             $this->page["page"] = "view/view_user_page.php";
         }
         
