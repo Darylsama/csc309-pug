@@ -44,11 +44,12 @@ https://github.com/ghinda/css-toggle-switch
 		opacity: 0;
 		z-index: 5;
 	}
-
-	/* Outline the toggle when the input is focused */
-	.toggle input:focus ~ .toggle-button {
-		outline: 1px dotted #fff;
+	
+	.toggle input::-moz-focus-inner {
+	  border: 0;
 	}
+
+	
 
 	/* Track */
 	.toggle label:after {
@@ -212,10 +213,6 @@ https://github.com/ghinda/css-toggle-switch
 	.switch input:checked + label {
 		color: #2d592a;
 		text-shadow: 0 1px 0 rgba(255,255,255,0.5);
-	}
-
-	.switch input:focus + label {
-		outline: 1px dotted #fff;
 	}
 
 	.switch .switch-button {
