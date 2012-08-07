@@ -75,7 +75,7 @@ function init_rating_widget(wrapper) {
 "    <li data-rateval='4'></li>", 
 "    <li data-rateval='5'></li>", 
 "  </ul>", 
-"  <span class='rating-label'>" + str_value + "</span><br />",
+"  <br />",
 "  <input name='ratee' type='hidden' value='" + ratee + "'>",
 "  <input name='value' type='hidden' value='" + value + "'>", 
 "  <textarea name='comment'>" + comment + "</textarea><br />", 
