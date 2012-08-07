@@ -597,7 +597,7 @@ class GameModel {
             $organizer = $user_model -> get_user_by_id($row["organizer"]);
             $start_time = strtotime($row["start_time"]);
             $duration = $row["duration"];
-            $creation = $row["creation"];
+            $creation = strtotime($row["creation"]);
             $sport = $sport_model -> get_sport($row["sport"]);
             $desc = $row["desc"];
 
