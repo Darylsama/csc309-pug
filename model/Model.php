@@ -11,21 +11,20 @@ include_once ("include/db.php");
 
 
 
-
 /**
  * universal entity management module
  * all model actions goes here
  * consider split this up later on
  */
 class UserModel {
-
+    
     /**
      * create new user object
      */
     public function create_user($uid, $username, $password, $permission, $firstname, $lastname, $status) {
         return new User($uid, $username, $password, $permission, $firstname, $lastname, $status);
     }
-
+    
     /**
      * save an existing user object into db
      */
@@ -52,6 +51,13 @@ class UserModel {
         }
     }
     
+    /**
+     * remove an user from the system base on his/her user id
+     *  mark the user as deleted
+     *  remove friendship between this user and other users in the system
+     *  also mark all games organized by this user as cancelled
+     *  and for each of these games unjoin any player who will be participating or has expressed interest this game 
+     */
    	public function delete_user($uid){
    		
    		$stmt = get_dao()->prepare("update users set status = 1 where uid =:uid; delete from friendship where uid1 = :uid or uid2 = :uid; update games set status = 1 where organizer = :uid;"); 
@@ -76,7 +82,7 @@ class UserModel {
 			return FALSE;
 		}
    	}
-
+   	
     /**
      * return whether the given username already exist in the database
      */
@@ -90,7 +96,7 @@ class UserModel {
             return isset($row["uid"]);
         }
     }
-
+    
     /**
      * get a user entity by its user id
      */
@@ -144,7 +150,7 @@ class UserModel {
             // something wrong occured during query
         }
     }
-
+    
     /**
      * return a list of all users within the system
      */
@@ -175,10 +181,12 @@ class UserModel {
         return false;
     }
     
-    
+    /**
+     * return a list of users who hasn't been deleted from the system
+     */
 	public function get_all_valid_users() {
 
-        $stmt = get_dao() -> prepare("select * from users where status =0;");
+        $stmt = get_dao() -> prepare("select * from users where status = 0;");
 
         if ($stmt -> execute()) {
 
@@ -202,9 +210,10 @@ class UserModel {
 
         return false;
     }
-
+    
     /**
      * should be really called "are_friends"
+     * determine whether 2 users represented by 2 uid are friends
      * @param unknown_type $uid1
      * @param unknown_type $uid2
      */
@@ -220,7 +229,6 @@ class UserModel {
         }
 
     }
-
 
     /**
      * be-friend a user with all other user as well as the game organizer who will be participating in a pick-up game
@@ -284,7 +292,7 @@ class UserModel {
         // finall execute the statement
         get_dao() -> prepare($sql) -> execute();
     }
-
+    
     /**
      * returning a list of friends of a user existing within the system
      * @param unknown_type $uid
@@ -318,8 +326,12 @@ class UserModel {
         }
     }
     
-    
+    /**
+     * update general profile information such as username, firstname, and last name
+     * return the user on completion
+     */
     public function update_profile($uid, $username, $firstname, $lastname){
+        
     	$stmt = get_dao()->prepare("update users set username = :username, firstname = :firstname, lastname = :lastname where uid = :uid ;");
     	$stmt->bindParam(":uid", $uid);
     	$stmt->bindParam(":username", $username);
@@ -343,13 +355,16 @@ class UserModel {
             $user = $this -> create_user($uid, $username, $password, $permission, $firstname, $lastname,0);
             
             return $user;
-    	    
     	}
     	else{
     		return FALSE;
     	}	
     }
-	
+    
+    /**
+     * change the password for a given user based on the uid for the user
+     * return true on success
+     */
 	public function update_password($uid, $password){
 		$stmt = get_dao()->prepare("update users set password = :password where uid = :uid;");
 		$stmt->bindParam(":uid", $uid);
@@ -360,14 +375,8 @@ class UserModel {
 		else{
 			return False;
 		}
-		
-		
 	}
 }
-
-
-
-
 
 /**
  * encapsulate all sports related model operations
@@ -380,7 +389,7 @@ class SportModel {
     public function create_sport($sid, $name, $description, $status) {
         return new Sport($sid, $name, $description, $status);
     }
-
+    
     /**
      * store a sport entity into the database
      */
@@ -399,7 +408,6 @@ class SportModel {
             $sport ->sid = $row["sid"];
         }
     }
-	
 
     /**
      * associate a sport for with a particualr user
@@ -413,8 +421,8 @@ class SportModel {
         $stmt -> execute();
     }
     
-    /*
-     * 
+    /**
+     * update the associate information for a sport
      */
     public function update_sport($sid, $name, $description){
     	$stmt = get_dao() -> prepare("update sports set name = :name, description = :description where sid = :sid;");
@@ -424,6 +432,9 @@ class SportModel {
     	$stmt -> execute();
     }
     
+    /**
+     * remove a sport from teh system base on the sport's id
+     */
     public function delete_sport($sid){
     	
     	$stmt = get_dao() -> prepare("update sports set status = 1 where sid =:sid;");
@@ -432,6 +443,10 @@ class SportModel {
 		$stmt->execute();
     }
     
+    /**
+     * unassociate a sport from an user.
+     * Doesn't affect the games that is already created under the user with that sport 
+     */
     public function delete_user_sport($uid, $sid){
     	
     	$stmt = get_dao()-> prepare("delete from user_sports where uid=:uid and sid =:sid;");
@@ -440,9 +455,9 @@ class SportModel {
     	
     	$stmt->execute();
     }
-
+    
     /**
-     * return a sports by its sid
+     * return a sport entity by its sid
      */
     public function get_sport($sid) {
 
@@ -503,7 +518,10 @@ class SportModel {
         return false;
     }
     
-        public function get_all_valid_sports() {
+    /**
+     * return a list of all sports within the system that hasn't been deleted
+     */
+    public function get_all_valid_sports() {
 
         $user_sports = array();
         $stmt = get_dao() -> prepare("select * from sports where status = 0;");
@@ -521,9 +539,6 @@ class SportModel {
     }
 	
 }
-
-
-
 
 /**
  * encapsulate all game related model operations
@@ -569,6 +584,10 @@ class GameModel {
         }
     }
     
+    /**
+     * mark a game as deleted
+     * also remove the participation of every player in that game
+     */
     public function delete_game($gid){
     	$stmt = get_dao() -> prepare("update games set status = 1 where gid =:gid;");
     	$stmt->bindParam(":gid", $gid);
@@ -684,6 +703,9 @@ class GameModel {
         }
     }
 
+    /**
+     * return all games in the system that hasn't been deleted yet
+     */
     public function get_all_valid_games() {
 
         //  get all sports within the system
@@ -757,7 +779,8 @@ class GameModel {
         } else {
             return false;
         }
-    }    
+    }
+    
     /**
      * let a player express interest in a game
      * in terms of table updating:
@@ -773,7 +796,9 @@ class GameModel {
         $stmt -> execute();
     }
 	
-	
+    /**
+     * revoke interest by an user to a particular game 
+     */
 	public function cancel_interest($user, $gid) {
 		$stmt = get_dao() -> prepare("delete from matches where gid = :gid and uid = :uid;");
 		$stmt-> bindParam(':gid', $gid);
@@ -781,6 +806,11 @@ class GameModel {
 		$stmt -> execute();	
 	}
 	
+	/**
+	 * withdraw a player participating in a pickup game 
+	 * @param unknown_type $user
+	 * @param unknown_type $gid
+	 */
 	public function cancel_join($user, $gid) {
 		$stmt = get_dao() -> prepare("delete from matches where gid = :gid and uid = :uid;");
 		$stmt-> bindParam(':gid', $gid);
@@ -833,7 +863,6 @@ class GameModel {
             }
         }
     }
-
 
     /**
      * return a listing of users whose interested in a particular game identified by gid
@@ -932,10 +961,6 @@ class GameModel {
     }
 }
 
-
-
-
-
 /**
  * encapsulate all ratings related model operations
  */
@@ -953,7 +978,6 @@ class RatingModel {
      * also set the id for the given rating
      */
     public function persist_rating($rating) {
-         
          
         // insert user into database
         $time = date("Y-m-d");
@@ -1004,7 +1028,6 @@ class RatingModel {
             return $row["avgvalue"];
         }
     }
-
 
     /**
      * returning whether the rater had rated ratee as a player before 
@@ -1066,7 +1089,10 @@ class RatingModel {
         }
     }
     
-    
+    /**
+     * returns a 2d list ratings contain all ratings given to the user identified by uid
+     * ratings[1] will be all the player ratings and ratings[0] will be all the organizer ratings
+     */
     public function get_all_ratings($uid) {
 
         // get a list of all users
@@ -1107,11 +1133,10 @@ class RatingModel {
     }
 }
 
-
-
+/**
+ * encapsulate all message related model operations
+ */
 class MessageModel{
-	
-	
 	
 	public function create_message($mid, $to, $from, $subject, $content, $create_time){
 		return new Message($mid, $to, $from, $subject, $content, $create_time);
@@ -1215,10 +1240,6 @@ class MessageModel{
 		}
 		
 	}
-	
-	
-	
-	
 	
 }
 ?>
