@@ -1069,7 +1069,7 @@ class RatingModel {
     }
     
     /**
-     * a user1 can rater another user2 as an organizer only
+     * a user can rate another user2 as an organizer only
      * when this user1 joined the game organized by user2 before
      */
     public function can_rate_organizer($uid1, $uid2){
